@@ -1,0 +1,330 @@
+﻿@model Stock_DataAccess.ViewModel.CustomerVM
+@{
+    Layout = "~/Views/Shared/PrivateLayout.cshtml";
+    ViewData["Title"] = Model.Id == 0 ? "Add Customer" : "Edit Customer";
+    bool isEdit = Model.Id != 0;
+}
+
+<div class="page-wrapper">
+    <div class="content"> 
+        <!-- ── Page Header ───────────────────────────────────────── -->
+        <div class="page-header">
+            <div class="page-title">
+                <h4>@ViewData["Title"]</h4>
+                <h6>@(isEdit ? "Update customer details" : "Fill in the details to add a new customer")</h6>
+            </div>
+            <div class="page-btn">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <img src="~/assets/img/icons/arrow-left.svg" alt="img" class="me-1">
+                    Back to List
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Validation Errors ─────────────────────────────────── -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><i class="fa fa-exclamation-triangle me-2"></i>Please fix the errors below:</strong>
+                <div asp-validation-summary="All" class="mt-1"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- ── Form ──────────────────────────────────────────────── -->
+        <form asp-action="@(isEdit ? "EditCustomer" : "AddCustomer")"
+              asp-controller="Customer"
+              method="post"
+              id="customerForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+
+                <!-- ── LEFT COLUMN ─────────────────────────────── -->
+                <div class="col-xl-8 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-user me-2 text-primary"></i>
+                                    Personal Information
+                                </h5>
+                            </div>
+                            <hr>
+
+                            <!-- First Name / Last Name -->
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>First Name <span class="text-danger">*</span></label>
+                                        <input asp-for="FirstName"
+                                               class="form-control"
+                                               placeholder="Enter first name" />
+                                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Last Name <span class="text-danger">*</span></label>
+                                        <input asp-for="LastName"
+                                               class="form-control"
+                                               placeholder="Enter last name" />
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone / Email -->
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Phone <span class="text-danger">*</span></label>
+                                        <input asp-for="Phone"
+                                               class="form-control"
+                                               placeholder="01XXX-XXXXXX" />
+                                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input asp-for="Email"
+                                               class="form-control"
+                                               placeholder="example@mail.com" />
+                                        <span asp-validation-for="Email" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Street Address</label>
+                                        <input asp-for="Address"
+                                               class="form-control"
+                                               placeholder="House / Road / Area" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- City / State / Zip / Country -->
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input asp-for="City"
+                                               class="form-control"
+                                               placeholder="City" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>State / Division</label>
+                                        <input asp-for="State"
+                                               class="form-control"
+                                               placeholder="State" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Zip Code</label>
+                                        <input asp-for="ZipCode"
+                                               class="form-control"
+                                               placeholder="0000" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input asp-for="Country"
+                                               class="form-control"
+                                               placeholder="Country" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-0">
+                                        <label>Notes</label>
+                                        <textarea asp-for="Notes"
+                                                  class="form-control"
+                                                  rows="4"
+                                                  placeholder="Optional notes about this customer..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /LEFT COLUMN -->
+                <!-- ── RIGHT COLUMN ────────────────────────────── -->
+                <div class="col-xl-4 col-lg-4">
+
+                    <!-- Customer Avatar Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-id-card me-2 text-primary"></i>
+                                    Customer Photo
+                                </h5>
+                            </div>
+                            <hr>
+                            <div class="text-center">
+                                <div class="product-img"
+                                     style="width:120px;height:120px;border-radius:50%;
+                                            overflow:hidden;margin:0 auto 15px auto;
+                                            border:3px solid #e0e0e0;">
+                                    <img id="customerPhotoPreview"
+                                         src="~/assets/img/customer/customer1.jpg"
+                                         alt="Customer Photo"
+                                         style="width:100%;height:100%;object-fit:cover;">
+                                </div>
+                                <div class="image-upload mb-2">
+                                    <label for="customerPhoto" class="btn btn-secondary btn-sm w-100">
+                                        <i class="fa fa-camera me-1"></i> Choose Photo
+                                    </label>
+                                    <input type="file" id="customerPhoto" name="CustomerPhoto"
+                                           accept="image/*" style="display:none;"
+                                           onchange="previewPhoto(this)">
+                                </div>
+                                <small class="text-muted">JPG, PNG up to 2MB</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-cog me-2 text-primary"></i>
+                                    Account Settings
+                                </h5>
+                            </div>
+                            <hr>
+
+                            <!-- Customer Type -->
+                            <div class="form-group">
+                                <label>Customer Type</label>
+                                <select asp-for="CustomerType" class="select form-control">
+                                    <option value="">-- Select Type --</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Wholesale">Wholesale</option>
+                                    <option value="VIP">VIP</option>
+                                    <option value="Corporate">Corporate</option>
+                                </select>
+                            </div>
+
+                            <!-- Credit Limit -->
+                            <div class="form-group">
+                                <label>Credit Limit (৳)</label>
+                                <input asp-for="CreditLimit"
+                                       type="number" step="0.01" min="0"
+                                       class="form-control"
+                                       placeholder="0.00" />
+                            </div>
+
+                            <!-- Active Status -->
+                            <div class="form-group mb-0">
+                                <label class="d-block">Status</label>
+                                <div class="status-toggle d-flex align-items-center">
+                                    <input type="checkbox"
+                                           asp-for="IsActive"
+                                           id="isActiveToggle"
+                                           class="check">
+                                    <label for="isActiveToggle" class="checktoggle"></label>
+                                    <span class="ms-2" id="statusLabel">
+                                        @(Model.IsActive ? "Active" : "Inactive")
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 mb-2">
+                                    <button type="submit" class="btn btn-submit w-100">
+                                        <i class="fa fa-save me-1"></i>
+                                        @(isEdit ? "Update Customer" : "Save Customer")
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="reset" class="btn btn-cancel w-100"
+                                            onclick="resetForm()">
+                                        <i class="fa fa-refresh me-1"></i> Reset
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a asp-action="Index" class="btn btn-cancel w-100">
+                                        <i class="fa fa-times me-1"></i> Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /RIGHT COLUMN -->
+
+            </div>
+            <!-- /row -->
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        // ── Active toggle label update ────────────────────────────────────────
+        document.getElementById('isActiveToggle').addEventListener('change', function () {
+            document.getElementById('statusLabel').textContent =
+                this.checked ? 'Active' : 'Inactive';
+        });
+
+        // ── Photo preview ─────────────────────────────────────────────────────
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('customerPhotoPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // ── Reset form ────────────────────────────────────────────────────────
+        function resetForm() {
+            document.getElementById('customerPhotoPreview').src =
+                '/assets/img/customer/customer1.jpg';
+            document.getElementById('statusLabel').textContent = 'Active';
+        }
+
+        // ── Phone validation on submit ────────────────────────────────────────
+        document.getElementById('customerForm').addEventListener('submit', function (e) {
+            var phone = document.getElementById('Phone').value.trim();
+            if (phone && !/^[\d\-\+\s\(\)]+$/.test(phone)) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Phone',
+                    text: 'Please enter a valid phone number.',
+                    confirmButtonColor: '#3F6AD8'
+                });
+            }
+        });
+
+    </script>
+}

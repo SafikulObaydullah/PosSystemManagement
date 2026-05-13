@@ -1,0 +1,79 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!---Js Files---> 
+<script src="~/commonui/js/configuration/stockcategory.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+
+<main id="main" class="main">
+<!-- Page header -->
+<div class="page-header d-print-none headerPaddingRemove">
+   <div class="container-xl">
+      <div class="row g-2 align-items-center">
+         <div class="col">
+            <h2 class="page-title">
+               Category Information
+            </h2>
+         </div>
+         <!-- Page title actions -->
+         <div class="col-auto ms-auto d-print-none">
+            <div class="btn-list">
+
+               <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                  Create New Category
+               </a>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Page body -->
+<div class="page-body pageBodyPaddingRemove">
+   <div class="container-xl">
+      <div id="gridTable" class="kendoGrid custom-header-style"></div>
+   </div>
+</div>
+
+<!-- Modal -->
+   <div class="modal fade" id="modalToggle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Create New Category</h5> <span id="spanParentID" style="display:none">0</span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="row" style="justify-content: left;">
+               <div class="col-md-6">
+                     <label class="form-label required">Category Parent Name</label> <input id="ddlCategoryParent" class="form-control comboBox" style="width:100%; height:37px" onblur="checkEmptyInput(this)" required />
+               </div>
+               <div class="col-md-6">
+                  <label class="form-label required">Category Name</label> <input id="name" class="form-control" style="width:100%" onblur="checkEmptyInput(this)" required />
+               </div> 
+            </div>
+               <div class="row" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <label class="form-label required">Description</label> <input id="txtDescription" class="form-control comboBox" style="width:100%; height:37px" onblur="checkEmptyInput(this)" required />
+                  </div> 
+                  <div class="col-md-4">
+                     <label class="form-label "></label>
+                     <label class="form-check form-check-inline" style="position:absolute;bottom:30px;">
+                        <input class="form-check-input" type="checkbox" id="isActive" checked>
+                        <span class="form-check-label">Active</span>
+                     </label>
+                  </div>
+               </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" id="btnSave" class="btn btn-ghost-primary active w-10" onclick="Save()">Save</button>
+         </div>
+      </div>
+   </div>
+</div>
+</main>

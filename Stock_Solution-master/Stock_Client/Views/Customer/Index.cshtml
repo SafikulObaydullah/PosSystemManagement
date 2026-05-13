@@ -1,0 +1,600 @@
+﻿@model List<Stock_DataAccess.ViewModel.CustomerVM>
+@{
+    ViewData["Title"] = "Customer List";
+    Layout = "~/Views/Shared/PrivateLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- ── Page Header ───────────────────────────────────────── -->
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Customer List</h4>
+                <h6>Manage your customers</h6>
+            </div>
+            <div class="page-btn">
+                <a asp-action="AddCustomer" class="btn btn-added">
+                    <img src="~/assets/img/icons/plus.svg" alt="img" class="me-1">
+                    Add Customer
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Notifications ─────────────────────────────────────── -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fa fa-check-circle me-2"></i>@TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fa fa-exclamation-triangle me-2"></i>@TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- ── Summary Cards ─────────────────────────────────────── -->
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget">
+                    <div class="dash-widgetimg">
+                        <span><img src="~/assets/img/icons/dash1.svg" alt="img"></span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                        <h5>@Model.Count</h5>
+                        <h6>Total Customers</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1">
+                    <div class="dash-widgetimg">
+                        <span><img src="~/assets/img/icons/dash2.svg" alt="img"></span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                        <h5>@Model.Count(c => c.IsActive)</h5>
+                        <h6>Active Customers</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash2">
+                    <div class="dash-widgetimg">
+                        <span><img src="~/assets/img/icons/dash3.svg" alt="img"></span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                        <h5>৳ @Model.Sum(c => c.CreditLimit).ToString("N0")</h5>
+                        <h6>Total Credit Limit</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash3">
+                    <div class="dash-widgetimg">
+                        <span><img src="~/assets/img/icons/dash4.svg" alt="img"></span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                        <h5>৳ @Model.Sum(c => c.CurrentBalance).ToString("N0")</h5>
+                        <h6>Total Balance Due</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Main Card ─────────────────────────────────────────── -->
+        <div class="card">
+            <div class="card-body">
+
+                <!-- Toolbar -->
+                <div class="table-top">
+                    <div class="search-set">
+                        <div class="search-path">
+                            <a class="btn btn-filter" id="filter_search">
+                                <img src="~/assets/img/icons/filter.svg" alt="img">
+                                <span><img src="~/assets/img/icons/closes.svg" alt="img"></span>
+                            </a>
+                        </div>
+                        <div class="search-input">
+                            <input type="search" id="customerSearch"
+                                   class="form-control form-control-sm"
+                                   placeholder="Search customers...">
+                            <a class="btn btn-searchset">
+                                <img src="~/assets/img/icons/search-white.svg" alt="img">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="wordset">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" title="Excel" onclick="exportToExcel()">
+                                    <img src="~/assets/img/icons/excel.svg" alt="img">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="Print" onclick="window.print()">
+                                    <img src="~/assets/img/icons/printer.svg" alt="img">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Collapsible Filter Panel -->
+                <!-- Collapsible Filter Panel -->
+                <div id="filter_inputs" style="display:none; padding:10px 0 5px 0;">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <select id="typeFilter" class="form-control">
+                                    <option value="">All Types</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Wholesale">Wholesale</option>
+                                    <option value="VIP">VIP</option>
+                                    <option value="Corporate">Corporate</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <select id="statusFilter" class="form-control">
+                                    <option value="">All Status</option>
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group d-flex gap-2">
+                                <button class="btn btn-secondary btn-sm" onclick="resetFilters()">
+                                    <i class="fa fa-refresh me-1"></i> Reset
+                                </button>
+                                <!-- ✅ Explicit close button -->
+                                <button class="btn btn-danger btn-sm" id="closeFilter">
+                                    <i class="fa fa-times me-1"></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show entries + info row -->
+                <div class="d-flex justify-content-between align-items-center mb-2 mt-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="mb-0 me-1">Show</label>
+                        <select id="pageSizeSelect" class="form-control form-control-sm"
+                                style="width:70px; display:inline-block;">
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <label class="mb-0 ms-1">entries</label>
+                    </div>
+                    <div id="tableInfo" class="text-muted small"></div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped" id="customerTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style="cursor:pointer;" onclick="sortTable(0)">
+                                    #
+                                    <span class="sort-icon" data-col="0">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(1)">
+                                    Customer Name
+                                    <span class="sort-icon" data-col="1">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(2)">
+                                    Phone
+                                    <span class="sort-icon" data-col="2">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(3)">
+                                    Email
+                                    <span class="sort-icon" data-col="3">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(4)">
+                                    City
+                                    <span class="sort-icon" data-col="4">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(5)">
+                                    Type
+                                    <span class="sort-icon" data-col="5">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(6)">
+                                    Credit Limit
+                                    <span class="sort-icon" data-col="6">&#8597;</span>
+                                </th>
+                                <th style="cursor:pointer;" onclick="sortTable(7)">
+                                    Balance Due
+                                    <span class="sort-icon" data-col="7">&#8597;</span>
+                                </th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                            @{
+                                int rowNum = 1;
+                            }
+                            @foreach (var customer in Model)
+                            {
+                                <tr data-name="@((customer.FirstName + " " + customer.LastName).ToLower())"
+                                    data-phone="@(customer.Phone?.ToLower())"
+                                    data-email="@(customer.Email?.ToLower())"
+                                    data-city="@(customer.City?.ToLower())"
+                                    data-type="@customer.CustomerType"
+                                    data-active="@customer.IsActive.ToString().ToLower()"
+                                    data-credit="@customer.CreditLimit"
+                                    data-balance="@customer.CurrentBalance">
+
+                                    <td class="serial-no">@(rowNum++)</td>
+
+                                    <td>
+                                        <div class="productimgname">
+                                            <a class="product-img">
+                                                <img src="~/assets/img/customer/customer1.jpg"
+                                                     alt="customer"
+                                                     style="width:35px;height:35px;border-radius:50%;object-fit:cover;">
+                                            </a>
+                                            <a asp-action="EditCustomer" asp-route-id="@customer.Id">
+                                                @customer.FirstName @customer.LastName
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td>@customer.Phone</td>
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(customer.Email))
+                                        {
+                                            @customer.Email
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">—</span>
+                                        }
+                                    </td>
+
+                                    <td>@customer.City</td>
+
+                                    <td>
+                                        @{
+                                            var badgeClass = customer.CustomerType switch
+                                            {
+                                                "VIP" => "badges bg-lightgreen",
+                                                "Wholesale" => "badges bg-lightblue",
+                                                "Corporate" => "badges bg-lightpurple",
+                                                _ => "badges bg-lightyellow"
+                                            };
+                                        }
+                                        <span class="@badgeClass">@customer.CustomerType</span>
+                                    </td>
+
+                                    <td>৳ @customer.CreditLimit.ToString("N0")</td>
+
+                                    <td class="@(customer.CurrentBalance > 0 ? "text-danger fw-bold" : "")">
+                                        ৳ @customer.CurrentBalance.ToString("N0")
+                                    </td>
+
+                                    <td>
+                                        @if (customer.IsActive)
+                                        {
+                                            <span class="badges bg-lightgreen">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badges bg-lightred">Inactive</span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <a class="me-3"
+                                           asp-action="EditCustomer"
+                                           asp-route-id="@customer.Id"
+                                           title="Edit">
+                                            <img src="~/assets/img/icons/edit.svg" alt="edit">
+                                        </a>
+                                        <a href="javascript:void(0);"
+                                           title="Delete"
+                                           onclick="confirmDelete(@customer.Id, '@customer.FirstName @customer.LastName')">
+                                            <img src="~/assets/img/icons/delete.svg" alt="delete">
+                                        </a>
+                                        <form id="deleteForm_@customer.Id"
+                                              asp-action="DeleteCustomer"
+                                              method="post"
+                                              style="display:none;">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@customer.Id" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ── Custom Pagination ──────────────────────────────────── -->
+                <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+                    <div id="paginationInfo" class="text-muted small"></div>
+                    <ul class="pagination pagination-sm mb-0" id="paginationControls"></ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /card -->
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // ── State ─────────────────────────────────────────────────────────────────
+            var allRows      = [];   // all <tr> elements
+            var filteredRows = [];   // after search + filter
+            var currentPage  = 1;
+            var pageSize     = 10;
+            var sortCol      = -1;
+            var sortAsc      = true;
+
+            // ── Boot ──────────────────────────────────────────────────────────────────
+            $(document).ready(function () {
+
+                // collect all rows once
+                allRows = Array.from(document.querySelectorAll('#customerTableBody tr'));
+
+                applyAll();
+
+                // search
+                $('#customerSearch').on('input', function () {
+                    currentPage = 1;
+                    applyAll();
+                });
+
+                // dropdowns
+                $('#typeFilter, #statusFilter').on('change', function () {
+                    currentPage = 1;
+                    applyAll();
+                });
+
+                // page size
+                $('#pageSizeSelect').on('change', function () {
+                    pageSize    = parseInt(this.value);
+                    currentPage = 1;
+                    applyAll();
+                });
+                 // Wait until script.js has bound its handler, then override it
+              setTimeout(function () {
+                $('#filter_search').off('click').on('click', function (e) {
+                    e.stopImmediatePropagation();
+
+                    var panel = $('#filter_inputs');
+                    if (panel.is(':visible')) {
+                        // do nothing — keep it open until user explicitly closes
+                    } else {
+                        panel.show();
+                        $('#filter_search').addClass('setclose');
+                    }
+                });
+
+                // Close button inside the filter panel
+                $('#closeFilter').on('click', function () {
+                    $('#filter_inputs').hide();
+                    $('#filter_search').removeClass('setclose');
+                });
+
+            }, 500); // runs after script.js binds its own handler
+                
+            }); 
+            // ── Master apply ─────────────────────────────────────────────────────────
+            function applyAll() {
+                filteredRows = filterRows();
+                renderPage();
+                renderPagination();
+                updateInfo();
+            }
+
+            // ── Filter ────────────────────────────────────────────────────────────────
+            function filterRows() {
+                var search = ($('#customerSearch').val() || '').toLowerCase().trim();
+                var type   = $('#typeFilter').val();
+                var status = $('#statusFilter').val();
+
+                return allRows.filter(function (row) {
+                    var name   = row.dataset.name   || '';
+                    var phone  = row.dataset.phone  || '';
+                    var email  = row.dataset.email  || '';
+                    var city   = row.dataset.city   || '';
+                    var rType  = row.dataset.type   || '';
+                    var rActive= row.dataset.active || '';
+
+                    var matchSearch = !search ||
+                        name.includes(search)  ||
+                        phone.includes(search) ||
+                        email.includes(search) ||
+                        city.includes(search);
+
+                    var matchType   = !type   || rType   === type;
+                    var matchStatus = !status || rActive === status;
+
+                    return matchSearch && matchType && matchStatus;
+                });
+            }
+
+            // ── Render visible rows for current page ─────────────────────────────────
+            function renderPage() {
+                // hide all
+                allRows.forEach(function (r) { r.style.display = 'none'; });
+
+                var start = (currentPage - 1) * pageSize;
+                var end   = start + pageSize;
+                var pageRows = filteredRows.slice(start, end);
+
+                // re-number serials
+                pageRows.forEach(function (row, i) {
+                    row.style.display = '';
+                    var serial = row.querySelector('.serial-no');
+                    if (serial) serial.textContent = start + i + 1;
+                });
+            }
+
+            // ── Pagination controls ───────────────────────────────────────────────────
+            function renderPagination() {
+                var total     = filteredRows.length;
+                var totalPages= Math.max(1, Math.ceil(total / pageSize));
+                if (currentPage > totalPages) currentPage = totalPages;
+
+                var ul = document.getElementById('paginationControls');
+                ul.innerHTML = '';
+
+                // Previous
+                ul.appendChild(makePageItem('&laquo; Prev', currentPage === 1, function () {
+                    if (currentPage > 1) { currentPage--; applyAll(); }
+                }));
+
+                // Page numbers — show max 5 around current
+                var startP = Math.max(1, currentPage - 2);
+                var endP   = Math.min(totalPages, currentPage + 2);
+
+                if (startP > 1) {
+                    ul.appendChild(makePageItem('1', false, function () { currentPage = 1; applyAll(); }));
+                    if (startP > 2) ul.appendChild(makeEllipsis());
+                }
+
+                for (var p = startP; p <= endP; p++) {
+                    (function (pg) {
+                        var li = makePageItem(pg, false, function () { currentPage = pg; applyAll(); });
+                        if (pg === currentPage) li.classList.add('active');
+                        ul.appendChild(li);
+                    })(p);
+                }
+
+                if (endP < totalPages) {
+                    if (endP < totalPages - 1) ul.appendChild(makeEllipsis());
+                    ul.appendChild(makePageItem(totalPages, false, function () { currentPage = totalPages; applyAll(); }));
+                }
+
+                // Next
+                ul.appendChild(makePageItem('Next &raquo;', currentPage === totalPages, function () {
+                    if (currentPage < totalPages) { currentPage++; applyAll(); }
+                }));
+            }
+
+            function makePageItem(label, disabled, onClick) {
+                var li  = document.createElement('li');
+                li.className = 'page-item' + (disabled ? ' disabled' : '');
+                var a = document.createElement('a');
+                a.className   = 'page-link';
+                a.href        = 'javascript:void(0);';
+                a.innerHTML   = label;
+                if (!disabled) a.addEventListener('click', onClick);
+                li.appendChild(a);
+                return li;
+            }
+
+            function makeEllipsis() {
+                var li = document.createElement('li');
+                li.className = 'page-item disabled';
+                li.innerHTML = '<a class="page-link">…</a>';
+                return li;
+            }
+
+            // ── Info text ─────────────────────────────────────────────────────────────
+            function updateInfo() {
+                var total = filteredRows.length;
+                var start = total === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+                var end   = Math.min(currentPage * pageSize, total);
+                document.getElementById('tableInfo').textContent =
+                    'Showing ' + start + ' to ' + end + ' of ' + total + ' entries';
+                document.getElementById('paginationInfo').textContent =
+                    'Showing ' + start + ' to ' + end + ' of ' + total + ' entries';
+            }
+
+            // ── Sort ──────────────────────────────────────────────────────────────────
+            window.sortTable = function (colIndex) {
+                if (sortCol === colIndex) {
+                    sortAsc = !sortAsc;
+                } else {
+                    sortCol = colIndex;
+                    sortAsc = true;
+                }
+
+                // update sort icons
+                document.querySelectorAll('.sort-icon').forEach(function (el) {
+                    el.innerHTML = '&#8597;';
+                });
+                var icon = document.querySelector('.sort-icon[data-col="' + colIndex + '"]');
+                if (icon) icon.innerHTML = sortAsc ? '&#8593;' : '&#8595;';
+
+                var tbody = document.getElementById('customerTableBody');
+                var rows  = Array.from(tbody.querySelectorAll('tr'));
+
+                rows.sort(function (a, b) {
+                    var aVal = (a.cells[colIndex] ? a.cells[colIndex].innerText : '').trim();
+                    var bVal = (b.cells[colIndex] ? b.cells[colIndex].innerText : '').trim();
+
+                    // numeric sort for credit/balance columns
+                    var aNum = parseFloat(aVal.replace(/[^\d.-]/g, ''));
+                    var bNum = parseFloat(bVal.replace(/[^\d.-]/g, ''));
+                    if (!isNaN(aNum) && !isNaN(bNum)) {
+                        return sortAsc ? aNum - bNum : bNum - aNum;
+                    }
+                    return sortAsc
+                        ? aVal.localeCompare(bVal)
+                        : bVal.localeCompare(aVal);
+                });
+
+                rows.forEach(function (r) { tbody.appendChild(r); });
+
+                // rebuild allRows in sorted order
+                allRows = rows;
+                currentPage = 1;
+                applyAll();
+            };
+
+            // ── Reset ─────────────────────────────────────────────────────────────────
+            window.resetFilters = function () {
+                $('#customerSearch').val('');
+                $('#typeFilter').val('');
+                $('#statusFilter').val('');
+                currentPage = 1;
+                applyAll();
+            };
+
+            // ── SweetAlert2 Delete ────────────────────────────────────────────────────
+            window.confirmDelete = function (id, name) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text:  'Delete customer "' + name + '"? This cannot be undone.',
+                    icon:  'warning',
+                    showCancelButton:   true,
+                    confirmButtonColor: '#3F6AD8',
+                    cancelButtonColor:  '#d33',
+                    confirmButtonText:  'Yes, delete it!',
+                    cancelButtonText:   'Cancel'
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        document.getElementById('deleteForm_' + id).submit();
+                    }
+                });
+            };
+
+            // ── Export to Excel ───────────────────────────────────────────────────────
+            window.exportToExcel = function () {
+                var html = document.getElementById('customerTable').outerHTML;
+                var url  = 'data:application/vnd.ms-excel,' + encodeURIComponent(html);
+                var a    = document.createElement('a');
+                a.href     = url;
+                a.download = 'CustomerList.xls';
+                a.click();
+            };
+
+        })();
+    </script>
+}

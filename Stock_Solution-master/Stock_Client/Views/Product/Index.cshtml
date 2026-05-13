@@ -1,0 +1,321 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+   /* Style the custom select container */
+   .custom-select {
+      position: relative;
+      width: 200px; /* Adjust the width as needed */
+   }
+
+      /* Style the select element itself (hidden) */
+      /*.custom-select select {
+            display: none;
+         }*/
+
+      /* Style the dropdown arrow (Unicode for downward-pointing triangle) */
+      .custom-select::after {
+         content: "\25BC";
+         position: absolute;
+         top: 50%;
+         right: 10px;
+         transform: translateY(-50%);
+         pointer-events: none; /* Allows clicks to pass through to the select element */
+      }
+
+      /* Style the options */
+      .custom-select select option {
+         padding: 10px;
+         background-color: #f9f9f9;
+         color: #333;
+         border: none;
+         border-bottom: 1px solid #ccc;
+      }
+
+         /* Change the appearance when an option is selected */
+         .custom-select select option:checked {
+            background-color: #3498db;
+            color: white;
+         }
+
+</style>
+<!---Js Files--->
+<script src="~/commonui/js/configuration/product.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+<main id="main" class="main">
+   <div class="page-header d-print-none headerPaddingRemove">
+      <div class="container-xl">
+         <div class="row g-2 align-items-center">
+            <div class="col">
+               <h2 class="page-title">
+                  Product Information
+               </h2>
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+               <div class="btn-list"> 
+                  <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                     <span id="spanParentID" style="display:none">0</span>
+                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                     Create New Product
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  
+   <div class="page-body pageBodyPaddingRemove">
+      <div class="container-xl">
+         <table class="table table-bordered" id="tble">
+            <thead>
+               <tr>
+                  <td>Name</td>
+                  <td>Reorderlevel</td>
+                  <td>Code</td>
+                  <td>CategoryName</td> 
+                  <td>StockQty</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+               </tr>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Enter Product Information</h5>
+            </div>
+            <div class="modal-body">
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Institute</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlInstitute"></select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Institute Branch</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlInsBranch"></select>
+                        </div>
+                     </div>
+                  </div>  
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Unit Name</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlUnit"></select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Category Name</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlCategory"></select>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Product Code</label>
+                        <input class="form-control" type="text" id="txtCode" />
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group"> 
+                        <label class="control-label">Name</label>
+                        <input class="form-control" type="text" id="txtName" />
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Reorderlevel</label>
+                        <input class="form-control" type="number" id="txtReorderlevel" />
+                     </div>
+                  </div> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Box Quantity</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtboxqty" />
+                        </div>
+                     </div>
+                  </div>
+               </div>  
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">SalesPrice</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtSalesPrice" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">PurchasePrice</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtPurchasePrice" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Discountrate</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtDiscountrate" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Vatrate</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtVatrate" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Discountamount</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtDiscountamount" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Vatamount</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtVatamount" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtDescription" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">StockQty</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtStockQty" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Vehicle Name</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtVehicleName" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Chasis No</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtChasisNo" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Engine No</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtEngineNo" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Color</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtColor" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">FuelType</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtFuelType" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">ModelNo</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtModelNo" />
+                        </div>
+                     </div>
+                  </div> 
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Mileage</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtMileage" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">IsActive</label>
+                        <div class="form-group">
+                           <input checked type="checkbox" id="isActive" />
+                        </div>
+                     </div>
+                  </div> 
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="Close()" id="btnClose" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary" onclick="Save()" id="btnSave">Save changes</button>
+               <button type="button" class="btn btn-primary" onclick="Update()" id="btnUpdate">Update changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   
+</main>
+

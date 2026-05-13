@@ -1,0 +1,242 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/layoutjs/datefilterscript.js"></script>
+<script src="~/js/setting/printthis.js"></script>
+<script src="~/js/bonusreport.js"></script> 
+<style>
+   .multiselect-container {
+      width: 100% !important;
+   }
+
+   .divworklogreport .form-check-input {
+      margin-right: 5px;
+   }
+
+   .divworklogreport label {
+      margin-bottom: 0px;
+   }
+
+   .divworklogreport .btn-group {
+      margin-bottom: 10px;
+   }
+
+</style>
+@*@{
+   string UserName = User.FindFirstValue(ClaimTypes.Name);
+   string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@using System.Security.Claims;*@
+<main id="main" class="main">
+   <div class="new_order_container">
+      <div class="header-container custom_header">
+         <span class="custom_header_text">Bonus Report</span>
+      </div>
+
+      <div class="ls_top_bar">
+         <div class="input-group" id="SearchOrder_custom">
+            <input placeholder="Search by name" type="text" id="srch-emp-att" class="form-control col-lg-12">
+            <div class="input-group-append">
+               <div class="input-group-text" id="btn-search-emp-att"> <i class="fas fa-search"></i></div>
+            </div>
+         </div>
+         <div class="input-group" id="SearchOrder_custom">
+            <input placeholder="Search by Reg. No" type="text" id="srch-regno-att" class="form-control col-lg-12">
+            <div class="input-group-append">
+               <div class="input-group-text" id="btn-search-regno-att"> <i class="fas fa-search"></i></div>
+            </div>
+         </div>
+         <div class="input-group" id="SearchOrder_custom">
+            <input placeholder="Search by Designation" type="text" id="srch-designation-att" class="form-control col-lg-12">
+            <div class="input-group-append">
+               <div class="input-group-text" id="btn-search-designation-att"> <i class="fas fa-search"></i></div>
+            </div>
+         </div>
+         <div class="input-group" id="SearchOrder_custom">
+            <input placeholder="Search by Department" type="text" id="srch-department-att" class="form-control col-lg-12">
+            <div class="input-group-append">
+               <div class="input-group-text" id="btn-search-department-att"> <i class="fas fa-search"></i></div>
+            </div>
+         </div>
+         <div class="date_range">
+            <table class="cell_gap_table">
+               <tr>
+                  <td>
+                     <input type="text" id="ReviewFilterStartDate" readonly class="form-control green_border_color filter_input_margin date-picker-dt" placeholder="Day" value="@DateTime.UtcNow.AddHours(6).ToString("dd-MM-yyyy")" />
+                  </td>
+               </tr>
+            </table>
+         </div>
+
+         <div class="date_range">
+            <table class="cell_gap_table">
+               <tr>
+                  <td>
+                     <input type="text" id="BonusReviewFilterTodate" readonly class="form-control green_border_color filter_input_margin date-picker-dt" placeholder="To date" value="@DateTime.UtcNow.AddHours(6).ToString("dd-MM-yyyy")" />
+                  </td>
+               </tr>
+            </table>
+         </div>
+
+         <input type="checkbox" id="selected1" name="selected" value="Blue" class="products"> Blue<br>
+         <input type="checkbox" id="selected2" name="selected" value="Green" class="products"> Green<br>
+         <input type="checkbox" id="selected3" name="selected" value="Purple" class="products"> Purple<br>
+
+         <div>
+            <input type="radio" name="Export" class="employeeCheckbox" data-employee-id="ExportAll">All<br>
+            <input type="radio" name="Export" class="employeeCheckbox" data-employee-id="Filter">Filter <br>
+            <input type="radio" name="Export" class="employeeCheckbox" data-employee-id="Selected">Selected<br>
+         </div>
+
+
+         <input type="radio" name="ExportData" data-employee-id="ExportAll" class="ExportCheckbox"> ExportAll<br>
+         <input type="radio" name="ExportData" data-employee-id="ExportFilter" class="ExportCheckbox"> Export Filter Record<br>
+         <input type="radio" name="ExportData" data-employee-id="ExportSelected" class="ExportCheckbox"> ExportSelectedRecord<br>
+
+         <button type="button" class="btn btn-success" id="DownloadBonusReport"><i class="fas fa-download"></i></button>
+
+         <a hidden class="btn btn-success" href="/reports/attendance-report">Monthly Attendance</a>
+         <button class="btn btn-success" id="btn-apply-bonus-report-filter">Apply</button>
+      </div>
+   </div>
+   <div id="tab-data">
+      <div id="load-exc">
+         <div class="grid-list-exc"></div>
+
+         <div class="grid-list-exc-page"></div>
+      </div>
+   </div>
+</main>
+
+
+<script>
+   //var EmployeeBonusReport = {
+   //    picker: null,
+   //    picker2: null,
+   //    SearchKeyUp: function (PageNo) {
+   //        POSModal.Show();
+   //        var searchtext = encodeURI($('#srch-emp-att').val());
+   //        var reg = encodeURI($('#srch-regno-att').val());
+   //        var des = encodeURI($('#srch-designation-att').val());
+   //        var dept = encodeURI($('#srch-department-att').val());
+   //        var startDate = $("#ReviewFilterStartDate").val();
+   //        var endDate = $("#BonusReviewFilterTodate").val();
+   //     var vals = [];
+   //     var str = "";
+   //     var datas = new Array();
+   //     var arr = []
+   //     var result = [];
+   //     var checkedValues = $('input[name="selected"]:checked').map(function () {
+   //        return this.value;
+   //     }).get();
+
+   //     arr.push(checkedValues);
+   //     console.log("checkedValues = ", arr);
+   //        var parm = {
+   //            PageNo: PageNo,
+   //            Searchkey: searchtext,
+   //            RegNo: reg,
+   //            Designation: des,
+   //            Department: dept,
+   //            StartDate: startDate,
+   //            EndDate: endDate,
+   //            exportdata: checkedValues
+   //        }
+   //     console.log("checkedValues = ", checkedValues);
+   //       console.log(parm);
+   //        //var parm = '?StartDate=' + FromDateTime
+   //        //    + '&EndDate=' + ToDateTime
+   //        //    + '&Searchkey=' + searchText
+   //        //    + '&UsedIdNo=' + regno;
+   //        //+ '&Designation=' + designation;
+   //        //+ '&Department=' + department;
+   //        var url = '/report/FilterBonusReport'
+   //        $.ajax({
+   //            url: url,
+   //            type: 'post',
+   //            data: parm,
+   //            success: function (response) {
+   //                $(".grid-list-exc").html('')
+   //                $(".grid-list-exc").append(response);
+   //                POSModal.Hide();
+   //            },
+   //            error: function (jqXHR, textStatus, errorThrown) {
+   //                console.log(errorThrown);
+   //            }
+   //        });
+   //    },
+   //    Download: function () {
+   //        $('.grid-list-exc').printThis({
+   //            importCSS: true,
+   //            removeInline: false,
+   //            importStyle: true,
+   //            loadCSS: "/wwwroot/css/site.css",
+   //            header: '<h3 style="color:red;text-align:center;">Bonus Report</h3>'
+   //        })
+   //    },
+   //}
+   //var SeeAttDetail = function (userid, date) {
+   //    window.history.pushState({}, '', "/reports/attendance-report/detail?id=" + userid + "&date=" + date);
+   //    $('#main-container-lite').load("/Report/AttendanceReportDetail?id=" + userid + "&date=" + date);
+   //}
+   //var SetInitialValueOfDateFilter = function () {
+   //    $('#filterBy').text("ThisMonth");
+   //    var curr = new Date();
+   //    var firstday = new Date(curr.getFullYear(), curr.getMonth(), 1);
+   //    var lastday = new Date(firstday);
+   //    lastday.setMonth(lastday.getMonth() + 1);
+   //    lastday.setDate(lastday.getDate() - 1);
+   //    var wkStartDate = (firstday.getDate()) + "-" + (firstday.getMonth() + 1) + "-" + firstday.getFullYear();
+   //    var wkEndDate = (lastday.getDate()) + "-" + (lastday.getMonth() + 1) + "-" + lastday.getFullYear();
+   //    $('#ProductFilterStartDate').val(wkStartDate);
+   //    $('#ProductFilterEndDate').val(wkEndDate);
+   //}
+   //EmployeeBonusReport.picker = new Pikaday({
+   //    field: document.getElementById('ReviewFilterStartDate'),
+   //    format: 'DD-MM-YYYY',
+   //    trigger: $('#ReviewFilterStartDate')[0] //, firstDay: 1
+   //});
+   //EmployeeBonusReport.picker = new Pikaday({
+   //    field: document.getElementById('BonusReviewFilterTodate'),
+   //    format: 'DD-MM-YYYY',
+   //    trigger: $('#BonusReviewFilterTodate')[0] //, firstDay: 1
+   //});
+   //EmployeeBonusReport.picker2 = new Pikaday({
+   //    field: document.getElementById('ReviewFilterEndDate'),
+   //    format: 'DD-MM-YYYY',
+   //    defaultDate: new Date(),
+   //    trigger: $('#ReviewFilterEndDate')[0], firstDay: 1
+   //});
+   //$(document).ready(function () {
+   //    setTimeout(function () {
+   //        $('#DateRangeRev').val('1').change()
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    }, 500)
+   //    $('#btn-search-emp-att').click(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //    $('#DownloadBonusReport').click(function () {
+   //        EmployeeBonusReport.Download(1);
+   //    });
+   //    $('#btn-apply-bonus-report-filter').click(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //    $('#srch-emp-att').keyup(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //    $('#srch-regno-att').keyup(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //    $('#srch-designation-att').keyup(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //    $('#srch-department-att').keyup(function () {
+   //        EmployeeBonusReport.SearchKeyUp(1);
+   //    });
+   //});
+</script>

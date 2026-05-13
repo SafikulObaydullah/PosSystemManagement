@@ -1,0 +1,88 @@
+﻿ @model Stock_DataAccess.ViewModel.StudentViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tmpl/1.0.0/jquery.tmpl.min.js"></script>
+
+<h2> Student </h2>
+<style type="text/css">
+    .divOuter {
+        border: solid 1px red;
+        padding: 20px;
+    }
+
+        .divOuter div {
+            padding: 3px;
+        }
+</style>
+
+<script type="text/javascript" language="javascript">
+    $().ready(function () {
+        $("#hdnStudentCount").val(4);
+    });
+
+    function AddStudentRecord() {
+        var lastStudent = parseInt($("#hdnStudentCount").val()) + 1
+        $.ajax({
+            type: 'Get',
+            url: 'https://localhost:7065/api/Category/getStudent?lastStudent=' + lastStudent,
+            //data: { lastStudent: parseInt($("#hdnStudentCount").val()) + 1 },
+            async: false,
+            dataType: "html",
+            success: function (data) {
+                data = JSON.parse(data);
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i] != '') {
+                        $("#studentTemplate").tmpl(data[i]).appendTo("#divMain");
+                        var ID = (data[i]["ID"]);
+                        $("#hdnStudentCount").val(parseInt(ID));
+                    }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            AddStudentRecord();
+        }
+    });
+</script>
+
+<script id="studentTemplate" type="text/x-jquery-tmpl">
+    <div class="divOuter" >
+        <div> ID :  ${ID}</div>
+        <div> Name : ${Name} </div>
+        <div> Address :${Address} </div>
+        <div> SchoolName : ${SchoolName} </div>
+        <div> City :  ${City} <div>
+        <div> State : ${State} </div>
+    </div>
+</script>
+
+<input type="hidden" id="hdnStudentCount" />
+
+<div id="divMain">
+    @using (Html.BeginForm())
+    {
+        foreach (var item in Model.students)
+        {
+            <div class="divOuter">
+                <div> ID :  @item.ID</div>
+                <div> Name : @item.Name </div>
+                <div> Address : @item.Address </div>
+                <div> SchoolName : @item.SchoolName </div>
+                <div> City :  @item.City </div>
+                <div> State : @item.State </div>
+            </div>
+        }
+    }
+</div>

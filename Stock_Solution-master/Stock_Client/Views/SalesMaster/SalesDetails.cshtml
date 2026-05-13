@@ -1,0 +1,1986 @@
+﻿@{
+    ViewData["Title"] = "List of Movies";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+ 
+<style>
+   /* body > .topbar + main {
+        padding-top: 64px;
+    }*/
+
+    .bg-ui-general {
+        background-image: url(../img/header/general.png);
+    }
+
+    .header, .header.bg-img {
+        z-index: 2;
+    }
+
+    .main-content {
+        padding-top: 0px;
+    }
+
+    .main-content {
+        padding: 30px 30px 0;
+        -webkit-box-flex: 1;
+        flex: 1 0 auto;
+    }
+
+    .table-bordered {
+        border: 1px solid #e9ecef;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    user agent stylesheet
+    table {
+        display: table;
+        border-collapse: separate;
+        box-sizing: border-box;
+        text-indent: initial;
+        unicode-bidi: isolate;
+        border-spacing: 2px;
+        border-color: gray;
+    }
+
+    body {
+        font-family: Roboto, sans-serif;
+        color: #616a78;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 24px;
+    }
+
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -ms-overflow-style: scrollbar;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    ::selection {
+        background: #4ed2c5;
+        color: #fff;
+    }
+
+    .bg-danger {
+        background-color: #f96868 !important;
+        color: #fff;
+    }
+
+    .bg-danger {
+        background-color: #dc3545 !important;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    user agent stylesheet
+    td {
+        display: table-cell;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+    }
+
+    .header-action {
+        position: relative;
+        padding: 0 30px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    user agent stylesheet
+    div {
+        display: block;
+        unicode-bidi: isolate;
+    }
+
+    body {
+        font-family: Roboto, sans-serif;
+        color: #616a78;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 24px;
+    }
+
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -ms-overflow-style: scrollbar;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    ::selection {
+        background: #4ed2c5;
+        color: #fff;
+    }
+</style>
+<style type="text/css">.swal-icon--error{border-color:#f27474;-webkit-animation:animateErrorIcon .5s;animation:animateErrorIcon .5s}.swal-icon--error__x-mark{position:relative;display:block;-webkit-animation:animateXMark .5s;animation:animateXMark .5s}.swal-icon--error__line{position:absolute;height:5px;width:47px;background-color:#f27474;display:block;top:37px;border-radius:2px}.swal-icon--error__line--left{-webkit-transform:rotate(45deg);transform:rotate(45deg);left:17px}.swal-icon--error__line--right{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);right:16px}@@-webkit-keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@@keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@@-webkit-keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}@@keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}.swal-icon--warning{border-color:#f8bb86;-webkit-animation:pulseWarning .75s infinite alternate;animation:pulseWarning .75s infinite alternate}.swal-icon--warning__body{width:5px;height:47px;top:10px;border-radius:2px;margin-left:-2px}.swal-icon--warning__body,.swal-icon--warning__dot{position:absolute;left:50%;background-color:#f8bb86}.swal-icon--warning__dot{width:7px;height:7px;border-radius:50%;margin-left:-4px;bottom:-11px}@@-webkit-keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}@@keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}.swal-icon--success{border-color:#a5dc86}.swal-icon--success:after,.swal-icon--success:before{content:"";border-radius:50%;position:absolute;width:60px;height:120px;background:#fff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal-icon--success:before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.swal-icon--success:after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px;-webkit-animation:rotatePlaceholder 4.25s ease-in;animation:rotatePlaceholder 4.25s ease-in}.swal-icon--success__ring{width:80px;height:80px;border:4px solid hsla(98,55%,69%,.2);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.swal-icon--success__hide-corners{width:5px;height:90px;background-color:#fff;padding:1px;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal-icon--success__line{height:5px;background-color:#a5dc86;display:block;border-radius:2px;position:absolute;z-index:2}.swal-icon--success__line--tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg);-webkit-animation:animateSuccessTip .75s;animation:animateSuccessTip .75s}.swal-icon--success__line--long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-animation:animateSuccessLong .75s;animation:animateSuccessLong .75s}@@-webkit-keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@@keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@@-webkit-keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@@keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@@-webkit-keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}@@keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}.swal-icon--info{border-color:#c9dae1}.swal-icon--info:before{width:5px;height:29px;bottom:17px;border-radius:2px;margin-left:-2px}.swal-icon--info:after,.swal-icon--info:before{content:"";position:absolute;left:50%;background-color:#c9dae1}.swal-icon--info:after{width:7px;height:7px;border-radius:50%;margin-left:-3px;top:19px}.swal-icon{width:80px;height:80px;border-width:4px;border-style:solid;border-radius:50%;padding:0;position:relative;box-sizing:content-box;margin:20px auto}.swal-icon:first-child{margin-top:32px}.swal-icon--custom{width:auto;height:auto;max-width:100%;border:none;border-radius:0}.swal-icon img{max-width:100%;max-height:100%}.swal-title{color:rgba(0,0,0,.65);font-weight:600;text-transform:none;position:relative;display:block;padding:13px 16px;font-size:27px;line-height:normal;text-align:center;margin-bottom:0}.swal-title:first-child{margin-top:26px}.swal-title:not(:first-child){padding-bottom:0}.swal-title:not(:last-child){margin-bottom:13px}.swal-text{font-size:16px;position:relative;float:none;line-height:normal;vertical-align:top;text-align:left;display:inline-block;margin:0;padding:0 10px;font-weight:400;color:rgba(0,0,0,.64);max-width:calc(100% - 20px);overflow-wrap:break-word;box-sizing:border-box}.swal-text:first-child{margin-top:45px}.swal-text:last-child{margin-bottom:45px}.swal-footer{text-align:right;padding-top:13px;margin-top:13px;padding:13px 16px;border-radius:inherit;border-top-left-radius:0;border-top-right-radius:0}.swal-button-container{margin:5px;display:inline-block;position:relative}.swal-button{background-color:#7cd1f9;color:#fff;border:none;box-shadow:none;border-radius:5px;font-weight:600;font-size:14px;padding:10px 24px;margin:0;cursor:pointer}.swal-button:not([disabled]):hover{background-color:#78cbf2}.swal-button:active{background-color:#70bce0}.swal-button:focus{outline:none;box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(43,114,165,.29)}.swal-button[disabled]{opacity:.5;cursor:default}.swal-button::-moz-focus-inner{border:0}.swal-button--cancel{color:#555;background-color:#efefef}.swal-button--cancel:not([disabled]):hover{background-color:#e8e8e8}.swal-button--cancel:active{background-color:#d7d7d7}.swal-button--cancel:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}.swal-button--danger{background-color:#e64942}.swal-button--danger:not([disabled]):hover{background-color:#df4740}.swal-button--danger:active{background-color:#cf423b}.swal-button--danger:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(165,43,43,.29)}.swal-content{padding:0 20px;margin-top:20px;font-size:medium}.swal-content:last-child{margin-bottom:20px}.swal-content__input,.swal-content__textarea{-webkit-appearance:none;background-color:#fff;border:none;font-size:14px;display:block;box-sizing:border-box;width:100%;border:1px solid rgba(0,0,0,.14);padding:10px 13px;border-radius:2px;transition:border-color .2s}.swal-content__input:focus,.swal-content__textarea:focus{outline:none;border-color:#6db8ff}.swal-content__textarea{resize:vertical}.swal-button--loading{color:transparent}.swal-button--loading~.swal-button__loader{opacity:1}.swal-button__loader{position:absolute;height:auto;width:43px;z-index:2;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);text-align:center;pointer-events:none;opacity:0}.swal-button__loader div{display:inline-block;float:none;vertical-align:baseline;width:9px;height:9px;padding:0;border:none;margin:2px;opacity:.4;border-radius:7px;background-color:hsla(0,0%,100%,.9);transition:background .2s;-webkit-animation:swal-loading-anim 1s infinite;animation:swal-loading-anim 1s infinite}.swal-button__loader div:nth-child(3n+2){-webkit-animation-delay:.15s;animation-delay:.15s}.swal-button__loader div:nth-child(3n+3){-webkit-animation-delay:.3s;animation-delay:.3s}@@-webkit-keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}@@keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}.swal-overlay{position:fixed;top:0;bottom:0;left:0;right:0;text-align:center;font-size:0;overflow-y:auto;background-color:rgba(0,0,0,.4);z-index:10000;pointer-events:none;opacity:0;transition:opacity .3s}.swal-overlay:before{content:" ";display:inline-block;vertical-align:middle;height:100%}.swal-overlay--show-modal{opacity:1;pointer-events:auto}.swal-overlay--show-modal .swal-modal{opacity:1;pointer-events:auto;box-sizing:border-box;-webkit-animation:showSweetAlert .3s;animation:showSweetAlert .3s;will-change:transform}.swal-modal{width:478px;opacity:0;pointer-events:none;background-color:#fff;text-align:center;border-radius:5px;position:static;margin:20px auto;display:inline-block;vertical-align:middle;-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;z-index:10001;transition:opacity .2s,-webkit-transform .3s;transition:transform .3s,opacity .2s;transition:transform .3s,opacity .2s,-webkit-transform .3s}@@media (max-width:500px){.swal-modal{width:calc(100% - 20px)}}@@-webkit-keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}@@keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Movies - Admin</title>
+      
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+   <!-- BMTL Start -->
+
+
+   <!-- CSS files -->
+   <link href="/theme/tabler/css/tabler.css" rel="stylesheet">
+   <link href="/theme/tabler/css/tabler-flags.css" rel="stylesheet">
+   <link href="/theme/tabler/css/tabler-payments.css" rel="stylesheet">
+   <link href="/theme/tabler/css/tabler-vendors.css" rel="stylesheet">  
+   <link href="/theme/tabler/css/theme-modify.css" rel="stylesheet"> 
+
+   <link href="/kendoui/css/kendo.common-bootstrap.min.css" rel="stylesheet">
+   <link href="/kendoui/css/kendo.bootstrap.min.css" rel="stylesheet">
+   <link href="/kendoui/css/kendo.bootstrap.mobile.min.css" rel="stylesheet"> 
+   <link href="/toastr/toastr.css" rel="stylesheet">
+
+
+   <!--JS Files-->
+
+
+   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    
+    
+     <script src="/kendoui/js/bootstrap-datepicker.js"></script>
+   <script src="/kendoui/js/jszip.min.js"></script>
+
+   
+  
+    
+    <script src="/theme/tabler/js/demo-theme.js"></script>
+    <script src="/theme/tabler/js/tabler.min.js"></script>
+    <script src="/theme/tabler/js/tabler.js"></script>
+   <script src="/theme/tabler/js/jsvectormap/dist/js/jsvectormap.js"></script>
+   <script src="/theme/tabler/js/jsvectormap/dist/maps/world.js"></script>
+   <script src="/theme/tabler/js/jsvectormap/dist/maps/world-merc.js"></script>
+     
+  
+   <!--Kendo UI Js Files--> 
+   <script src="https://kendo.cdn.telerik.com/2023.2.718/mjs/kendo.grid.js" type="module"></script> 
+   <script src="https://kendo.cdn.telerik.com/2023.2.718/mjs/kendo.all.js" type="module"></script>
+   
+   <link href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-main.css" rel="stylesheet">
+   
+
+
+   <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css">
+
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@@300;400&amp;display=swap" rel="stylesheet">
+
+   <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2023.1.117/js/jszip.min.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2023.1.117/js/kendo.all.min.js"></script>
+
+   <script src="/kendoui/js/kendo.all.min.js"></script> 
+   <script src="/kendoui/js/kendo.combobox.min.js"></script>
+
+   <script src="/kendoui/js/sweetalert.min.js"></script>
+   <script src="/kendoui/js/underscore-min.js"></script>
+   <script src="/kendoui/js/moment.min.js"></script>
+   <script src="/toastr/toastr.min.js"></script>
+   <!-- Block UI  JS Files-->
+   <script src="/blockui/jquery.blockui.js"></script>
+
+   <script>
+      toastr.options = {
+         "closeButton": true,
+         "debug": false,
+         "newestOnTop": false,
+         "progressBar": false,
+         "positionClass": "toast-bottom-right",
+         "preventDuplicates": false,
+         "onclick": null,
+         "showDuration": "300",
+         "hideDuration": "1000",
+         "timeOut": "5000",
+         "extendedTimeOut": "1000",
+         "showEasing": "swing",
+         "hideEasing": "linear",
+         "showMethod": "fadeIn",
+         "hideMethod": "fadeOut"
+      }
+   </script>
+   <style>
+
+      :root {
+         --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+
+      body {
+         font-feature-settings: "cv03", "cv04", "cv11";
+      }
+   </style>
+   <style>
+    .demo-wrapper {
+        grid-template-columns: 180px 1fr;
+    }
+
+    .k-h4 {
+        line-height: 26px;
+        margin-bottom: 0;
+    }
+
+	.kd-nodata-wrapper{
+		display: block !important;
+		padding-top: 20px !important;
+	}
+
+    /* Breakpoints for full screen demo: max:599px, min:759px and max: 959 */
+    @@media (max-width: 678px), (min-width: 821px) and (max-width: 1038px), (min-width: 1241px) and (max-width: 1328px) {
+      .demo-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .avatar {
+        display: block !important;
+      }
+
+      .side-container {
+        display: none !important;
+      }
+
+      .main-container {
+        padding-bottom: 0;
+      }
+
+      .content-expanded {
+        border-end-end-radius: 0;
+        border-end-start-radius: 0;
+      }
+    }
+
+    /* Breakpoint for full screen demo: max:359px */
+    @@media (max-width: 476px) {
+      .avatar {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .main-content {
+        padding-top: 0px;
+    }
+
+    .main-content {
+        padding: 30px 30px 0;
+        -webkit-box-flex: 1;
+        flex: 1 0 auto;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    user agent stylesheet
+    div {
+        display: block;
+        unicode-bidi: isolate;
+    }
+
+    body {
+        font-family: Roboto, sans-serif;
+        color: #616a78;
+        font-weight: 300;
+        font-size: 13px;
+        line-height: 24px;
+    }
+
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -ms-overflow-style: scrollbar;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    *, ::after, ::before {
+        box-sizing: inherit;
+    }
+
+    ::selection {
+        background: #4ed2c5;
+        color: #fff;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+   <!-- BMTL End  -->
+   <!-- Block UI  JS Files-->
+   <!--Kendo UI Js Files--> 
+
+
+   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<style id="inert-style">
+[inert] {
+  pointer-events: none;
+  cursor: default;
+}
+
+[inert], [inert] * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+</style>
+
+<link href="~/softghor/css/core.min.css" rel="stylesheet" />
+<link href="~/softghor/css/style.min.css" rel="stylesheet" /> 
+<link href="~/softghor/css/select2.min.css" rel="stylesheet" />
+@*<link href="~/softghor/css/bootstrap-select.min.css" rel="stylesheet" /> 
+<link href="~/softghor/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<link href="~/softghor/css/pos.css" rel="stylesheet" />
+<link href="~/softghor/css/custom.css" rel="stylesheet" />*@
+@*<link href="~/softghor/css/toastr.css" rel="stylesheet" />
+<link href="~/softghor/css/style.min.css" rel="stylesheet" /> 
+<link href="~/softghor/css/select2.min.css" rel="stylesheet" />*@
+
+<main class="main-container main" id="main">
+    <header class="header bg-ui-general">
+        <div class="header-info">
+            <h1 class="header-title">
+                <strong>Sale</strong>
+            </h1>
+        </div> 
+        <div class="col-10 offset-2">
+            <table class="table table-bordered top-summary">
+                <tbody>
+                    <tr>
+                        <td class="bg-danger">Sold Today:</td>
+                        <td class="bg-success">0 Tk</td>
+                        <td class="bg-warning">Today Received:</td>
+                        <td class="bg-success">0 Tk</td>
+                        <td class="bg-danger">Today Profit:</td>
+                        <td class="bg-success">0 Tk</td>
+                        <td class="bg-warning">Total Sold:</td>
+
+                        <td class="bg-success">8356814.92 Tk</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="header-action">
+            <nav class="nav">
+                <a class="nav-link active" href="#">
+                    Sales
+                </a>
+                <a class="nav-link" href="/DateFormat/JqueryDemo">
+                    <i class="fa fa-plus"></i>
+                    New Sale
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12" style="">
+                <div class="card card-body mb-2" style="margin-top: 91px;">
+                    <form action="#">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <input type="text" class="form-control" name="bill_no" placeholder="Bill Number" autocomplete="off" value="">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input type="text" data-provide="datepicker" data-date-today-highlight="true" data-orientation="bottom" data-date-format="yyyy-mm-dd" data-date-autoclose="true" class="form-control" name="start_date" placeholder="Start Date" autocomplete="off" value="">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input type="text" data-provide="datepicker" data-date-today-highlight="true" data-orientation="bottom" data-date-format="yyyy-mm-dd" data-date-autoclose="true" class="form-control" name="end_date" placeholder="End Date" autocomplete="off" value="">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="btn-group bootstrap-select form-control">
+                                    <button type="button" class="btn dropdown-toggle bs-placeholder btn-light" data-toggle="dropdown" role="button" data-id="" title="Select Customer"><span class="filter-option pull-left">Select Customer</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off" role="textbox" aria-label="Search"></div><div class="dropdown-menu inner" role="listbox" aria-expanded="false"><a class="dropdown-item selected" data-original-index="0"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">Select Customer</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="1"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sakib Rabby - 0184578745</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="2"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Juwel Khan - 01845784545</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="3"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Sumon - 01847898745</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="4"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahmudul Hasan - 0198784545</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="5"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahmudul Hasan Opu - 01612888744</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="6"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">SHOHIAG - 01911517644</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="7"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fahim - 6678765t55</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="8"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sabbir - 65456678</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="9"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Masud - 5545567777</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="10"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Kamrul Hasan - 01960844035</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="11"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Kahaled - Owhwjwk</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="12"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">xxxx - 01518364661</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="13"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">cccc - 01518364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="14"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">111 - 0151811364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="15"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nizam Enterprise - 01718469611</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="16"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MD Amir - 11122</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="17"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">TEst - 0255669</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="18"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ayan - 00</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="19"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">test - +1 (926) 752-7649</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="20"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nazmul - 0000000000</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="21"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim 11 - 01511364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="22"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">AFTAAB - 1230556</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="23"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">abc - 01723444132</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="24"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim 2 - 01518364662</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="25"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">7up customer - 01300000000</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="26"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sabbir ahmed - 8494400404</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="27"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 01519724380</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="28"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gazi Md Kawsar - 01817660795</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="29"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 545465</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="30"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Apple - 01712237892</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="31"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Asraful islam - 01856095469</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="32"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">abu sayed - 01823985538</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="33"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">md shohid - 01711517644</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="34"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Abu Hanif - 01830121212</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="35"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Abu Hanif - 018301212100</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="36"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 015197243800</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="37"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gazi Md Kawsar - 5456465465</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="38"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ahmad Shamim - 01628858283</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="39"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Abu Solaiman - 96598727273</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="40"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Himel - 01942423015</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="41"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">dss - 4154</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="42"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Krishi rasayon limited Krishi rasayon limited - 01767362851</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="43"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Andullah - 01850545897</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="44"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Afjj - Kchjbbj</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="45"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">xxx - 01672702400</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="46"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">SAGOR - 01711517645</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="47"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ttttttt - 01720</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="48"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Harun Or Rashid - 01737389486</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="49"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nirob Rumel - 01956656562</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="50"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tutul - 6757657657</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="51"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nazma Ahmed - 01711863421</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="52"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">limon vai - 01948732748</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="53"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim - 01518364668</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="54"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Shohidul Islam - +8801611758787</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="55"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">md - 03737281</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="56"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ridoy - 018865544</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="57"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">saif apoultry - 01716445493</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="58"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Green Taste - 4514+44</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="59"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Janata jute mills - 01736037790</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="60"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">khan Emran - 01752066715</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="61"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahabub Hassan - 016191841520</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="62"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ABC Customer - 99944433567</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="63"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Menual Order - 01917344267</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="64"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">tut - 02558565444</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="65"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sajib Hassan - 01740439509</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="66"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">kamran - 01627140567</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="67"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Customer - N/A</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="68"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Kishor - +1 (527) 793-3398</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="69"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">kishor - +1 (902) 627-1635</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="70"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sonia - 01793259100</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="71"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gg - Hhh</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="72"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sheikh Ayesha - 01725887899</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="73"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Subyeta Sarwar - 01710908867</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="74"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mobin - 01846020946</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="75"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sobuj - 0762568842225</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="76"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sabbir st - 0123456</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="77"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sabbir dt - 1023456</span><span class=" ti-check check-mark"></span></span></a></div></div><select name="customer" class="form-control" data-provide="selectpicker" data-live-search="true" data-size="10" tabindex="-98">
+                                        <option value="">Select Customer</option>
+                                        <option value="1">Sakib Rabby - 0184578745</option>
+                                        <option value="2">Md Juwel Khan - 01845784545</option>
+                                        <option value="3">Md Sumon - 01847898745</option> 
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="btn-group bootstrap-select form-control">
+                                    <button type="button" class="btn dropdown-toggle bs-placeholder btn-light" data-toggle="dropdown" role="button" data-id="" title="Select Product"><span class="filter-option pull-left">Select Product</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off" role="textbox" aria-label="Search"></div><div class="dropdown-menu inner" role="listbox" aria-expanded="false"><a class="dropdown-item selected" data-original-index="0"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">Select Product</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="1"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mobile Phone - 000001</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="2"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">laptop Comouter - 000002</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="3"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Desktop Computer - 000003</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="4"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">T Shirt - 000004</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="5"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ladis Shirt - 000005</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="6"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Freez - 000006</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="7"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Air Condition - 000007</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="8"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Door Export - 000008</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="9"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Blajer For Men - 000009</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="10"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Dril Machine - 000010</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="11"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gaming Laptop - 000011</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="12"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">test - 00000012</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="13"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">11fasdfasdfnasd;jfjdasfjklasdjfljsd;ajf;asdjf;asdj;fd - 00000013</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="14"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">1111111111 - 00000014</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="15"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Dim - 00000015</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="16"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">T-shirt Easy - 00000016</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="17"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Jeans pant denim - 00000017</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="18"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Pant rty - 00000018</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="19"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shirt ASTR - 00000019</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="20"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">THREE PC JORJET - 00000020</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="21"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">THREE PC INDIAN - 00000021</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="22"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sadabahar - 00000022</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="23"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Jet bulb 15w - 00000023</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="24"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Jet bulb 18w - 00000024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="25"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tgsart - 00000025</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="26"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Green Apple - GA</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="27"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Red Apple - RA</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="28"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">White Apple - WA</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="29"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">A - 12356</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="30"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">t-shirt - 444</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="31"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">4" Pipe 2.70Mm - 1</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="32"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">4" Long Tram{Matador} - 00000032</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="33"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MINIKET Rice - 656435</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="34"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MINIKET Rice-10KG Bosta - 00000035</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="35"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Rice - rc</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="36"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Solt - MS</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="37"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Musur Daal - Musur Daal</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="38"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sim Bichi - Sim Bichi</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="39"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Rice cooker() - 00000040</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="40"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fastwash 500 gm - 00000041</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="41"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Soyabin - 00000042</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="42"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Atta - 022</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="43"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">GIRLS COTTON FROK - 00000044</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="44"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tawakkal - 00000045</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="45"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">10 ziros - 00000046</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="46"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">8UP - 6009803227304</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="47"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">XYZ - 00000048</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="48"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">oppo-t1 5g - 155</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="49"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">cute pumpy - 1234</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="50"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">VIVO Y20 Display - 00000051</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="51"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Samsung A20 LCD - 00000052</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="52"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MENS SHOE - 00000053</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="53"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MENS SHOE - 00000054</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="54"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Macc Coffe 500g - 00000055</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="55"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tang Orange - 7622201762391</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="56"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Enam Trading - 862107</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="57"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">enam trading - 861054</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="58"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ifad 1kg atta - 00000060</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="59"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ifad kajo badam 50gm - 00000064</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="60"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">IFAD NODDOS - 00000065</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="61"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gucchi - 123456</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="62"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ata - 00</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="63"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Meter Product - 00000068</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="64"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mens Shirt - 123</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="65"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Realme C51 - 284757384</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="66"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ifad 1kg - 00000071</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="67"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ATTA - 00000072</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="68"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">led 50 watt bulb - 201</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="69"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ss 20w led - 01</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="70"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">aaaa - aaaa</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="71"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Samsung Galaxy M02S - 00001</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="72"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">jul muri - 00000077</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="73"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">channacur - 00000078</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="74"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Juice - 00000079</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="75"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Convex Mirror - NI 1205</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="76"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">tbn - 00000081</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="77"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">egg - 00000082</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="78"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ad rice - 00000083</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="79"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Frock(1-4 - B2B4</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="80"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">potato - 00000085</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="81"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Man's Choice - 650224</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="82"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Man's Choice - 49524</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="83"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Man's Choice - 57024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="84"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">GABARDING PANT - 48024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="85"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">JEANS PANT - 480224</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="86"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">DOF JEANS PANT - 55024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="87"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">DOF JEANS PANT - 6502224</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="88"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI (MOON) - 3500023</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="89"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI (MOON) - 390224</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="90"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI (MOON) - 52024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="91"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI (MOON) - 54024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="92"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI BABY (MOON) - 23024</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="93"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">PANJABI (BABY) - BRX3250</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="94"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">phone - 83152</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="95"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">vivo y12 - 00000103</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="96"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Vivo Y11 4gb,64gb - 12345</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="97"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Vivo Y11 6gb,128gb - 12345670</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="98"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Razer Viper Mini - 00000106</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="99"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">zero - 00000107</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="100"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Bobbin 7 1/2 - 00000108</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="101"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">oppo f1 - 00000109</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="102"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">oppo f1 4gb, 64gb, newo - 00000110</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="103"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">oppo f1 4gb,64gb, old - 00000111</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="104"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ghcxyhxhxrurdxjtikctjxcfrjcgjvgigvjghvikvhikcckghkicvjkxcfhjcgkjgvjvgj - 00000112</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="105"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Liner - 12</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="106"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Laptop - 124</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="107"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Naruto Uzumaki - 00000115</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="108"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ned pd - 00000116</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="109"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Water Bottle - 445443322</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="110"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Egg - 00000118</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="111"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">kahini - 555</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="112"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Coca-Cola - 16696323</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="113"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">new product - 00000121</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="114"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">lllll - 513074</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="115"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">microfiber round duster - Z001</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="116"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Christian Chen - Xyla Whitley</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="117"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Product name - product name</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="118"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">money bag - 00000133</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="119"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">malk - 00000137</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="120"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">mango - 00000139</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="121"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">pizza - 00000140</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="122"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">tv - 00000141</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="123"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sungelas - 00000142</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="124"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ring - 00000143</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="125"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">rice kukar - 00000144</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="126"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">t-shirt - 00000145</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="127"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sugar - 00000146</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="128"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Pran boroi achar - 841165154920</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="129"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">চিনি - 007</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="130"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">abaya - rfw 0</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="131"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">DELTA GAS 12 KG - 1212</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="132"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">parker-75-100gm - 00000154</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="133"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">parker-75-300gm - 00000155</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="134"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Xiaomi 11T - 112288</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="135"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fa Soap - 1530</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="136"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Caliburn g3 - 5252</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="137"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">white egg - 00000159</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="138"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">12 v 7.5 ah - 00000160</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="139"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">NOORS - 675</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="140"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">BIN HAMEED - 00000162</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="141"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">bin saeed co ords - 00000163</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="142"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fire HD - NAA3Q8AE</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="143"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Top Cake - 001</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="144"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Lee Denim Abid - 2600</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="145"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tiles - 1234a</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="146"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fresh cement - 00000168</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="147"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Cement - 00000169</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="148"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tiles - Ascdf</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="149"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Door - Wooddoor</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="150"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">vcc wire - 0333</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="151"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">test arif - 00000173</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="152"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Orbit Y70 - 00000174</span><span class=" ti-check check-mark"></span></span></a></div></div><select name="product_id" class="form-control" data-provide="selectpicker" data-live-search="true" data-size="10" tabindex="-98">
+                                        <option value="">Select Product</option>
+                                        <option value="1">Mobile Phone - 000001</option>
+                                        
+                                    
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row mt-2">
+                            <div class="form-group col-12">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-sliders"></i>
+                                    Filter
+                                </button>
+                                <a href="https://pos.softghor.com/back/pos" class="btn btn-info">Reset</a>
+                                <a href="" class="btn btn-primary pull-right" onclick="window.print()">Print</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="card print_area" style="width:100%;">
+                    <h4 class="card-title"><strong>Sale</strong></h4>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table  table-bordered" data-provide="">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th>#</th>
+                                        <th>Invoice No.</th>
+                                        <th>Customer</th>
+                                        <th>Items</th>
+                                        <th>Date</th>
+                                        <th>Discount</th>
+                                        <th>Receivable</th>
+                                        <th>Paid</th>
+                                        <th>Product Returned</th>
+                                        <th>Due</th>
+                                        <th>Purchase Cost</th>
+                                        <th>Profit</th>
+                                        <th>Status</th>
+                                        <th class="print_hidden">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>351</td>
+                                        <td>
+                                            sabbir dt
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>vcc wire Code: 0333  *1 Dozen 3 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td></td>
+                                        <td>4000 Tk</td>
+                                        <td>4000.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/351">
+                                                3,375 Tk
+                                            </a>
+                                        </td>
+                                        <td>625</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="top-start" style="position: absolute; top: -2px; left: 0px; will-change: top, left;">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/351">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/351">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/351/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/351">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/351">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=351">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/351" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/351">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>350</td>
+                                        <td>
+                                            sabbir st
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>vcc wire Code: 0333  *4 Dozen 0 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td></td>
+                                        <td>12800 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>12,800 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/350">
+                                                10,800 Tk
+                                            </a>
+                                        </td>
+                                        <td>2,000</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/350">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/350">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/350/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/350">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/350">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=350">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/350" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/350">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>349</td>
+                                        <td>
+                                            sabbir st
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Dril Machine Code: 000010  *3 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td>5%</td>
+                                        <td>8550 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>8,550 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/349">
+                                                8,250 Tk
+                                            </a>
+                                        </td>
+                                        <td>300</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/349">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/349">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/349/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/349">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/349">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=349">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/349" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/349">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>348</td>
+                                        <td>
+                                            sabbir dt
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>t-shirt Code: 444  *2 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td></td>
+                                        <td>1000 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>1,000 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/348">
+                                                1,200 Tk
+                                            </a>
+                                        </td>
+                                        <td>-200</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/348">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/348">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/348/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/348">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/348">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=348">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/348" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/348">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>347</td>
+                                        <td>
+                                            sabbir st
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>T Shirt Code: 000004  *2 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td></td>
+                                        <td>3000 Tk</td>
+                                        <td>3000.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/347">
+                                                2,400 Tk
+                                            </a>
+                                        </td>
+                                        <td>600</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/347">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/347">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/347/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/347">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/347">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=347">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/347" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/347">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>346</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Door Code: Wooddoor  *12 Pcs 1 Sqft</li>
+                                            </ul>
+                                        </td>
+                                        <td>30 Apr, 2024</td>
+                                        <td></td>
+                                        <td>700 Tk</td>
+                                        <td>700.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/346">
+                                                438 Tk
+                                            </a>
+                                        </td>
+                                        <td>263</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/346">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/346">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/346/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/346">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/346">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=346">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/346" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/346">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>345</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Desktop Computer Code: 000003  *1 pc</li>
+                                                <li>Mobile Phone Code: 000001  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>4958 Tk</td>
+                                        <td>4958.00 Tk</td>
+                                        <td>4958.00 Tk</td>
+                                        <td>-4,958 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/345">
+                                                0 Tk
+                                            </a>
+                                        </td>
+                                        <td>0</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/345">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/345">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/345/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/345">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/345">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=345">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/345" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/345">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>344</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>laptop Comouter Code: 000002  *1 pc</li>
+                                                <li>Dril Machine Code: 000010  *1 pc</li>
+                                                <li>egg Code: 00000082  *1 Dozen 0 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>81010 Tk</td>
+                                        <td>81010.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/344">
+                                                74,755 Tk
+                                            </a>
+                                        </td>
+                                        <td>6,255</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/344">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/344">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/344/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/344">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/344">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=344">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/344" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/344">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>343</td>
+                                        <td>
+                                            Mobin
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Cement Code: 00000169  *30 Kg</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>16500 Tk</td>
+                                        <td>16010.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>490 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/343">
+                                                14,850 Tk
+                                            </a>
+                                        </td>
+                                        <td>1,650</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/343">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/343">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/343/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/343">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/343">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=343">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/343" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/343">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>342</td>
+                                        <td>
+                                            Sobuj
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Fresh cement Code: 00000168  *20 Kg</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>10000 Tk</td>
+                                        <td>5000.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>5,000 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/342">
+                                                9,000 Tk
+                                            </a>
+                                        </td>
+                                        <td>1,000</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/342">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/342">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/342/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/342">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/342">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=342">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/342" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/342">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>341</td>
+                                        <td>
+                                            Sobuj
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>mango Code: 00000139  *2 Kg 0 gm</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>1100 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>1,100 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/341">
+                                                1,060 Tk
+                                            </a>
+                                        </td>
+                                        <td>40</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/341">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/341">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/341/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/341">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/341">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=341">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/341" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/341">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>340</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Dim Code: 00000015  *1 Dozen 8 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>2 Tk</td>
+                                        <td>1.67 Tk</td>
+                                        <td>1.33 Tk</td>
+                                        <td>-1 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/340">
+                                                0 Tk
+                                            </a>
+                                        </td>
+                                        <td>0</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/340">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/340">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/340/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/340">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/340">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=340">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/340" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/340">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>339</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Convex Mirror Code: NI 1205  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>29 Apr, 2024</td>
+                                        <td></td>
+                                        <td>12500 Tk</td>
+                                        <td>12500.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/339">
+                                                8,000 Tk
+                                            </a>
+                                        </td>
+                                        <td>4,500</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/339">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/339">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/339/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/339">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/339">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=339">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/339" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/339">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>338</td>
+                                        <td>
+                                            Sobuj
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>BIN HAMEED Code: 00000162  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td></td>
+                                        <td>5500 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>5,500 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/338">
+                                                6,500 Tk
+                                            </a>
+                                        </td>
+                                        <td>-1,000</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/338">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/338">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/338/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/338">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/338">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=338">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/338" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/338">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>337</td>
+                                        <td>
+                                            Mobin
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>kahini Code: 555  *1 abc 0 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td>2%</td>
+                                        <td>490 Tk</td>
+                                        <td>490.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/337">
+                                                300 Tk
+                                            </a>
+                                        </td>
+                                        <td>190</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/337">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/337">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/337/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/337">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/337">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=337">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/337" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/337">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>16</td>
+                                        <td>336</td>
+                                        <td>
+                                            Sobuj
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>laptop Comouter Code: 000002  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td></td>
+                                        <td>78000 Tk</td>
+                                        <td>10000.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>68,000 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/336">
+                                                72,000 Tk
+                                            </a>
+                                        </td>
+                                        <td>6,000</td>
+                                        <td>
+                                            UNPAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/336">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/336">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/336/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/336">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/336">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=336">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/336" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/336">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>17</td>
+                                        <td>335</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>T Shirt Code: 000004  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td>5 Tk</td>
+                                        <td>1495 Tk</td>
+                                        <td>1495.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/335">
+                                                1,200 Tk
+                                            </a>
+                                        </td>
+                                        <td>295</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/335">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/335">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/335/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/335">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/335">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=335">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/335" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/335">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>18</td>
+                                        <td>334</td>
+                                        <td>
+                                            Sheikh Ayesha
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Desktop Computer Code: 000003  *1 pc</li>
+                                                <li>laptop Comouter Code: 000002  *1 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td></td>
+                                        <td>78458 Tk</td>
+                                        <td>78458.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/334">
+                                                72,400 Tk
+                                            </a>
+                                        </td>
+                                        <td>6,058</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/334">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/334">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/334/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/334">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/334">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=334">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/334" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/334">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>19</td>
+                                        <td>333</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>Tiles Code: 1234a  *6 Pcs 0 Sqft</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td></td>
+                                        <td>336 Tk</td>
+                                        <td>336.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/333">
+                                                270 Tk
+                                            </a>
+                                        </td>
+                                        <td>66</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/333">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/333">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/333/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/333">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/333">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=333">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/333" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/333">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>332</td>
+                                        <td>
+                                            Walk-in Customer
+                                        </td>
+                                        <td>
+                                            <ul class="product-list">
+                                                <li>T Shirt Code: 000004  *3 pc</li>
+                                            </ul>
+                                        </td>
+                                        <td>28 Apr, 2024</td>
+                                        <td>10 Tk</td>
+                                        <td>650 Tk</td>
+                                        <td>650.00 Tk</td>
+                                        <td>0.00 Tk</td>
+                                        <td>0 Tk</td>
+                                        <td>
+                                            <a href="https://pos.softghor.com/back/pos/purchase-cost-breakdown/332">
+                                                3,600 Tk
+                                            </a>
+                                        </td>
+                                        <td>-2,950</td>
+                                        <td>
+                                            PAID
+                                        </td>
+                                        <td class="print_hidden">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu" x-placement="bottom-start">
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos-receipt/332">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/chalan-receipt/332">
+                                                        <i class="fa fa-print text-primary"></i>
+                                                        Chalan Print
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/332/edit">
+                                                        <i class="fa fa-pencil-square-o text-warning"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/pos/332">
+                                                        <i class="fa fa-desktop text-info"></i>
+                                                        Show
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return/332">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return
+                                                    </a>
+                                                    <a class="dropdown-item" href="https://pos.softghor.com/back/return?pos_id=332">
+                                                        <i class="fa  fa-backward text-primary"></i>
+                                                        Return List
+                                                    </a>
+                                                    <a href="https://pos.softghor.com/back/pos/add_payment/332" class="edit dropdown-item" data-toggle="modal" data-target="#edit" id="Add Payment">
+                                                        <i class="fa fa-money text-primary"></i>
+                                                        Add Payment
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="https://pos.softghor.com/back/pos/332">
+                                                        <i class="fa fa-trash text-danger"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <nav class="my-3">
+                                <ul class="pagination justify-content-center">
+
+                                    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+                                        <span class="page-link" aria-hidden="true">‹</span>
+                                    </li>
+
+
+
+
+
+                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=2">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=3">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=4">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=5">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=6">6</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=7">7</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=8">8</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=9">9</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=10">10</a></li>
+
+                                    <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+
+
+
+
+
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=16">16</a></li>
+                                    <li class="page-item"><a class="page-link" href="https://pos.softghor.com/back/pos?page=17">17</a></li>
+
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="https://pos.softghor.com/back/pos?page=2" rel="next" aria-label="Next »">›</a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.main-content -->
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center text-md-left ">Copyright © 2024 <a href="https://softghor.com/" class="text-primary" target="__blank">SOFTGHOR</a>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>    <!-- END Footer -->
+</main>

@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "AddLaptop";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+
+
+<h1>Uploaded Images</h1>
+
+<main id="main" class="main">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="imageFile" id="imageFile">
+        <button type="submit">Upload</button>
+    </form>
+</main>
+
+<ul style="padding-left: 410px;height:50%;width:50%;" id="imageList"></ul>
+
+<script>
+    //$('#uploadForm').submit(function (event) {
+    //    event.preventDefault(); // Prevent default form submission
+
+    //    var formData = new FormData();
+    //    formData.append('file', $('#file')[0].files[0]); // Append file to form data
+
+    //    $.ajax({
+    //        url: 'https://localhost:7065/api/DateDemo/UploadFile',
+    //        type: 'POST',
+    //        data: formData,
+    //        processData: false,
+    //        contentType: false,
+    //        success: function (data) {
+    //            console.log('File uploaded successfully:', data);
+    //        },
+    //        error: function (xhr, status, error) {
+    //            console.error('Error uploading file:', error);
+    //            // Handle errors, if needed
+    //        }
+    //    });
+    //});
+    $('#uploadForm').submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var formData = new FormData();
+        formData.append('imageFile', $('#imageFile')[0].files[0]); // Append file to form data
+
+        $.ajax({
+            url: '/UploadImage', 
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log('Image uploaded successfully:', data);
+                Load();
+            },
+            error: function (xhr, status, error) {
+                console.error('Error uploading image:', error);
+            }
+        });
+    });
+
+    var Load = function(){
+        $.ajax({
+            url: '/GetUploadedFiles',
+            type: 'GET',
+            success: function (data) {
+                $('#imageList').empty();
+                var table = $('<table>').append('<thead><tr><th>Image</th><th>Filename</th><th>Action</th></tr></thead>');
+                var tbody = $('<tbody>');
+
+                // Iterate over each image filename
+                $.each(data, function (index, fileName) {
+                    var imageUrl = '/Upload/Images/' + fileName; // Assuming your images are stored in wwwroot/Upload/Images directory
+                    // Create table row with image, filename, and delete button
+                    var row = $('<tr>').append('<td><img style="height: 50px; width: 50px;" src="' + imageUrl + '" alt="' + fileName + '"></td><td>' + fileName + '</td><td><button class="deleteBtn" data-file="' + fileName + '">Delete</button></td>');
+                    tbody.append(row);
+                });
+
+                table.append(tbody); // Move this line to after the loop
+
+                $('#imageList').empty().append(table);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching uploaded images:', error);
+            }
+        }); 
+    }
+    //var DeleteFile = function (fileName) {
+    //    //var fileName = $(this).data('file');
+    //        // Send AJAX request to delete file
+    //        $.ajax({
+    //            url: '/DeleteFile',
+    //            type: 'POST',
+    //            data: { fileName: fileName },
+    //            success: function (data) {
+    //                // Reload images after deletion
+    //                Load();
+    //            },
+    //            error: function (xhr, status, error) {
+    //                console.error('Error deleting file:', error);
+    //            }
+    //        }); 
+    //}
+
+    $(document).ready(function () {
+        Load();
+    });
+</script>

@@ -1,0 +1,1088 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+      
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/assets/img/favicon.png" rel="icon">
+    <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <!-- Template Main CSS File -->
+   @* <link href="~/assets/css/style.css" rel="stylesheet">*@  
+   <!-- BMTL Start -->
+
+
+   <!-- CSS files -->
+   @*<link href="~/theme/tabler/css/tabler.css" rel="stylesheet" />
+   <link href="~/theme/tabler/css/tabler-flags.css" rel="stylesheet" />
+   <link href="~/theme/tabler/css/tabler-payments.css" rel="stylesheet" />
+   <link href="~/theme/tabler/css/tabler-vendors.css" rel="stylesheet" />  
+   <link href="~/theme/tabler/css/theme-modify.css" rel="stylesheet" /> 
+
+   <link href="~/kendoui/css/kendo.common-bootstrap.min.css" rel="stylesheet" />
+   <link href="~/kendoui/css/kendo.bootstrap.min.css" rel="stylesheet" />
+   <link href="~/kendoui/css/kendo.bootstrap.mobile.min.css" rel="stylesheet" /> 
+   <link href="~/toastr/toastr.css" rel="stylesheet" />*@
+
+
+   <!--JS Files-->
+    <script>
+        // Add event listeners to all elements with the class 'nav-link'
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default behavior of the anchor tag
+
+                // Get the target collapsible content ID from the data-bs-target attribute
+                var targetID = this.getAttribute('data-bs-target');
+                var targetCollapse = document.querySelector(targetID);
+
+                // Check if the target collapsible content exists
+                if (targetCollapse) {
+                    // Toggle the 'show' class on the target collapsible content
+                    if (targetCollapse.classList.contains('show')) {
+                        targetCollapse.classList.remove('show');
+                    } else {
+                        targetCollapse.classList.add('show');
+                    }
+                } else {
+                    // Handle the case when the link is clicked for non-collapsible behavior
+                    // For example, navigate to the link's href
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+           integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+           crossorigin="anonymous"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/pikaday@1.8.0/pikaday.min.js"></script>*@
+
+    
+    
+     <script src="~/kendoui/js/bootstrap-datepicker.js"></script>
+   <script src="~/kendoui/js/jszip.min.js"></script>
+
+   
+   @*<script src="~/theme/tabler/js/tabler.js"></script>*@
+  
+    
+    <script src="~/theme/tabler/js/demo-theme.js"></script>
+    <script src="~/theme/tabler/js/tabler.min.js"></script>
+    <script src="~/theme/tabler/js/tabler.js"></script>
+   <script src="~/theme/tabler/js/jsvectormap/dist/js/jsvectormap.js"></script>
+   <script src="~/theme/tabler/js/jsvectormap/dist/maps/world.js"></script>
+   <script src="~/theme/tabler/js/jsvectormap/dist/maps/world-merc.js"></script>
+     
+  
+   <!--Kendo UI Js Files--> 
+   <script src="https://kendo.cdn.telerik.com/2023.2.718/mjs/kendo.grid.js" type="module"></script> 
+   <script src="https://kendo.cdn.telerik.com/2023.2.718/mjs/kendo.all.js" type="module"></script>
+   
+   <link href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-main.css" rel="stylesheet" />
+   
+
+
+   <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css">
+
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+   <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2023.1.117/js/jszip.min.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2023.1.117/js/kendo.all.min.js"></script>
+
+   <script src="~/kendoui/js/kendo.all.min.js"></script> 
+   <script src="~/kendoui/js/kendo.combobox.min.js"></script>
+
+   <script src="~/kendoui/js/sweetalert.min.js"></script>
+   <script src="~/kendoui/js/underscore-min.js"></script>
+   <script src="~/kendoui/js/moment.min.js"></script>
+   <script src="~/toastr/toastr.min.js"></script>
+   <!-- Block UI  JS Files-->
+   <script src="~/blockui/jquery.blockui.js"></script>
+   <script>
+      toastr.options = {
+         "closeButton": true,
+         "debug": false,
+         "newestOnTop": false,
+         "progressBar": false,
+         "positionClass": "toast-bottom-right",
+         "preventDuplicates": false,
+         "onclick": null,
+         "showDuration": "300",
+         "hideDuration": "1000",
+         "timeOut": "5000",
+         "extendedTimeOut": "1000",
+         "showEasing": "swing",
+         "hideEasing": "linear",
+         "showMethod": "fadeIn",
+         "hideMethod": "fadeOut"
+      }
+   </script>
+   <style>
+        .custom-cursor {
+            cursor: pointer;
+        }
+
+      :root {
+         --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+
+      body {
+         font-feature-settings: "cv03", "cv04", "cv11";
+      }
+   </style>
+   <style>
+    .demo-wrapper {
+        grid-template-columns: 180px 1fr;
+    }
+
+    .k-h4 {
+        line-height: 26px;
+        margin-bottom: 0;
+    }
+
+	.kd-nodata-wrapper{
+		display: block !important;
+		padding-top: 20px !important;
+	}
+
+    /* Breakpoints for full screen demo: max:599px, min:759px and max: 959 */
+    @@media (max-width: 678px), (min-width: 821px) and (max-width: 1038px), (min-width: 1241px) and (max-width: 1328px) {
+      .demo-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .avatar {
+        display: block !important;
+      }
+
+      .side-container {
+        display: none !important;
+      }
+
+      .main-container {
+        padding-bottom: 0;
+      }
+
+      .content-expanded {
+        border-end-end-radius: 0;
+        border-end-start-radius: 0;
+      }
+    }
+
+    /* Breakpoint for full screen demo: max:359px */
+    @@media (max-width: 476px) {
+      .avatar {
+        width: 32px;
+        height: 32px;
+      }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+   <!-- BMTL End  -->
+   <!-- Block UI  JS Files-->
+   @*<script src="~/blockui/jquery.blockui.js"></script>*@
+   <!--Kendo UI Js Files--> 
+
+   @*<script src="~/kendoui/js/bootstrap-datepicker.js"></script>
+   <script src="~/kendoui/js/jszip.min.js"></script>
+   <script src="~/kendoui/js/kendo.all.min.js"></script>
+   <script src="~/kendoui/js/moment.min.js"></script>
+   <script src="~/kendoui/js/sweetalert.min.js"></script>
+   <script src="~/kendoui/js/underscore-min.js"></script>
+
+   <script src="~/toastr/toastr.min.js"></script>
+   <script>
+      toastr.options = {
+         "closeButton": true,
+         "debug": false,
+         "newestOnTop": false,
+         "progressBar": false,
+         "positionClass": "toast-bottom-right",
+         "preventDuplicates": false,
+         "onclick": null,
+         "showDuration": "300",
+         "hideDuration": "1000",
+         "timeOut": "5000",
+         "extendedTimeOut": "1000",
+         "showEasing": "swing",
+         "hideEasing": "linear",
+         "showMethod": "fadeIn",
+         "hideMethod": "fadeOut"
+      }
+   </script>*@
+
+   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center"> 
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+               <img src="~/assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block"> My Stock</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo --> 
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                    </a><!-- End Notification Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            You have 4 new notifications
+                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-exclamation-circle text-warning"></i>
+                            <div>
+                                <h4>Lorem Ipsum</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>30 min. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-x-circle text-danger"></i>
+                            <div>
+                                <h4>Atque rerum nesciunt</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>1 hr. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <div>
+                                <h4>Sit rerum fuga</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>2 hrs. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-info-circle text-primary"></i>
+                            <div>
+                                <h4>Dicta reprehenderit</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>4 hrs. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="dropdown-footer">
+                            <a href="#">Show all notifications</a>
+                        </li>
+
+                    </ul><!-- End Notification Dropdown Items -->
+
+                </li><!-- End Notification Nav -->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="badge bg-success badge-number">3</span>
+                    </a><!-- End Messages Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                        <li class="dropdown-header">
+                            You have 3 new messages
+                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                                <img src="~/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>Maria Hudson</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>4 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                                <img src="~/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>Anna Nelson</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>6 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                               <img src="~/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>David Muldon</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>8 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <a href="#">Show all messages</a>
+                        </li>
+
+                    </ul><!-- End Messages Dropdown Items -->
+
+                </li><!-- End Messages Nav -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                       <img src="~/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Kevin Anderson</h6>
+                            <span>Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Need Help?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " href="index.html">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+           
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    
+                    <i class="bi bi-currency-dollar bi-menu-button-wide"></i>
+                    <span class="toggle-collapse">Demo Sidebar </span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="collapseExample">
+                    <li>
+                        <a href="/Report/SalesPayrollReport">
+                            <i class="bi bi-circle"></i><span>Payroll</span>
+                        </a>
+                        <a href="/Product/ProductList">
+                            <i class="bi bi-circle"></i><span>Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/DateFormat/CreateSlider">
+                            <i class="bi bi-circle"></i><span>CreateSlider </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Category/GetDocument">
+                            <i class="bi bi-circle"></i><span>GetDocument </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/FileUpload/Index">
+                            <i class="bi bi-circle"></i><span>FileUpload</span>
+                        </a>
+                    </li>
+
+                </ul>
+            <li class="nav-item">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#sales-nav" aria-expanded="false" aria-controls="sales-nav">
+                    @*<i class="bi bi-menu-button-wide"></i>*@
+                    <i class="bi bi-currency-dollar bi-menu-button-wide"></i>
+                    <span>Sales</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="sales-nav">
+                    <li>
+                        <a href="/SalesMaster/Index">
+                            <i class="bi bi-circle"></i><span>SalesMaster </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/SalesMaster/SalesDetails">
+                            <i class="bi bi-circle"></i>
+
+                            <span>SalesDetails</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Sales Return</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapsePurchase" aria-expanded="false" aria-controls="collapseExample">
+                    @*<i class="bi bi-menu-button-wide"></i>*@
+                    <i class="bi bi-cart"></i>
+                    <span>Purchase</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="collapsePurchase">
+                    <li>
+                        <a href="/PurchaseInvoice/PurchaseInvoiceInfo">
+                            <i class="bi bi-circle"></i>
+                           
+                            <span>Purchase </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/PurchaseInvoice/ProductPurchase">
+                            <i class="bi bi-circle"></i>
+
+                            <span>Product Purchase </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Purchase Return</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li><!-- End Components Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-journal-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="collapseReports">
+                    <li>
+                        <a href="forms-elements.html">
+                            <i class="bi bi-circle"></i><span>Sales Reports</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="forms-layouts.html">
+                            <i class="bi bi-circle"></i><span>Form Layouts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="forms-editors.html">
+                            <i class="bi bi-circle"></i><span>Form Editors</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="forms-validation.html">
+                            <i class="bi bi-circle"></i><span>Form Validation</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Forms Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapseTables" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="collapseTables">
+                    <li>
+                        <a href="tables-general.html">
+                            <i class="bi bi-circle"></i><span>General Tables</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tables-data.html">
+                            <i class="bi bi-circle"></i><span>Data Tables</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Tables Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapseConfigurations" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-menu-button-wide"></i><span>Configurations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="nav-content collapse" id="collapseConfigurations">
+                    <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-circle"></i><span>Company</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Company Branch</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Badges</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-buttons.html">
+                            <i class="bi bi-circle"></i><span>Buttons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-cards.html">
+                            <i class="bi bi-circle"></i><span>Cards</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-carousel.html">
+                            <i class="bi bi-circle"></i><span>Carousel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-list-group.html">
+                            <i class="bi bi-circle"></i><span>List group</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-modal.html">
+                            <i class="bi bi-circle"></i><span>Modal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tabs.html">
+                            <i class="bi bi-circle"></i><span>Tabs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-pagination.html">
+                            <i class="bi bi-circle"></i><span>Pagination</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-progress.html">
+                            <i class="bi bi-circle"></i><span>Progress</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-spinners.html">
+                            <i class="bi bi-circle"></i><span>Spinners</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tooltips.html">
+                            <i class="bi bi-circle"></i><span>Tooltips</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Configurations Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-menu-button-wide"></i><span>Inventory Configurations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="collapseInventory" class="nav-content collapse ">
+               <li>
+                  <a href="/Product/Index">
+                        <i class="bi bi-circle"></i><span>Product</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="/Invoice/Index">
+                     <i class="bi bi-circle"></i><span>Invoice</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="/Category/Category">
+                     <i class="bi bi-circle"></i><span>Category</span>
+                  </a>
+               </li>
+                    <li>
+                        <a href="/Institute/Index">
+                            <i class="bi bi-circle"></i><span>Institute</span>
+                        </a>
+                    </li>
+                    <li>
+                      <a href="/InstituteBranch/Index">
+                            <i class="bi bi-circle"></i><span>Institute Branch</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="VoucherType/Index">
+                            <i class="bi bi-circle"></i><span>Voucher Type</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="Unit/Index">
+                           <i class="bi bi-circle"></i><span>Unit</span>
+                        </a>
+                     </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-buttons.html">
+                            <i class="bi bi-circle"></i><span>Buttons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-cards.html">
+                            <i class="bi bi-circle"></i><span>Cards</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-carousel.html">
+                            <i class="bi bi-circle"></i><span>Carousel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-list-group.html">
+                            <i class="bi bi-circle"></i><span>List group</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-modal.html">
+                            <i class="bi bi-circle"></i><span>Modal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tabs.html">
+                            <i class="bi bi-circle"></i><span>Tabs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-pagination.html">
+                            <i class="bi bi-circle"></i><span>Pagination</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-progress.html">
+                            <i class="bi bi-circle"></i><span>Progress</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-spinners.html">
+                            <i class="bi bi-circle"></i><span>Spinners</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tooltips.html">
+                            <i class="bi bi-circle"></i><span>Tooltips</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Inventory Configurations Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed custom-cursor" data-toggle="collapse" data-target="#accounts-nav" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-menu-button-wide"></i><span>Accounts Configurations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="accounts-nav" class="nav-content collapse ">
+                    <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-circle"></i><span>Ledger</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Charts of Account</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Units</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Voucher Types</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-buttons.html">
+                            <i class="bi bi-circle"></i><span>Buttons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-cards.html">
+                            <i class="bi bi-circle"></i><span>Cards</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-carousel.html">
+                            <i class="bi bi-circle"></i><span>Carousel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-list-group.html">
+                            <i class="bi bi-circle"></i><span>List group</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-modal.html">
+                            <i class="bi bi-circle"></i><span>Modal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tabs.html">
+                            <i class="bi bi-circle"></i><span>Tabs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-pagination.html">
+                            <i class="bi bi-circle"></i><span>Pagination</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-progress.html">
+                            <i class="bi bi-circle"></i><span>Progress</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-spinners.html">
+                            <i class="bi bi-circle"></i><span>Spinners</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="components-tooltips.html">
+                            <i class="bi bi-circle"></i><span>Tooltips</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Accounts Configurations Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#location-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Location Configurations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="location-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-circle"></i><span>Country</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Divisions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>District</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Thana</span>
+                        </a>
+                    </li>
+                 
+                </ul>
+            </li><!-- End Location Configurations Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#security-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Security Configurations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="security-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-circle"></i><span>Create User</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Role</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Assign User to Role</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bi bi-circle"></i><span>Change Password</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li><!-- End Location Configurations Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="charts-chartjs.html">
+                            <i class="bi bi-circle"></i><span>Chart.js</span>
+                        </a>
+                    </li>
+                    <li>
+                       @* <a href="charts-apexcharts.html">
+                            <i class="bi bi-circle"></i><span>ApexCharts</span>
+                        </a>*@
+                    </li>
+                    <li>
+                        @*<a href="charts-echarts.html">
+                            <i class="bi bi-circle"></i><span>ECharts</span>
+                        </a>*@
+                    </li>
+                </ul>
+            </li><!-- End Charts Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="icons-bootstrap.html">
+                            <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-remix.html">
+                            <i class="bi bi-circle"></i><span>Remix Icons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-boxicons.html">
+                            <i class="bi bi-circle"></i><span>Boxicons</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Icons Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="users-profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-faq.html">
+                    <i class="bi bi-question-circle"></i>
+                    <span>F.A.Q</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-contact.html">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-register.html">
+                    <i class="bi bi-card-list"></i>
+                    <span>Register</span>
+                </a>
+            </li><!-- End Register Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-login.html">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Login</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-error-404.html">
+                    <i class="bi bi-dash-circle"></i>
+                    <span>Error 404</span>
+                </a>
+            </li><!-- End Error 404 Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-blank.html">
+                    <i class="bi bi-file-earmark"></i>
+                    <span>Blank</span>
+                </a>
+            </li><!-- End Blank Page Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
+   <div class="container" style="max-width: 1378px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+@*
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Stock_Client - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+
+
+    <!-- ======= Footer ======= -->
+    <style>
+      .footer { 
+         color: #fff;
+         padding: 320px;
+         float:left;
+         text-align: center; 
+         position: relative;
+         bottom: 0;
+         width: 100%;
+      }
+    </style>
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>powersoft IT</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+           
+            Developed by <a href="https://powersoftit.com/" target="_blank">powersoft IT</a>
+        </div>
+    </footer><!-- End Footer -->
+   
+   <!-- Vendor JS Files -->
+    @*<script src="~/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>*@
+
+   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Template Main JS File -->
+    @*<script src="~/assets/js/main.js"></script>*@
+   
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

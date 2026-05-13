@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "AddLaptop";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xxxxxx" crossorigin="anonymous" />
+
+
+<main id="main" class="main">
+    <div id="imageContainer">
+        <table id="grid">
+             <tr>
+                 <th>Serial</th>
+                 <th>Image</th>
+                 <th>Title</th>
+                 <th>Action</th>
+             </tr>
+             <tbody>
+
+             </tbody>
+        </table>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        DocumentLoad(); 
+    });
+
+    var DocumentList = []
+    function DocumentLoad() {
+        $.ajax({
+            url: "https://localhost:7065/api/Category/GetDocument",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                DocumentList = data;
+                
+                DocumentListBind(DocumentList);
+                /*CategoryParentLoad(); */
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error:", textStatus, errorThrown);
+            }
+        });
+
+    }
+    function DocumentListBind(data) {
+        var container = document.getElementById('imageContainer');
+        // Clear previous content in the container
+        container.innerHTML = '';
+
+        var table = document.createElement('table');
+        table.id = 'grid';
+
+        // Table header
+        var headerRow = document.createElement('tr');
+        var headers = ['Serial', 'Image', 'Title', 'Action'];
+        headers.forEach(function (headerText) {
+            var th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // Table body
+        var tbody = document.createElement('tbody');
+
+        for (var i = 0; i < data.length; i++) {
+            var row = document.createElement('tr');
+
+            // Serial Number cell
+            var serialCell = document.createElement('td');
+            serialCell.textContent = i + 1;
+            row.appendChild(serialCell);
+
+            // Image cell
+            var imageCell = document.createElement('td');
+            var img = document.createElement('img');
+            img.src = 'https://localhost:7065' + '/' + data[i].ImageUrl;
+            img.alt = 'Image ' + i;
+            img.style.height = '100px'; // Adjust as needed
+            img.style.width = '100px'; // Adjust as needed
+            imageCell.appendChild(img);
+            row.appendChild(imageCell);
+
+            // Title cell
+            var titleCell = document.createElement('td');
+            var title = document.createElement('input');
+            title.type = 'text';
+            title.value = data[i].Title;
+            title.disabled = true; // Initially disable the input field
+
+            titleCell.appendChild(title);
+            row.appendChild(titleCell);
+
+            // Edit button cell
+            var editCell = document.createElement('td');
+            var editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+
+            // Add event listener to the edit button
+            (function (title, editButton) {
+                editButton.addEventListener('click', function () {
+                    if (title.disabled) {
+                        title.disabled = false; // Enable the input field
+                        editButton.textContent = 'Save'; // Change button text to 'Save'
+                    } else {
+                        title.disabled = true; // Disable the input field
+                        editButton.textContent = 'Edit'; // Change button text back to 'Edit'
+                    }
+                });
+            })(title, editButton); // Pass the title and editButton elements to the closure
+
+            editCell.appendChild(editButton);
+            row.appendChild(editCell);
+
+            tbody.appendChild(row);
+        }
+
+        table.appendChild(tbody);
+        container.appendChild(table); 
+
+    }
+
+</script>

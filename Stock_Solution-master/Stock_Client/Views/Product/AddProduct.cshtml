@@ -1,0 +1,148 @@
+﻿ 
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/PrivateLayout.cshtml";
+}
+ 
+<script src="~/commonui/js/configuration/product.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+
+<style>
+
+    #imagepreview {
+        display:none;
+    }
+    #dragId{
+        display:block;
+    }
+</style>
+<main id="main" class="main">
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="page-header">
+                <div class="page-title">
+                    <h4>Product Add</h4>
+                    <h6>Create new product</h6>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Product Name</label>
+                                <input type="text" id="txtProductName">
+                                <span id="spanParentID" style="display:none">0</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label class="control-label">Category Name</label>
+                                <select class="select" id="ddlCategory">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Sub Category</label>
+                                <select class="select" id="ddlSubCategory">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <select class="select" id="ddlBrand">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <select class="select" id="ddlUnit">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>SKU</label>
+                                <input type="text" id="txtsku">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Minimum Qty</label>
+                                <input type="number" class="form-control" id="txtMinimumQty">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" class="form-control" id="txtQuantity">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" id="txtDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Tax</label>
+                                <select class="select" id="txtTax">
+                                    <option value="0">Choose Tax</option>
+                                    <option value="1">2%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Discount Type</label>
+                                <select class="select" id="txtDiscountType">
+                                    <option value="0">Choose Percentage</option>
+                                    <option value="1">10%</option>
+                                    <option value="2">20%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" class="form-control" id="txtPrice">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label> Status</label>
+                                <select class="select" id="ddlStatus">
+                                    <option value="0">Closed</option>
+                                    <option value="1">Open</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label> Product Image</label>
+                                <div class="image-upload">
+                                    <input type="file" id="txtfile" onchange="uploadFileToDev()">
+                                    <div class="image-uploads" id="imagepreview">
+                                        <img id="previewImage" src="" alt="img" style="width:12%;">
+                                    </div>
+                                    <div class="image-uploads" id="dragId">
+                                        <h4>Drag and drop a file to upload</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a onclick="Save()" class="btn btn-submit me-2">Submit</a>
+                            <a href="/Product/ProductList" class="btn btn-cancel">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

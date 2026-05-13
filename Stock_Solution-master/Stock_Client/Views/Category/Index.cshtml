@@ -1,0 +1,376 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!---Js Files--->
+<script src="~/commonui/js/configuration/categories.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+
+<!-- Page header -->
+@*<main id="main" class="main">
+<div class="page-header d-print-none headerPaddingRemove">
+   <div class="container-xl">
+      <div class="row g-2 align-items-center">
+         <div class="col">
+            <h2 class="page-title">
+               Section Information
+            </h2>
+         </div>
+         <!-- Page title actions -->
+         <div class="col-auto ms-auto d-print-none">
+            <div class="btn-list">
+
+               <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                  Create New section
+               </a>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Page body -->
+<div class="page-body pageBodyPaddingRemove">
+   <div class="container-xl">
+      <div id="gridTable"></div>
+   </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mdlUserReg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Create New Section</h5> <span id="spanParentID" style="display:none">0</span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="row" style="justify-content: center;">
+               <div class="col-md-4">
+                  <label class="form-label required">Compnay Name</label> <input type="number" id="cmbCompany" class="form-control" style="width:100%; height: 37px" onblur="checkEmptyInput(this)" required />
+               </div>
+               <div class="col-md-4">
+                  <label class="form-label required">Section Name</label> <input id="name" class="form-control" style="width:100%" onblur="checkEmptyInput(this)" required />
+               </div>
+               <div class="col-md-4">
+                  <label class="form-label "></label>
+                  <label class="form-check form-check-inline" style="position:absolute;bottom:30px;">
+                     <input class="form-check-input" type="checkbox" id="isActive" checked>
+                     <span class="form-check-label">Active</span>
+                  </label>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" id="btnSave" class="btn btn-ghost-primary active w-10" onclick="Save()">Save</button>
+         </div>
+      </div>
+   </div>
+</div>
+<br />
+<br />
+
+   <div id="divtestStandard" class="table-responsive">
+      <table class="table table-vcenter card-table">
+         <tr>
+            <th>SL</th>
+            <th>Test Standard</th>
+            <th>Regular Price</th>
+            <th>ExpressPrice</th>
+            <th>Action</th>
+         </tr>
+      </table>
+   </div>
+</main>*@
+
+<main id="main" class="main">
+   @*<h2>Category Information</h2>
+   <div class="float-r">
+   <button style="font-size:20px;" title="Add Department" id="btnModal"
+   data-toggle="modal" data-target="#MyModal">
+
+   <h3>Create New Category</h3>
+   </button>
+   </div>*@
+
+   <div class="page-header d-print-none headerPaddingRemove">
+      <div class="container-xl">
+         <div class="row g-1 align-items-left">
+            <div class="col">
+               <h2>
+                  Categoy Information
+               </h2>
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+               <div class="btn-list">
+
+                  <a href="#" data-toggle="modal" id="btnModal" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                     Create New Category
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <table class="table table-bordered" id="tble">
+
+      <thead>
+         <tr>
+            <td>Name</td>
+            <td>ParentId</td>
+            <td>Description</td>
+            <td>Edit</td>
+            <td>Delete</td>
+         </tr>
+      </thead>
+      <tbody>
+      </tbody>
+   </table>
+
+   <!-- Modal -->
+   <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+               <button type="button" class="close" data-dismiss="modal"
+                       aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+                  <label id="txtId" hidden></label>
+                  <label>Name</label>
+                  <input type="text" class="form-control" id="txtName" />
+               </div>
+               @*<div class="form-group">
+               <label>ParentId</label>
+               <input type="text" class="form-control" id="ParentId" />
+               </div>*@
+               <div class="form-group">
+                  <label>ParentID</label>
+                  @*<input type="text" class="form-control" id="ParentId" />*@
+                  <select id="ParentId">
+                     <option value="0">Select Category</option>
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Description</label>
+                  <input type="text" class="form-control" id="txtDescription" />
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="Close()" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary" id="btnSave">Save changes</button>
+               <button type="button" class="btn btn-primary" onclick="Update()" id="btnUpdate">Update changes</button>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</main>
+@*@section scripts{
+   <script>
+      $(document).ready(function () {
+         GetParentCategory();
+         $("#btnUpdate").hide();
+         //$("#MyModal").modal('hide');
+         $("#btnSave").show();
+         var IsEdit = false;
+         $("#MyModal").modal({
+            backdrop: 'static',
+            keyboard: false
+            /*show: true*/
+         });
+         load()
+         //$('#MyModal').modal({
+         //        backdrop: 'static',
+         //    keyboard: true,
+         //    show: false
+         //    });
+         $("#btnModal").click(function () {
+            $("#MyModal").modal('show')
+            //$('#MyModal').modal({
+            //    backdrop: 'static',
+            //    keyboard: true,
+            //    show: true
+            //});
+
+         })
+         $("#btnSave").click(function () {
+            var obj = {
+               Name: $("#txtName").val(),
+               ParentId: $("#ParentId :selected").val(),
+               Description: $("#txtDescription").val()
+            }
+
+                console.log($("#ParentId :selected").val())
+            $.ajax({
+               url: "https://localhost:7065/api/Category",
+               type: "JSON",
+               method: "POST",
+               data: JSON.stringify(obj),
+               contentType: "application/json",
+               success: function (result) {
+                  console.log(result)
+
+                  $("#MyModal").modal('hide')
+                  clearALl(); load();
+               },
+               error: function (er) {
+                  console.log(er)
+               }
+            })
+         })
+         //$("#btnUpdate").click(function () {
+
+         //}
+
+      })
+        function GetParentCategory() {
+            $.ajax({
+                url: "https://localhost:7065/api/Category",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(element => {
+                        $('#ParentId').append('<option value='+ element.Id+ '>' + element.Name + '</option>')
+                    })
+                    //CategoryList = data;
+                    //console.log(CategoryList);
+                    //BindTestStandardPriceTable(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error:", textStatus, errorThrown);
+                }
+            });
+        }
+      function clearALl() {
+         $("#txtName").val(''),
+            $("#ParentId").val(''),
+            $("#txtDescription").val('')
+         $("#txtId").empty()
+      }
+      function Close() {
+         //alert(IsEdit);
+         //if (IsEdit == false) {
+          $("#MyModal").modal('hide')
+
+         //clearALl();
+         // }
+      }
+      function load() {
+         $.ajax({
+            url: "https://localhost:7065/api/Category",
+            type: "JSON",
+            method: "GET",
+            success: function (result) {
+               console.log(result)
+               $("#tble tbody").empty();
+               $.each(result, function (i, v) {
+                  console.log(v)
+                  var html = "<tr><td>" + v.Name + "</td>" +
+                     "<td>" + v.ParentId + "</td>" +
+                     " <td>" + v.Description + "</td>" +
+                     " <td> <button onClick='Edit(" + v.Id + ")'>Edit </button></td>" +
+                     " <td> <button onClick='Delete(" + v.Id + ")'>Delete </button></td></tr>";
+
+                  $("#tble tbody").append(html)
+               })
+            },
+            error: function (er) {
+               console.log(er)
+            }
+         })
+      }
+
+      function Edit(id) {
+         /*alert(id)*/
+         $("#btnUpdate").show();
+         $("#btnSave").hide();
+
+         $.ajax({
+            url: "https://localhost:7065/api/Category/Update" + id,
+            type: "JSON",
+            method: "GET",
+            success: function (result) {
+               $("#exampleModalLabel").html("Update Department Information");
+               console.log(result)
+               IsEdit = true;
+
+               $("#txtName").val(result.ClassesName),
+                  $("#ParentId").val(result.ShortName),
+                  $("#txtDescription").val(result.Description)
+               $("#txtId").val(result.Id)
+               $("#MyModal").modal('show')
+            },
+            error: function (er) {
+               console.log(er)
+            }
+         })
+
+      }
+      function Update() {
+         alert($("#txtId").val());
+         var url = "https://localhost:44372/api/ClassNames/" + $("#txtId").val();
+         /*var url = "https://localhost:44372/api/Departments/" + id;*/
+         var object = {
+            ClassesName: $("#txtName").val(),
+            ShortName: $("#ParentId").val(),
+            Description: $("#txtDescription").val(),
+            Id: $("#txtId").val()
+         }
+         $.ajax({
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "Put",
+
+            data: JSON.stringify(object),
+            success: function (result) {
+               //getProductData();
+               //clear();
+               $("#MyModal").modal('hide');
+               load();
+               clearALl();
+               console.log("....")
+               console.log(result)
+               //if (result > 0 ) {
+               //    load();
+               //    clearALl();
+
+               //}
+               $("#btnUpdate").hide();
+               $("#btnSave").show();
+            },
+            error: function (er) {
+               console.log(er.responseText);
+            }
+         })
+      }
+      function Delete(id) {
+         var url = "https://localhost:7065/api/Category/DeleteRange" + id;
+         $.ajax({
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "Delete",
+            success: function (result) {
+               clearALl();
+               alert(result);
+               load();
+            },
+            error: function (msg) {
+               alert(msg);
+            }
+         });
+      }
+   </script>
+}*@

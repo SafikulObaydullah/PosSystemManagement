@@ -1,0 +1,291 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+   
+   .custom-select {
+      position: relative;
+      width: 200px; 
+   } 
+      .custom-select::after {
+         content: "\25BC";
+         position: absolute;
+         top: 50%;
+         right: 10px;
+         transform: translateY(-50%);
+         pointer-events: none; /* Allows clicks to pass through to the select element */
+      }
+ 
+      .custom-select select option {
+         padding: 10px;
+         background-color: #f9f9f9;
+         color: #333;
+         border: none;
+         border-bottom: 1px solid #ccc;
+      }
+
+         .custom-select select option:checked {
+            background-color: #3498db;
+            color: white;
+         }
+
+    #mainsales {
+        margin-left: 100px;
+        margin-top:90px;
+    }
+
+    .modal-content{
+        width:150%;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<!---Js Files--->
+<script src="~/commonui/js/configuration/salesmaster.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+<main id="mainsales" class="main">
+   <div class="page-header d-print-none headerPaddingRemove">
+      <div class="container-xl">
+         <div class="row g-2 align-items-center">
+            <div class="col">
+               <h2 class="page-title">
+                  SalesMaster Information
+               </h2>
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+               <div class="btn-list"> 
+                  <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                     Create New SalesMaster
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  
+   <div class="page-body pageBodyPaddingRemove">
+      <div class="container-xl">
+         <table class="table table-bordered" id="SalesMasterList">
+            <thead>
+               <tr>
+                  <td>Customer Name</td>
+                  <td>SalesDate</td>
+                  <td>TotalQuantity</td>
+                  <td>TotalPrice</td>
+                  <td>VoucherNo</td>
+                  <td>BillNo</td>
+                  <td>TDiscountrate</td> 
+                  <td>TVatrate</td>
+                  <td>TDiscountamount</td>
+                  <td>TVatamount</td>
+                  <td>Paidamount</td>
+                  <td>Due</td>
+                  <td>Convence</td>
+                  <td>Packing</td> 
+                  <td>Edit</td>
+                  <td>Delete</td>
+               </tr>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Enter SalesMaster Information</h5>
+            </div>
+            <div class="modal-body">
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                                <label id="txtId" hidden class="control-label"></label>
+                        <label class="control-label">Institute</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlInstitute"></select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Institute Branch</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlInsBranch"></select>
+                        </div>
+                     </div>
+                  </div>  
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Customer Name</label>
+                        <div class="custom-select">
+                           <select class="form-control" id="ddlCustomer"></select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Sales Date</label>
+                        <input class="form-control" type="text" id="dteSalesDate" placeholder="Select a date">
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Total Quantity</label>
+                        <input class="form-control" type="number" id="TotalQuantity" />
+                     </div>
+                  </div> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">TotalPrice</label>
+                        <input class="form-control" type="number" id="txtTotalPrice" />
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Voucher No</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtVoucherNo" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">TDiscountrate</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtTDiscountrate" />
+                        </div>
+                     </div>
+                  </div>
+               </div>  
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">TVatrate</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtTVatrate" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">TDiscountamount</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtTDiscountamount" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">TVatamount</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtTVatamount" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Paidamount</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtPaidamount" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Due</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtDue" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Convence</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtConvence" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Packing</label>
+                        <div class="form-group">
+                           <input class="form-control" type="number" id="txtPacking" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">PaymentMode</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtPaymentMode" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;"> 
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Bill No</label>
+                        <div class="form-group">
+                           <input class="form-control" type="text" id="txtBillNo" />
+                        </div>
+                     </div>
+                  </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Note</label>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="txtNote" />
+                                </div>
+                            </div>
+                        </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">IsActive</label>
+                        <div class="form-group">
+                           <input checked type="checkbox" id="isActive" />
+                        </div>
+                     </div>
+                  </div>
+               </div> 
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="Close()" id="btnClose" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary" onclick="Save()" id="btnSave">Save changes</button>
+               <button type="button" class="btn btn-primary" onclick="Update()" id="btnUpdate">Update changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   
+</main>
+

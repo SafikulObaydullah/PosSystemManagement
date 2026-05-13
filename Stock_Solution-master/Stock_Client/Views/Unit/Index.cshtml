@@ -1,0 +1,105 @@
+﻿@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!---Js Files--->
+<script src="~/commonui/js/configuration/unit.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+<main id="main" class="main">
+   <div class="page-header d-print-none headerPaddingRemove">
+      <div class="container-xl">
+         <div class="row g-2 align-items-center">
+            <div class="col">
+               <h2 class="page-title">
+                  Unit Information
+               </h2>
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+               <div class="btn-list"> 
+                  <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                     Create New Unit
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  
+   <div class="page-body pageBodyPaddingRemove">
+      <div class="container-xl">
+         <table class="table table-bordered" id="tble">
+            <thead>
+               <tr>
+                  <td>Name</td>
+                  <td>ShortName</td>
+                  <td>Institute</td>
+                  <td>Institute Branch</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+               </tr>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Enter Unit Information</h5>
+            </div>
+            <div class="modal-body">
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label id="txtId" class="control-label"></label>
+                        <label class="control-label">Name</label>
+                        <input class="form-control" type="text" id="txtName" />
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">ShortName</label>
+                        <input class="form-control" type="text" id="txtShortName" />
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3 mt-0" style="justify-content: left;">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Institute</label>
+                        <div class="form-group">
+                           <select class="form-control" id="ddlInstitute"></select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <label class="control-label">Institute Branch</label>
+                        <div class="form-group">
+                           <select class="form-control" id="ddlInsBranch"></select>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="Close()" id="btnClose" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary" onclick="Save()" id="btnSave">Save changes</button>
+               <button type="button" class="btn btn-primary" onclick="Update()" id="btnUpdate">Update changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   
+</main>
+

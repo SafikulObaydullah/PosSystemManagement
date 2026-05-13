@@ -1,0 +1,417 @@
+﻿@{
+    ViewData["Title"] = "List of Movies";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+     
+
+   
+
+    .category {
+        max-height: 600px;
+        overflow: auto;
+    }
+</style>
+
+@*<link href="~/softghor/css/core.min.css" rel="stylesheet" />
+<link href="~/softghor/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="~/softghor/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<link href="~/softghor/css/pos.css" rel="stylesheet" />
+<link href="~/softghor/css/custom.css" rel="stylesheet" />
+<link href="~/softghor/css/toastr.css" rel="stylesheet" />
+<link href="~/softghor/css/style.min.css" rel="stylesheet" />
+<link href="~/softghor/css/app.min.css" rel="stylesheet" />
+<link href="~/softghor/css/app.min.css" rel="stylesheet" />
+<link href="~/softghor/css/select2.min.css" rel="stylesheet" />*@
+
+
+<main class="main-container main" id="main">
+
+    <header class="header bg-ui-general">
+        <div class="header-info">
+            <h1 class="header-title">
+                <strong>POS Manage</strong>
+            </h1>
+        </div>
+    </header>
+    <div class="row">
+
+        <div class="col-md-12" style="padding-left:20px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-body">
+
+                        <div class="form-row mb-3">
+                            <div class="input-group col-md-12">
+                                <span class="input-group-addon" id="basic-addon1">
+                                    <i class="fa fa-barcode"></i>
+                                </span>
+                                <input type="text" id="id_code" class="form-control ui-autocomplete-input" placeholder="Scan Barcode" name="code" autofocus="" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="form-row mb-3">
+                            <div class="col-md-12">
+                                <input type="text" id="product_search" class="form-control ui-autocomplete-input" placeholder="Start to write product name..." name="p_name" autocomplete="off">
+                                <input type="hidden" id="search_product_id">
+
+                            </div>
+                        </div>
+
+                        <form action="https://pos.softghor.com/back/pos" id="order-form" method="POST">
+                            <input type="hidden" name="_token" value="spp0Vw2tPz0B0mQ7iuFePzl0OjqhE42tOMgiJyP7">          <div class="form-row">
+                                <input type="text" data-provide="datepicker" data-date-today-highlight="true" data-date-format="yyyy-mm-dd" class="form-control" name="sale_date" value="2024-05-03">
+                            </div>
+                            <div class="form-row mt-4">
+                                <div class="form-group col-9">
+                                    <div class="btn-group bootstrap-select form-control">
+                                        <button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" data-id="customer" title="Walk-in Customer"><span class="filter-option pull-left">Walk-in Customer</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off" role="textbox" aria-label="Search"></div><div class="dropdown-menu inner" role="listbox" aria-expanded="false"><a class="dropdown-item selected" data-original-index="0"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">Walk-in Customer</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="1"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sabbir dt - 1023456</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="2"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">sabbir st - 0123456</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="3"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sobuj - 0762568842225</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="4"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mobin - 01846020946</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="5"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Subyeta Sarwar - 01710908867</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="6"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sheikh Ayesha - 01725887899</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="7"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gg - Hhh</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="8"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sonia - 01793259100</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="9"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">kishor - +1 (902) 627-1635</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="10"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Kishor - +1 (527) 793-3398</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="11"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Customer - N/A</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="12"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">kamran - 01627140567</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="13"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sajib Hassan - 01740439509</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="14"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">tut - 02558565444</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="15"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Menual Order - 01917344267</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="16"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ABC Customer - 99944433567</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="17"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahabub Hassan - 016191841520</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="18"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">khan Emran - 01752066715</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="19"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Janata jute mills - 01736037790</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="20"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Green Taste - 4514+44</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="21"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">saif apoultry - 01716445493</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="22"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ridoy - 018865544</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="23"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">md - 03737281</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="24"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Shohidul Islam - +8801611758787</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="25"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim - 01518364668</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="26"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">limon vai - 01948732748</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="27"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nazma Ahmed - 01711863421</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="28"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Tutul - 6757657657</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="29"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nirob Rumel - 01956656562</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="30"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Harun Or Rashid - 01737389486</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="31"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ttttttt - 01720</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="32"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">SAGOR - 01711517645</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="33"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">xxx - 01672702400</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="34"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Afjj - Kchjbbj</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="35"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Andullah - 01850545897</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="36"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Krishi rasayon limited Krishi rasayon limited - 01767362851</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="37"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">dss - 4154</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="38"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Himel - 01942423015</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="39"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Abu Solaiman - 96598727273</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="40"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ahmad Shamim - 01628858283</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="41"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gazi Md Kawsar - 5456465465</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="42"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 015197243800</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="43"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Abu Hanif - 018301212100</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="44"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Abu Hanif - 01830121212</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="45"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">md shohid - 01711517644</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="46"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">abu sayed - 01823985538</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="47"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Asraful islam - 01856095469</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="48"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Apple - 01712237892</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="49"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 545465</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="50"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Gazi Md Kawsar - 01817660795</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="51"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Shakib - 01519724380</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="52"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sabbir ahmed - 8494400404</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="53"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">7up customer - 01300000000</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="54"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim 2 - 01518364662</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="55"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">abc - 01723444132</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="56"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">AFTAAB - 1230556</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="57"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sayed Fahim 11 - 01511364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="58"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nazmul - 0000000000</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="59"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">test - +1 (926) 752-7649</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="60"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Ayan - 00</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="61"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">TEst - 0255669</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="62"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">MD Amir - 11122</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="63"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Nizam Enterprise - 01718469611</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="64"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">111 - 0151811364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="65"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">cccc - 01518364664</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="66"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">xxxx - 01518364661</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="67"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Kahaled - Owhwjwk</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="68"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Kamrul Hasan - 01960844035</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="69"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Masud - 5545567777</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="70"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sabbir - 65456678</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="71"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Fahim - 6678765t55</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="72"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">SHOHIAG - 01911517644</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="73"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahmudul Hasan Opu - 01612888744</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="74"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Sakib Rabby - 0184578745</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="75"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Mahmudul Hasan - 0198784545</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="76"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Sumon - 01847898745</span><span class=" ti-check check-mark"></span></span></a><a class="dropdown-item" data-original-index="77"><span tabindex="0" class="dropdown-item-inner " data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Md Juwel Khan - 01845784545</span><span class=" ti-check check-mark"></span></span></a></div></div><select name="customer" id="customer" class="form-control" data-provide="selectpicker" data-live-search="true" data-size="10" tabindex="-98">
+                                            <option value="0">Walk-in Customer</option>
+                                            <option value="77">sabbir dt - 1023456</option> 
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-3"> 
+                                    <a href="https://pos.softghor.com/back/pos/add_customer" class="edit btn btn-primary" data-toggle="modal" data-target="#edit" id="Add Customer">
+
+                                        Add
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mt-4">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-primary">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="width:220px;">Quantity</th>
+                                                <th>Price</th>
+                                                <th>Sub T</th>
+                                                <th>
+                                                    <a href="#" id="clearList">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody"></tbody>
+                                        <tfoot class="bg-danger">
+                                            <tr>
+
+                                                <th colspan="2"></th>
+                                                <th class="text-center" colspan="3">Total: <strong id="totalAmount">0</strong> Tk</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <div class="form-gorup text-center">
+                                        <button type="button" id="payment-btn" class="btn btn-primary">
+                                            <i class="fa fa-money"></i>
+                                            Payment
+                                        </button>
+                                    </div>
+
+                                    <div class="modal fade" id="payment-modal" tabindex="-1">
+                                        <div class="modal-dialog modal-md">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel">Payment</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table table-bordered text-left">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    <strong class="float-left">Paying Items: </strong>
+                                                                    <strong class="float-right">(<span id="items">0</span>)</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong class="float-left">Total Receivable: </strong>
+                                                                    <strong class="float-right">(<span id="receivable">0</span> Tk)</strong>
+                                                                    <input type="hidden" name="receivable_amount" id="receivable_input" value="0">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    <strong class="float-left">After Discount : </strong>
+                                                                    <strong class="float-right"> (<span id="after_discount">0</span> Tk)</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong class="float-left">Balance </strong>
+                                                                    <strong class="float-right"> (<span id="balance">0</span> Tk)</strong>
+                                                                    <input type="hidden" name="balance" id="balance_input" value="0">
+                                                                </td>
+                                                            </tr>
+
+
+
+                                                        </tbody>
+                                                    </table>
+                                                    <hr>
+
+
+
+
+
+
+
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="discount">Discount</label>
+                                                            <input type="text" class="form-control" id="discount" name="discount" placeholder="0%">
+
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="payment_method">Note</label>
+                                                            <textarea name="note" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="form-row">
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Transaction Account</label>
+                                                            <select name="bank_account_id" class="form-control" required="">
+                                                                <option value="1">
+                                                                    CASH
+                                                                </option>
+                                                                <option value="2">
+                                                                    Bkash
+                                                                </option>
+                                                                <option value="3">
+                                                                    City Bank
+                                                                </option>
+                                                                <option value="4">
+                                                                    xxx
+                                                                </option>
+                                                                <option value="5">
+                                                                    xxx
+                                                                </option>
+                                                                <option value="6">
+                                                                    Dutch Bangla Bank
+                                                                </option>
+                                                                <option value="7">
+                                                                    Upay
+                                                                </option>
+                                                                <option value="8">
+                                                                    MyCash
+                                                                </option>
+                                                                <option value="9">
+                                                                    xyz
+                                                                </option>
+                                                                <option value="10">
+                                                                    Hasan
+                                                                </option>
+                                                                <option value="11">
+                                                                    Malek Azad Cash
+                                                                </option>
+                                                                <option value="12">
+                                                                    Titu
+                                                                </option>
+                                                                <option value="13">
+                                                                    jisan
+                                                                </option>
+                                                                <option value="14">
+                                                                    nogod
+                                                                </option>
+                                                                <option value="15">
+                                                                    ab bank
+                                                                </option>
+                                                                <option value="16">
+                                                                    example
+                                                                </option>
+                                                                <option value="17">
+                                                                    siam
+                                                                </option>
+                                                                <option value="18">
+                                                                    jakaria
+                                                                </option>
+                                                                <option value="19">
+                                                                    Mr. John
+                                                                </option>
+                                                                <option value="20">
+                                                                    new
+                                                                </option>
+                                                                <option value="21">
+                                                                    Rahim Khan
+                                                                </option>
+                                                                <option value="22">
+                                                                    Md Kawsar Hosan
+                                                                </option>
+                                                                <option value="23">
+                                                                    islami
+                                                                </option>
+                                                                <option value="24">
+                                                                    lowestin
+                                                                </option>
+                                                                <option value="25">
+                                                                    Cash On Delivery
+                                                                </option>
+                                                                <option value="26">
+                                                                    jakir hossain
+                                                                </option>
+                                                                <option value="27">
+                                                                    test
+                                                                </option>
+                                                                <option value="28">
+                                                                    Biswzit Karmaker
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+
+
+
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="pay_amount">Pay Amount</label>
+                                                            <div class="input-group">
+                                                                <input type="number" step="any" class="form-control" name="pay_amount" id="pay_amount" placeholder="Pay Amount...">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-warning" type="button" id="paid_btn">PAID!</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-bold btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-bold btn-primary" id="order-btn">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        Order
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-right:20px;">
+                    <div id="products">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Category</h3>
+                                    </div>
+                                    <div class="card-body category">
+                                        <ul class="list-group">
+                                             
+                                            <li class="list-group-item px-0 py-1">
+                                                <a href="#" class="btn btn-primary btn-block" onclick="getProductsByCat(71)">2.1KG</a>
+                                            </li>
+                                            <li class="list-group-item px-0 py-1">
+                                                <a href="#" class="btn btn-primary btn-block" onclick="getProductsByCat(73)">3 PCS</a>
+                                            </li>
+                                            <li class="list-group-item px-0 py-1">
+                                                <a href="#" class="btn btn-primary btn-block" onclick="getProductsByCat(27)">7up</a>
+                                            </li> 
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Product List</h3>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <form action="https://pos.softghor.com/back/pos-products" class="product-filter">
+                                            <div class="row">
+                                                <div class="col-md-6" style="padding-left:4px;">
+                                                    <input type="text" name="code" class="form-control code">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="submit" class="btn btn-success" value="Search">
+                                                    <a href="https://pos.softghor.com/back/pos/create" class="btn btn-info">Reset</a>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <div class="row">
+                                            <div class=" product text-center col-md-3 col-sm-4 product" data-value="46">
+                                                <img src="~/image/bmtl-logo.png" class="align-self-start img-thumbnail" alt="10 ziros" style="width:80px">
+                                                <br>
+                                                <span>10 ziros - 00000046</span>
+                                                <br>
+                                                <small class="font-weight-bold">105.00</small> Tk
+                                                <br>
+                                                <small class="stock">Stock : 0 pc</small>
+                                            </div>
+                                            <div class=" product text-center col-md-3 col-sm-4 product" data-value="14">
+                                                <img src="~/image/bmtl-logo.png" class="align-self-start img-thumbnail" alt="1111111111" style="width:80px">
+                                                <br>
+                                                <span>1111111111 - 00000014</span>
+                                                <br>
+                                                <small class="font-weight-bold">100.00</small> Tk
+                                                <br>
+                                                <small class="stock">Stock : 0 Dozen 0 pc</small>
+                                            </div>
+                                            <div class=" product text-center col-md-3 col-sm-4 product" data-value="13">
+                                                <img src="~/image/bmtl-logo.png" class="align-self-start img-thumbnail" alt="11fasdfasdfnasd;jfjdasfjklasdjfljsd;ajf;asdjf;asdj;fd" style="width:80px">
+                                              
+                                                <br>
+                                                <span>11fasdfasdfnasd;jfjdasfjklasdjfljsd;ajf;asdjf;asdj;fd - 00000013</span>
+                                                <br>
+                                                <small class="font-weight-bold">1.00</small> Tk
+                                                <br>
+                                                <small class="stock">Stock : 2 pc</small>
+                                            </div>
+                                            <div class=" product text-center col-md-3 col-sm-4 product" data-value="160">
+                                                <img src="~/image/bmtl-logo.png" class="align-self-start img-thumbnail" alt="12 v 7.5 ah" style="width:80px">
+                                                <br>
+                                                <span>12 v 7.5 ah - 00000160</span>
+                                                <br>
+                                                <small class="font-weight-bold">1000.00</small> Tk
+                                                <br>
+                                                <small class="stock">Stock : 22 pc</small>
+                                            </div>
+                                            
+                                        </div>
+                                        <nav class="my-3">
+                                            <ul class="pagination justify-content-center">
+
+                                                
+                                            </ul>
+                                        </nav>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="alert-modal" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <h3>Please add some products.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

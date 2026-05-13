@@ -1,0 +1,81 @@
+﻿@*@model List<PPOS.Entities.EmployeeBonusReportModel>*@
+@{
+   ViewData["Title"] = "Home Page";
+   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+   Layout = null;
+   string firstcheckin = "";
+   string imgcheckin = "";
+   string lastCheckout = "";
+   string workhour = "";
+   string checkdate = "";
+   int serial = 1;
+}
+
+<div class="filter-customer-container">
+   <table class="table table-bordered mb-3 custom_report_table">
+      <thead class="bg-light">
+         <tr>
+            <th scope="col">SL</th>
+            <th scope="col">ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Department</th>
+            <th scope="col">Date of Joining</th>
+            <th scope="col">Basic Salary</th>
+            <th scope="col">Gross Salary</th>
+            <th scope="col">Bonus Amount</th>
+         </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+        @* @if (Model.Count > 0)
+         {
+            @foreach (var item in Model)
+            {
+               <tr>
+                  <td>
+                     @serial
+                  </td>
+                  <td>
+                     @item.UsedIdNo
+                  </td>
+                  <td>
+                     @item.FullName
+                  </td>
+                  <td>
+                     @item.Designation
+                  </td>
+                  <td>
+                     @item.Department
+                  </td>
+                  <td>
+                     @item.JoiningDate.ToShortDateString()
+                  </td>
+                  <td>
+                     @item.BasicSalary
+                  </td>
+                  <td>
+                     @item.GrossSalary
+                  </td>
+                  <td>
+                     @item.BonusAmount
+                  </td>
+               </tr>
+               serial++;
+            }
+         }
+         else
+         {
+            <tr>
+               <td colspan="5">No data</td>
+            </tr>
+         }*@
+
+   </table>
+</div>
+
+
+

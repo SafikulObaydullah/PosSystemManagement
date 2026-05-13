@@ -1,0 +1,1668 @@
+﻿USE [master]
+GO
+/****** Object:  Database [StockManagement]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE DATABASE [StockManagement]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'StockManagement', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS01\MSSQL\DATA\StockManagement.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'StockManagement_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS01\MSSQL\DATA\StockManagement_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [StockManagement] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [StockManagement].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [StockManagement] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [StockManagement] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [StockManagement] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [StockManagement] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [StockManagement] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [StockManagement] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [StockManagement] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [StockManagement] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [StockManagement] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [StockManagement] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [StockManagement] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [StockManagement] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [StockManagement] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [StockManagement] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [StockManagement] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [StockManagement] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [StockManagement] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [StockManagement] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [StockManagement] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [StockManagement] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [StockManagement] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [StockManagement] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [StockManagement] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [StockManagement] SET  MULTI_USER 
+GO
+ALTER DATABASE [StockManagement] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [StockManagement] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [StockManagement] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [StockManagement] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [StockManagement] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [StockManagement] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [StockManagement] SET QUERY_STORE = OFF
+GO
+USE [StockManagement]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoleClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](256) NULL,
+	[NormalizedName] [nvarchar](256) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[ProviderKey] [nvarchar](450) NOT NULL,
+	[ProviderDisplayName] [nvarchar](max) NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](450) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](450) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[InsId] [int] NOT NULL,
+	[InsBranchId] [int] NOT NULL,
+	[Fullname] [nvarchar](max) NOT NULL,
+	[UserName] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserTokens]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserTokens](
+	[UserId] [nvarchar](450) NOT NULL,
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](450) NOT NULL,
+	[Value] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[LoginProvider] ASC,
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AssignCategories]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AssignCategories](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CatID] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_AssignCategories] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[BusinessPartners]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[BusinessPartners](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Address] [nvarchar](max) NOT NULL,
+	[ContactNo] [nvarchar](max) NOT NULL,
+	[ContactDate] [datetime2](7) NOT NULL,
+	[ContactPerson] [nvarchar](max) NOT NULL,
+	[EntryBy] [int] NOT NULL,
+	[EntryDate] [datetime2](7) NOT NULL,
+	[Mobile] [nvarchar](max) NOT NULL,
+	[SubDistrictID] [int] NOT NULL,
+	[BusinessPartnerType] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_BusinessPartners] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categories](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ParentId] [int] NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ChartsofAccounts]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ChartsofAccounts](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[AccName] [nvarchar](max) NOT NULL,
+	[AccShortName] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[OpeningBalance] [decimal](18, 2) NOT NULL,
+	[GroupID] [int] NOT NULL,
+	[AccCode] [int] NOT NULL,
+	[CompanyID] [int] NOT NULL,
+	[IsSubledger] [bit] NOT NULL,
+	[IsInventory] [bit] NOT NULL,
+	[AccType] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_ChartsofAccounts] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CompanysFixedCosts]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CompanysFixedCosts](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FixedCostParticulars] [int] NOT NULL,
+	[InstituteId] [int] NOT NULL,
+	[InsBranchId] [int] NOT NULL,
+	[CostAmount] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_CompanysFixedCosts] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Countries]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Countries](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Countries] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[District]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[District](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[DivisionId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_District] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Division]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Division](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[CountryID] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Division] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FinancialYears]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FinancialYears](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[StartDate] [datetime2](7) NOT NULL,
+	[EndDate] [datetime2](7) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_FinancialYears] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FixedCostsParticulars]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FixedCostsParticulars](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ParticularsName] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_FixedCostsParticulars] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[InsBranches]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[InsBranches](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[BranchName] [nvarchar](max) NOT NULL,
+	[BranchShortName] [nvarchar](max) NOT NULL,
+	[ConatcNumber] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[Address] [nvarchar](max) NOT NULL,
+	[IsMainbranch] [bit] NOT NULL,
+	[InsId] [int] NOT NULL,
+ CONSTRAINT [PK_InsBranches] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Institutes]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Institutes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[InstituteName] [nvarchar](120) NOT NULL,
+	[ShortName] [nvarchar](8) NOT NULL,
+	[ContactNumber] [nvarchar](120) NOT NULL,
+	[AdminEmail] [nvarchar](max) NOT NULL,
+	[AdminEmailPassword] [nvarchar](max) NOT NULL,
+	[Address] [nvarchar](max) NOT NULL,
+	[LogoPath] [nvarchar](max) NULL,
+	[BannerPath] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Institutes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Invoices]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Invoices](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[InvoiceId] [nvarchar](max) NOT NULL,
+	[BanlanceDue] [float] NOT NULL,
+	[PaymentType] [nvarchar](max) NOT NULL,
+	[VehicleName] [nvarchar](max) NOT NULL,
+	[ChasisNo] [nvarchar](max) NOT NULL,
+	[EngineNo] [nvarchar](max) NOT NULL,
+	[FuelType] [nvarchar](max) NOT NULL,
+	[Color] [nvarchar](max) NOT NULL,
+	[ModelNo] [nvarchar](max) NOT NULL,
+	[Mileage] [int] NOT NULL,
+	[Amount] [float] NOT NULL,
+	[Tax] [float] NOT NULL,
+	[Discount] [float] NOT NULL,
+	[TotalAmount] [float] NOT NULL,
+ CONSTRAINT [PK_Invoices] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LedgerGroups]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LedgerGroups](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[LedgerGroupName] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[ParentID] [int] NOT NULL,
+	[GroupCode] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_LedgerGroups] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LoginModels]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LoginModels](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[UserName] [nvarchar](max) NULL,
+	[Password] [nvarchar](max) NULL,
+	[RefreshToken] [nvarchar](max) NULL,
+	[RefreshTokenExpiryTime] [datetime2](7) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_LoginModels] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PayMethods]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PayMethods](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[AccountNumber] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[InsId] [int] NOT NULL,
+	[InBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_PayMethods] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Products]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Products](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](max) NULL,
+	[Name] [nvarchar](max) NULL,
+	[EntryBy] [nvarchar](max) NULL,
+	[EntryDate] [datetime2](7) NULL,
+	[Reorderlevel] [int] NULL,
+	[UnitName] [nvarchar](max) NULL,
+	[Boxqty] [decimal](18, 2) NULL,
+	[UnitId] [int] NULL,
+	[CatId] [int] NULL,
+	[SalesPrice] [decimal](18, 2) NULL,
+	[PurchasePrice] [decimal](18, 2) NULL,
+	[Discountrate] [decimal](18, 2) NULL,
+	[Vatrate] [decimal](18, 2) NULL,
+	[Discountamount] [decimal](18, 2) NULL,
+	[Vatamount] [decimal](18, 2) NULL,
+	[Description] [nvarchar](max) NULL,
+	[IsActive] [bit] NULL,
+	[StockQty] [int] NULL,
+	[insId] [int] NULL,
+	[inBranchsId] [int] NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[ChasisNo] [nvarchar](max) NOT NULL,
+	[Color] [nvarchar](max) NOT NULL,
+	[EngineNo] [nvarchar](max) NOT NULL,
+	[FuelType] [nvarchar](max) NOT NULL,
+	[Mileage] [int] NOT NULL,
+	[ModelNo] [nvarchar](max) NOT NULL,
+	[VehicleName] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PurchaseDetails]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PurchaseDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](max) NOT NULL,
+	[MasterId] [int] NOT NULL,
+	[Bonus] [int] NOT NULL,
+	[Discountrate] [decimal](18, 2) NOT NULL,
+	[Vatrate] [decimal](18, 2) NOT NULL,
+	[Discountamount] [decimal](18, 2) NOT NULL,
+	[Vatamount] [decimal](18, 2) NOT NULL,
+	[NetAmount] [decimal](18, 2) NOT NULL,
+	[UnitQty] [int] NOT NULL,
+	[UnitPrice] [decimal](18, 2) NOT NULL,
+	[TotalPrice] [decimal](18, 2) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[PurchasemasterID] [int] NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_PurchaseDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Purchasemasters]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Purchasemasters](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[PurchaseDate] [datetime2](7) NOT NULL,
+	[TotalQuantity] [decimal](18, 4) NOT NULL,
+	[TotalPrice] [decimal](18, 4) NOT NULL,
+	[BonusAmount] [int] NOT NULL,
+	[NetAmount] [decimal](18, 4) NOT NULL,
+	[VoucherNo] [nvarchar](max) NOT NULL,
+	[TranNo] [int] NOT NULL,
+	[InvoiceNo] [nvarchar](max) NOT NULL,
+	[TDiscountrate] [decimal](18, 4) NOT NULL,
+	[TVatrate] [decimal](18, 4) NOT NULL,
+	[TDiscountamount] [decimal](18, 4) NOT NULL,
+	[TVatamount] [decimal](18, 4) NOT NULL,
+	[Paidamount] [decimal](18, 4) NOT NULL,
+	[Due] [decimal](18, 4) NOT NULL,
+	[Convence] [decimal](18, 4) NOT NULL,
+	[Packing] [decimal](18, 4) NOT NULL,
+	[EntryBy] [nvarchar](max) NOT NULL,
+	[EntryDate] [datetime2](7) NOT NULL,
+	[Note] [nvarchar](max) NOT NULL,
+	[LaborCost] [decimal](18, 4) NOT NULL,
+	[TotalCost] [decimal](18, 4) NOT NULL,
+	[UnitCost] [decimal](18, 4) NOT NULL,
+	[SupplierID] [int] NOT NULL,
+	[PaymodeID] [int] NOT NULL,
+	[VoucherTypeID] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Purchasemasters] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SalesDetails]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SalesDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](max) NOT NULL,
+	[MasterId] [int] NOT NULL,
+	[Discountrate] [decimal](18, 4) NOT NULL,
+	[Vatrate] [decimal](18, 4) NOT NULL,
+	[Discountamount] [decimal](18, 4) NOT NULL,
+	[Vatamount] [decimal](18, 4) NOT NULL,
+	[NetAmount] [decimal](18, 4) NOT NULL,
+	[UnitQty] [int] NOT NULL,
+	[UnitPrice] [decimal](18, 4) NOT NULL,
+	[TotalPrice] [decimal](18, 4) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_SalesDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SalesMasters]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SalesMasters](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[SalesDate] [datetime2](7) NOT NULL,
+	[TotalQuantity] [int] NOT NULL,
+	[TotalPrice] [decimal](18, 4) NOT NULL,
+	[VoucherNo] [nvarchar](max) NOT NULL,
+	[BillNo] [nvarchar](max) NOT NULL,
+	[TDiscountrate] [decimal](18, 4) NOT NULL,
+	[TVatrate] [int] NOT NULL,
+	[TDiscountamount] [decimal](18, 4) NOT NULL,
+	[TVatamount] [decimal](18, 4) NOT NULL,
+	[Paidamount] [decimal](18, 4) NOT NULL,
+	[Due] [decimal](18, 4) NOT NULL,
+	[Convence] [decimal](18, 4) NOT NULL,
+	[Packing] [decimal](18, 4) NOT NULL,
+	[EntryBy] [int] NOT NULL,
+	[EntryDate] [datetime2](7) NOT NULL,
+	[Note] [nvarchar](max) NOT NULL,
+	[PaymentMode] [nvarchar](max) NOT NULL,
+	[CustomerID] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_SalesMasters] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Stock]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Stock](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[StockDate] [datetime2](7) NOT NULL,
+	[StockInQty] [int] NOT NULL,
+	[StockOutQty] [int] NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Stock] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SubDistrict]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SubDistrict](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[DistrictId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_SubDistrict] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TransMasters]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TransMasters](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[TransNO] [int] NULL,
+	[InvoiceNO] [nvarchar](max) NULL,
+	[vdate] [datetime2](7) NULL,
+	[vtype] [nvarchar](max) NULL,
+	[vno] [nvarchar](max) NULL,
+	[CRate] [decimal](18, 2) NULL,
+	[AccID] [int] NULL,
+	[Amount] [decimal](18, 2) NULL,
+	[AmountType] [int] NULL,
+	[RefAccID] [int] NULL,
+	[SubID] [int] NULL,
+	[UserID] [nvarchar](max) NULL,
+	[isPosted] [int] NULL,
+	[TaxID] [int] NULL,
+	[VoucherTypeId] [int] NULL,
+	[MoneyReceiptId] [int] NULL,
+	[BillModeID] [int] NULL,
+	[BillAmount] [decimal](18, 2) NULL,
+	[IsNormalVoucher] [int] NULL,
+	[RefNo] [nvarchar](max) NULL,
+	[Narration] [nvarchar](max) NULL,
+	[InsId] [int] NULL,
+	[InBranchsId] [int] NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_TransMasters] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Units]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Units](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Shortname] [nvarchar](max) NOT NULL,
+	[insId] [int] NOT NULL,
+	[inBranchsId] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_Units] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[VoucherTypes]    Script Date: 12/5/2023 2:56:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VoucherTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[VoucharName] [nvarchar](max) NULL,
+	[PrefixCode] [nvarchar](max) NULL,
+	[VoucharNameB] [nvarchar](max) NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[UpdatedDate] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](max) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_VoucherTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20230817183853_init', N'6.0.16')
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20230820155656_database', N'6.0.16')
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20231109085017_initialUnitId', N'6.0.16')
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20231125020852_vehicleInfo', N'6.0.16')
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20231125021126_CreateInvoice', N'6.0.16')
+GO
+SET IDENTITY_INSERT [dbo].[BusinessPartners] ON 
+
+INSERT [dbo].[BusinessPartners] ([Id], [Name], [Address], [ContactNo], [ContactDate], [ContactPerson], [EntryBy], [EntryDate], [Mobile], [SubDistrictID], [BusinessPartnerType], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (19, N'ddd', N'dd', N'dd', CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'ddd', 1, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'01311828703', 2, 22, 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), NULL, NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[BusinessPartners] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Categories] ON 
+
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (3, 2, N'Electronics', N'Electronics', CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (20, 1, N'Biscuits', N'Biscuits', CAST(N'2023-08-31T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-08-31T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (21, 1, N'Powder', N'Powder', CAST(N'2023-09-01T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-01T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (22, 1, N'Soap', N'Soap', CAST(N'2023-09-01T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-01T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (23, 2, N'tt', N'ttt', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (24, 1, N'Pendsgfdsgfds', N'Pendsgfdfd', CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Categories] ([Id], [ParentId], [Description], [Name], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (25, 1, N'Electronics', N'Electronics', CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-11T00:00:00.0000000' AS DateTime2), NULL, 1)
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Countries] ON 
+
+INSERT [dbo].[Countries] ([Id], [Name], [Description], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'eeee', N'eee', CAST(N'2023-09-09T00:00:00.0000000' AS DateTime2), N'22', CAST(N'2023-09-09T00:00:00.0000000' AS DateTime2), N'1', 1)
+SET IDENTITY_INSERT [dbo].[Countries] OFF
+GO
+SET IDENTITY_INSERT [dbo].[District] ON 
+
+INSERT [dbo].[District] ([Id], [Name], [Description], [DivisionId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, N'eee', N'eeee', 1, CAST(N'2023-09-09T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[District] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Division] ON 
+
+INSERT [dbo].[Division] ([Id], [Name], [Description], [CountryID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'eeeeee', N'eee', 1, CAST(N'2023-09-09T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[Division] OFF
+GO
+SET IDENTITY_INSERT [dbo].[InsBranches] ON 
+
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (3, N'string', N'string', N'string', N'string', N'string', 1, 8)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (4, N'ff', N'ddd', N'ddd', N'ddd', N'ddd', 1, 2)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (5, N'ggg', N'dddd', N'dd', N'ddd', N'ddd', 1, 4)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (6, N'ddd', N'ddd', N'dd', N'ddd', N'ddd', 1, 2)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (7, N'string', N'string', N'string', N'string', N'string', 1, 6)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (8, N'Powersoft', N'Powersoft', N'Powersoft', N'Powersoft', N'Powersoft', 1, 4)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (9, N'Raven System', N'Raven System', N'Raven System', N'Raven System', N'Raven System', 1, 5)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (10, N'string', N'string', N'string', N'string', N'string', 1, 9)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (11, N'string', N'string', N'string', N'string', N'string', 1, 11)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (12, N'string', N'string', N'string', N'string', N'string', 1, 13)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (13, N'string', N'string', N'string', N'string', N'string', 1, 15)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (14, N'eee', N'eee', N'string', N'string', N'string', 1, 17)
+INSERT [dbo].[InsBranches] ([Id], [BranchName], [BranchShortName], [ConatcNumber], [Email], [Address], [IsMainbranch], [InsId]) VALUES (15, N'string', N'string', N'string', N'string', N'string', 1, 18)
+SET IDENTITY_INSERT [dbo].[InsBranches] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Institutes] ON 
+
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (2, N'string', N'string', N'string', N'string', N'string', N'string', N'', N'')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (3, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (4, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (5, N'eeee', N'eee', N'3244555', N'eee', N'rrrr', N'rrrr', N'', N'')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (6, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (8, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (9, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (10, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (11, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (12, N'eee', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (13, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (14, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (15, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (16, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (17, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (18, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (19, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+INSERT [dbo].[Institutes] ([Id], [InstituteName], [ShortName], [ContactNumber], [AdminEmail], [AdminEmailPassword], [Address], [LogoPath], [BannerPath]) VALUES (20, N'string', N'string', N'string', N'string', N'string', N'string', N'string', N'string')
+SET IDENTITY_INSERT [dbo].[Institutes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Invoices] ON 
+
+INSERT [dbo].[Invoices] ([Id], [InvoiceId], [BanlanceDue], [PaymentType], [VehicleName], [ChasisNo], [EngineNo], [FuelType], [Color], [ModelNo], [Mileage], [Amount], [Tax], [Discount], [TotalAmount]) VALUES (1, N'ddd', 60, N'string', N'string', N'string', N'string', N'string', N'string', N'string', 0, 0, 0, 0, 0)
+INSERT [dbo].[Invoices] ([Id], [InvoiceId], [BanlanceDue], [PaymentType], [VehicleName], [ChasisNo], [EngineNo], [FuelType], [Color], [ModelNo], [Mileage], [Amount], [Tax], [Discount], [TotalAmount]) VALUES (2, N'fff', 430, N'ff', N'hh', N'ff', N'hhh', N'ddd', N'dd', N'dds', 20, 10, 20, 20, 20)
+INSERT [dbo].[Invoices] ([Id], [InvoiceId], [BanlanceDue], [PaymentType], [VehicleName], [ChasisNo], [EngineNo], [FuelType], [Color], [ModelNo], [Mileage], [Amount], [Tax], [Discount], [TotalAmount]) VALUES (3, N'fff', 430, N'ff', N'hh', N'ff', N'hhh', N'ddd', N'dd', N'dds', 20, 10, 20, 20, 20)
+INSERT [dbo].[Invoices] ([Id], [InvoiceId], [BanlanceDue], [PaymentType], [VehicleName], [ChasisNo], [EngineNo], [FuelType], [Color], [ModelNo], [Mileage], [Amount], [Tax], [Discount], [TotalAmount]) VALUES (4, N'gdffdg', 44, N'cash', N'Honda', N'Chasis No', N'Engine No ', N'Octan', N'Green', N'200 cc', 534, 33, 43, 22, 360)
+SET IDENTITY_INSERT [dbo].[Invoices] OFF
+GO
+SET IDENTITY_INSERT [dbo].[PayMethods] ON 
+
+INSERT [dbo].[PayMethods] ([Id], [Name], [AccountNumber], [Description], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'dd', N'dd', N'dd', 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[PayMethods] ([Id], [Name], [AccountNumber], [Description], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, N'dd', N'dd', N'dd', 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[PayMethods] ([Id], [Name], [AccountNumber], [Description], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (3, N'dd', N'dd', N'dd', 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[PayMethods] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Products] ON 
+
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (6, N'string', N'string', N'obaydullah', CAST(N'2023-09-29T07:53:12.5465772' AS DateTime2), 10, N'PC', CAST(0.00 AS Decimal(18, 2)), 1, 3, CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), N'string', 1, 10, 2, 3, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, N'', N'', N'', N'', 0, N'', N'')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (7, N'string', N'string', N'obaydullah', CAST(N'2023-09-29T07:53:12.5465772' AS DateTime2), 10, N'PC', CAST(0.00 AS Decimal(18, 2)), 1, 3, CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), N'string', 1, 10, 2, 3, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, N'', N'', N'', N'', 0, N'', N'')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (8, N'string', N'string', N'obaydullah', CAST(N'2023-09-29T07:53:12.5465772' AS DateTime2), 10, N'PC', CAST(0.00 AS Decimal(18, 2)), 1, 3, CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), N'string', 1, 10, 2, 3, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, N'', N'', N'', N'', 0, N'', N'')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (10, N'', N'string', N'', CAST(N'2023-09-29T07:53:12.5465772' AS DateTime2), 10, N'PC', CAST(1.00 AS Decimal(18, 2)), 6, 22, CAST(22.00 AS Decimal(18, 2)), CAST(22.00 AS Decimal(18, 2)), CAST(2.00 AS Decimal(18, 2)), CAST(22.00 AS Decimal(18, 2)), CAST(22.00 AS Decimal(18, 2)), CAST(33.00 AS Decimal(18, 2)), N'ddd', 1, 3, 5, 8, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-29T00:00:00.0000000' AS DateTime2), NULL, N'', N'', N'', N'', 0, N'', N'')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (11, N'string', N'string', N'string', CAST(N'2023-11-25T09:21:49.1676375' AS DateTime2), 0, N'PC', CAST(0.00 AS Decimal(18, 2)), 1, 3, CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), N'string', 1, 12, 2, 3, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, N'string', N'string', N'string', N'string', 121, N'string', N'string')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (12, N'string', N'string', N'string', CAST(N'2023-11-25T09:35:09.1507688' AS DateTime2), 0, N'PC', CAST(0.00 AS Decimal(18, 2)), 1, 3, CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), N'cc', 1, 0, 2, 3, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, N'dd', N'string', N'string', N'string', 0, N'string', N'dd')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (13, N'dd', N'ddd', N'', CAST(N'2023-11-25T10:02:09.9046218' AS DateTime2), 43, N'PC', CAST(333.00 AS Decimal(18, 2)), 1, 20, CAST(1.00 AS Decimal(18, 2)), CAST(1.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), N'', 1, 0, 3, 4, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, N'dd', N'red', N'dd', N'ddd', 33, N'sss', N'dd')
+INSERT [dbo].[Products] ([Id], [Code], [Name], [EntryBy], [EntryDate], [Reorderlevel], [UnitName], [Boxqty], [UnitId], [CatId], [SalesPrice], [PurchasePrice], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [Description], [IsActive], [StockQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ChasisNo], [Color], [EngineNo], [FuelType], [Mileage], [ModelNo], [VehicleName]) VALUES (14, N'dd', N'ddd', N'', CAST(N'2023-11-25T10:06:31.2673654' AS DateTime2), 33, N'PC', CAST(22.00 AS Decimal(18, 2)), 1, 21, CAST(1.00 AS Decimal(18, 2)), CAST(1.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), N'', 1, 0, 3, 5, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-11-25T00:00:00.0000000' AS DateTime2), NULL, N'Chasis No', N'Green', N'Engine No ', N'Octan', 20, N'200 cc', N'Honda')
+SET IDENTITY_INSERT [dbo].[Products] OFF
+GO
+SET IDENTITY_INSERT [dbo].[PurchaseDetails] ON 
+
+INSERT [dbo].[PurchaseDetails] ([Id], [Code], [MasterId], [Bonus], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [NetAmount], [UnitQty], [UnitPrice], [TotalPrice], [ProductId], [insId], [inBranchsId], [PurchasemasterID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'233', 6, 32, CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(21.00 AS Decimal(18, 2)), CAST(12.00 AS Decimal(18, 2)), 2, CAST(23.00 AS Decimal(18, 2)), CAST(33.00 AS Decimal(18, 2)), 6, 2, 3, 6, CAST(N'2023-10-18T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[PurchaseDetails] ([Id], [Code], [MasterId], [Bonus], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [NetAmount], [UnitQty], [UnitPrice], [TotalPrice], [ProductId], [insId], [inBranchsId], [PurchasemasterID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, N'233', 6, 32, CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(21.00 AS Decimal(18, 2)), CAST(12.00 AS Decimal(18, 2)), 2, CAST(23.00 AS Decimal(18, 2)), CAST(33.00 AS Decimal(18, 2)), 6, 2, 3, 6, CAST(N'2023-10-18T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[PurchaseDetails] ([Id], [Code], [MasterId], [Bonus], [Discountrate], [Vatrate], [Discountamount], [Vatamount], [NetAmount], [UnitQty], [UnitPrice], [TotalPrice], [ProductId], [insId], [inBranchsId], [PurchasemasterID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (3, N'233', 6, 32, CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(23.00 AS Decimal(18, 2)), CAST(21.00 AS Decimal(18, 2)), CAST(12.00 AS Decimal(18, 2)), 2, CAST(23.00 AS Decimal(18, 2)), CAST(33.00 AS Decimal(18, 2)), 6, 2, 3, 6, CAST(N'2023-10-18T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[PurchaseDetails] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Purchasemasters] ON 
+
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (6, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), CAST(20.0000 AS Decimal(18, 4)), CAST(43.0000 AS Decimal(18, 4)), 43, CAST(32.0000 AS Decimal(18, 4)), N'1', 1, N'1', CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(223.0000 AS Decimal(18, 4)), CAST(122.0000 AS Decimal(18, 4)), CAST(32.0000 AS Decimal(18, 4)), CAST(11.0000 AS Decimal(18, 4)), N'1', CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'Note', CAST(450.0000 AS Decimal(18, 4)), CAST(550.0000 AS Decimal(18, 4)), CAST(360.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (7, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), CAST(20.0000 AS Decimal(18, 4)), CAST(43.0000 AS Decimal(18, 4)), 43, CAST(32.0000 AS Decimal(18, 4)), N'1', 1, N'1', CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(223.0000 AS Decimal(18, 4)), CAST(122.0000 AS Decimal(18, 4)), CAST(32.0000 AS Decimal(18, 4)), CAST(11.0000 AS Decimal(18, 4)), N'1', CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'Note', CAST(450.0000 AS Decimal(18, 4)), CAST(550.0000 AS Decimal(18, 4)), CAST(360.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (8, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), CAST(20.0000 AS Decimal(18, 4)), CAST(43.0000 AS Decimal(18, 4)), 43, CAST(32.0000 AS Decimal(18, 4)), N'1', 1, N'1', CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(1.0000 AS Decimal(18, 4)), CAST(223.0000 AS Decimal(18, 4)), CAST(122.0000 AS Decimal(18, 4)), CAST(32.0000 AS Decimal(18, 4)), CAST(11.0000 AS Decimal(18, 4)), N'1', CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'Note', CAST(450.0000 AS Decimal(18, 4)), CAST(550.0000 AS Decimal(18, 4)), CAST(360.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-14T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1003, CAST(N'2023-10-17T00:00:00.0000000' AS DateTime2), CAST(0.0000 AS Decimal(18, 4)), CAST(10.0000 AS Decimal(18, 4)), 10, CAST(10.0000 AS Decimal(18, 4)), N'string', 10, N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), N'string', CAST(N'2023-10-17T04:50:40.0300000' AS DateTime2), N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-17T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-17T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1006, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, CAST(10.0000 AS Decimal(18, 4)), N'string', 1, N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), N'string', CAST(N'2023-10-19T03:09:01.4070000' AS DateTime2), N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Purchasemasters] ([ID], [PurchaseDate], [TotalQuantity], [TotalPrice], [BonusAmount], [NetAmount], [VoucherNo], [TranNo], [InvoiceNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [LaborCost], [TotalCost], [UnitCost], [SupplierID], [PaymodeID], [VoucherTypeID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1007, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, CAST(10.0000 AS Decimal(18, 4)), N'string', 2, N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), N'string', CAST(N'2023-10-19T03:09:01.4070000' AS DateTime2), N'string', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 19, 1, 1, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+SET IDENTITY_INSERT [dbo].[Purchasemasters] OFF
+GO
+SET IDENTITY_INSERT [dbo].[SalesMasters] ON 
+
+INSERT [dbo].[SalesMasters] ([ID], [SalesDate], [TotalQuantity], [TotalPrice], [VoucherNo], [BillNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [PaymentMode], [CustomerID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (6, CAST(N'2023-11-18T14:55:32.5100000' AS DateTime2), 2320, CAST(230.0000 AS Decimal(18, 4)), N'string', N'string', CAST(320.0000 AS Decimal(18, 4)), 220, CAST(3230.0000 AS Decimal(18, 4)), CAST(20.0000 AS Decimal(18, 4)), CAST(20.0000 AS Decimal(18, 4)), CAST(230.0000 AS Decimal(18, 4)), CAST(230.0000 AS Decimal(18, 4)), CAST(230.0000 AS Decimal(18, 4)), 230, CAST(N'2023-11-18T14:55:32.5100000' AS DateTime2), N'string', N'string', 19, 2, 3, CAST(N'2023-11-18T20:57:23.3323564' AS DateTime2), N'string', CAST(N'2023-11-18T20:57:23.3323566' AS DateTime2), N'string', 1)
+INSERT [dbo].[SalesMasters] ([ID], [SalesDate], [TotalQuantity], [TotalPrice], [VoucherNo], [BillNo], [TDiscountrate], [TVatrate], [TDiscountamount], [TVatamount], [Paidamount], [Due], [Convence], [Packing], [EntryBy], [EntryDate], [Note], [PaymentMode], [CustomerID], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (7, CAST(N'2023-11-19T00:49:49.3980000' AS DateTime2), 0, CAST(0.0000 AS Decimal(18, 4)), N'string', N'string', CAST(0.0000 AS Decimal(18, 4)), 0, CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, CAST(N'2023-11-19T00:49:49.3980000' AS DateTime2), N'string', N'string', 19, 2, 3, CAST(N'2023-11-19T06:50:40.2258000' AS DateTime2), N'string', CAST(N'2023-11-19T06:50:40.2259605' AS DateTime2), N'string', 1)
+SET IDENTITY_INSERT [dbo].[SalesMasters] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Stock] ON 
+
+INSERT [dbo].[Stock] ([Id], [ProductId], [StockDate], [StockInQty], [StockOutQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, 6, CAST(N'2023-10-15T00:00:00.0000000' AS DateTime2), 32, 23, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), N'2', NULL, NULL, 1)
+INSERT [dbo].[Stock] ([Id], [ProductId], [StockDate], [StockInQty], [StockOutQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (3, 6, CAST(N'2023-10-15T00:00:00.0000000' AS DateTime2), 32, 23, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), N'2', NULL, NULL, 1)
+INSERT [dbo].[Stock] ([Id], [ProductId], [StockDate], [StockInQty], [StockOutQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (4, 6, CAST(N'2023-10-15T00:00:00.0000000' AS DateTime2), 32, 23, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), N'2', NULL, NULL, 1)
+INSERT [dbo].[Stock] ([Id], [ProductId], [StockDate], [StockInQty], [StockOutQty], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (5, 6, CAST(N'2023-10-15T00:00:00.0000000' AS DateTime2), 32, 23, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), N'2', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[Stock] OFF
+GO
+SET IDENTITY_INSERT [dbo].[SubDistrict] ON 
+
+INSERT [dbo].[SubDistrict] ([Id], [Name], [Description], [DistrictId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, N'eeeee', N'eee', 2, CAST(N'2023-09-09T00:00:00.0000000' AS DateTime2), N'1', NULL, NULL, 1)
+SET IDENTITY_INSERT [dbo].[SubDistrict] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TransMasters] ON 
+
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (5, 1, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-1', NULL, 19, CAST(0.00 AS Decimal(18, 2)), -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (6, 1, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-1', NULL, 6, CAST(0.00 AS Decimal(18, 2)), 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (7, 1, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-1', NULL, 11, CAST(0.00 AS Decimal(18, 2)), 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (8, 2, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-2', NULL, 19, CAST(0.00 AS Decimal(18, 2)), -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (9, 2, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-2', NULL, 6, CAST(0.00 AS Decimal(18, 2)), 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[TransMasters] ([ID], [TransNO], [InvoiceNO], [vdate], [vtype], [vno], [CRate], [AccID], [Amount], [AmountType], [RefAccID], [SubID], [UserID], [isPosted], [TaxID], [VoucherTypeId], [MoneyReceiptId], [BillModeID], [BillAmount], [IsNormalVoucher], [RefNo], [Narration], [InsId], [InBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (10, 2, N'string', CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, N'PU-2033-2', NULL, 11, CAST(0.00 AS Decimal(18, 2)), 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST(0.00 AS Decimal(18, 2)), NULL, NULL, NULL, 2, 3, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-10-19T00:00:00.0000000' AS DateTime2), NULL, 1)
+SET IDENTITY_INSERT [dbo].[TransMasters] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Units] ON 
+
+INSERT [dbo].[Units] ([Id], [Name], [Shortname], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'ee', N'ee', 12, 14, CAST(N'2023-09-21T00:46:52.5740000' AS DateTime2), N'string', CAST(N'2023-09-21T00:46:52.5740000' AS DateTime2), N'string', 1)
+INSERT [dbo].[Units] ([Id], [Name], [Shortname], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (4, N'string', N'string', 19, 15, CAST(N'2023-09-21T02:28:32.5210000' AS DateTime2), N'string', CAST(N'2023-09-21T02:28:32.5210000' AS DateTime2), N'string', 1)
+INSERT [dbo].[Units] ([Id], [Name], [Shortname], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (5, N'rr', N'kkk', 4, 5, CAST(N'2023-09-21T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-21T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[Units] ([Id], [Name], [Shortname], [insId], [inBranchsId], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (6, N'qqq', N'qqq', 2, 4, CAST(N'2023-09-21T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-21T00:00:00.0000000' AS DateTime2), NULL, 1)
+SET IDENTITY_INSERT [dbo].[Units] OFF
+GO
+SET IDENTITY_INSERT [dbo].[VoucherTypes] ON 
+
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (1, N'ddsdsafdsaf', N'sdadsdsa', N'dsaads', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (2, N'eee', N'eee', N'eee', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (3, N'ccc', N'ccc', N'ccc', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (4, N'ddd', N'ddd', N'ddd', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (5, N'fsdfds', N'ddd', N'dsdsds', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+INSERT [dbo].[VoucherTypes] ([Id], [VoucharName], [PrefixCode], [VoucharNameB], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [IsActive]) VALUES (6, N'test 01', N'test 01', N'test 01', CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, CAST(N'2023-09-07T00:00:00.0000000' AS DateTime2), NULL, 1)
+SET IDENTITY_INSERT [dbo].[VoucherTypes] OFF
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetRoleClaims_RoleId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId] ON [dbo].[AspNetRoleClaims]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [RoleNameIndex]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles]
+(
+	[NormalizedName] ASC
+)
+WHERE ([NormalizedName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserClaims_UserId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserClaims_UserId] ON [dbo].[AspNetUserClaims]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserLogins_UserId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserLogins_UserId] ON [dbo].[AspNetUserLogins]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserRoles_RoleId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserRoles_RoleId] ON [dbo].[AspNetUserRoles]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [EmailIndex]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedEmail] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UserNameIndex]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedUserName] ASC
+)
+WHERE ([NormalizedUserName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_AssignCategories_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AssignCategories_inBranchsId] ON [dbo].[AssignCategories]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_AssignCategories_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_AssignCategories_insId] ON [dbo].[AssignCategories]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_BusinessPartners_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_BusinessPartners_inBranchsId] ON [dbo].[BusinessPartners]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_BusinessPartners_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_BusinessPartners_insId] ON [dbo].[BusinessPartners]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_BusinessPartners_SubDistrictID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_BusinessPartners_SubDistrictID] ON [dbo].[BusinessPartners]
+(
+	[SubDistrictID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_ChartsofAccounts_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_ChartsofAccounts_inBranchsId] ON [dbo].[ChartsofAccounts]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_ChartsofAccounts_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_ChartsofAccounts_insId] ON [dbo].[ChartsofAccounts]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_CompanysFixedCosts_InsBranchId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_CompanysFixedCosts_InsBranchId] ON [dbo].[CompanysFixedCosts]
+(
+	[InsBranchId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_CompanysFixedCosts_InstituteId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_CompanysFixedCosts_InstituteId] ON [dbo].[CompanysFixedCosts]
+(
+	[InstituteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_District_DivisionId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_District_DivisionId] ON [dbo].[District]
+(
+	[DivisionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Division_CountryID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Division_CountryID] ON [dbo].[Division]
+(
+	[CountryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_InsBranches_InsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_InsBranches_InsId] ON [dbo].[InsBranches]
+(
+	[InsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_LedgerGroups_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_LedgerGroups_inBranchsId] ON [dbo].[LedgerGroups]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_LedgerGroups_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_LedgerGroups_insId] ON [dbo].[LedgerGroups]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PayMethods_InBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PayMethods_InBranchsId] ON [dbo].[PayMethods]
+(
+	[InBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PayMethods_InsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PayMethods_InsId] ON [dbo].[PayMethods]
+(
+	[InsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Products_CatId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Products_CatId] ON [dbo].[Products]
+(
+	[CatId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Products_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Products_inBranchsId] ON [dbo].[Products]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Products_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Products_insId] ON [dbo].[Products]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PurchaseDetails_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PurchaseDetails_inBranchsId] ON [dbo].[PurchaseDetails]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PurchaseDetails_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PurchaseDetails_insId] ON [dbo].[PurchaseDetails]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PurchaseDetails_ProductId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PurchaseDetails_ProductId] ON [dbo].[PurchaseDetails]
+(
+	[ProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PurchaseDetails_PurchasemasterID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_PurchaseDetails_PurchasemasterID] ON [dbo].[PurchaseDetails]
+(
+	[PurchasemasterID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Purchasemasters_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Purchasemasters_inBranchsId] ON [dbo].[Purchasemasters]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Purchasemasters_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Purchasemasters_insId] ON [dbo].[Purchasemasters]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Purchasemasters_PaymodeID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Purchasemasters_PaymodeID] ON [dbo].[Purchasemasters]
+(
+	[PaymodeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Purchasemasters_SupplierID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Purchasemasters_SupplierID] ON [dbo].[Purchasemasters]
+(
+	[SupplierID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Purchasemasters_VoucherTypeID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Purchasemasters_VoucherTypeID] ON [dbo].[Purchasemasters]
+(
+	[VoucherTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesDetails_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesDetails_inBranchsId] ON [dbo].[SalesDetails]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesDetails_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesDetails_insId] ON [dbo].[SalesDetails]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesDetails_MasterId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesDetails_MasterId] ON [dbo].[SalesDetails]
+(
+	[MasterId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesDetails_ProductId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesDetails_ProductId] ON [dbo].[SalesDetails]
+(
+	[ProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesMasters_CustomerID]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesMasters_CustomerID] ON [dbo].[SalesMasters]
+(
+	[CustomerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesMasters_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesMasters_inBranchsId] ON [dbo].[SalesMasters]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SalesMasters_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SalesMasters_insId] ON [dbo].[SalesMasters]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Stock_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Stock_inBranchsId] ON [dbo].[Stock]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Stock_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Stock_insId] ON [dbo].[Stock]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Stock_ProductId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Stock_ProductId] ON [dbo].[Stock]
+(
+	[ProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_SubDistrict_DistrictId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_SubDistrict_DistrictId] ON [dbo].[SubDistrict]
+(
+	[DistrictId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_TransMasters_InBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_TransMasters_InBranchsId] ON [dbo].[TransMasters]
+(
+	[InBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_TransMasters_InsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_TransMasters_InsId] ON [dbo].[TransMasters]
+(
+	[InsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Units_inBranchsId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Units_inBranchsId] ON [dbo].[Units]
+(
+	[inBranchsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Units_insId]    Script Date: 12/5/2023 2:56:30 AM ******/
+CREATE NONCLUSTERED INDEX [IX_Units_insId] ON [dbo].[Units]
+(
+	[insId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [ChasisNo]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [Color]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [EngineNo]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [FuelType]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT ((0)) FOR [Mileage]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [ModelNo]
+GO
+ALTER TABLE [dbo].[Products] ADD  DEFAULT (N'') FOR [VehicleName]
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims] CHECK CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserClaims] CHECK CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserLogins]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserLogins] CHECK CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserTokens]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserTokens] CHECK CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AssignCategories]  WITH CHECK ADD  CONSTRAINT [FK_AssignCategories_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AssignCategories] CHECK CONSTRAINT [FK_AssignCategories_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[AssignCategories]  WITH CHECK ADD  CONSTRAINT [FK_AssignCategories_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[AssignCategories] CHECK CONSTRAINT [FK_AssignCategories_Institutes_insId]
+GO
+ALTER TABLE [dbo].[BusinessPartners]  WITH CHECK ADD  CONSTRAINT [FK_BusinessPartners_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[BusinessPartners] CHECK CONSTRAINT [FK_BusinessPartners_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[BusinessPartners]  WITH CHECK ADD  CONSTRAINT [FK_BusinessPartners_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[BusinessPartners] CHECK CONSTRAINT [FK_BusinessPartners_Institutes_insId]
+GO
+ALTER TABLE [dbo].[BusinessPartners]  WITH CHECK ADD  CONSTRAINT [FK_BusinessPartners_SubDistrict_SubDistrictID] FOREIGN KEY([SubDistrictID])
+REFERENCES [dbo].[SubDistrict] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[BusinessPartners] CHECK CONSTRAINT [FK_BusinessPartners_SubDistrict_SubDistrictID]
+GO
+ALTER TABLE [dbo].[ChartsofAccounts]  WITH CHECK ADD  CONSTRAINT [FK_ChartsofAccounts_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[ChartsofAccounts] CHECK CONSTRAINT [FK_ChartsofAccounts_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[ChartsofAccounts]  WITH CHECK ADD  CONSTRAINT [FK_ChartsofAccounts_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[ChartsofAccounts] CHECK CONSTRAINT [FK_ChartsofAccounts_Institutes_insId]
+GO
+ALTER TABLE [dbo].[CompanysFixedCosts]  WITH CHECK ADD  CONSTRAINT [FK_CompanysFixedCosts_InsBranches_InsBranchId] FOREIGN KEY([InsBranchId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[CompanysFixedCosts] CHECK CONSTRAINT [FK_CompanysFixedCosts_InsBranches_InsBranchId]
+GO
+ALTER TABLE [dbo].[CompanysFixedCosts]  WITH CHECK ADD  CONSTRAINT [FK_CompanysFixedCosts_Institutes_InstituteId] FOREIGN KEY([InstituteId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[CompanysFixedCosts] CHECK CONSTRAINT [FK_CompanysFixedCosts_Institutes_InstituteId]
+GO
+ALTER TABLE [dbo].[District]  WITH CHECK ADD  CONSTRAINT [FK_District_Division_DivisionId] FOREIGN KEY([DivisionId])
+REFERENCES [dbo].[Division] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[District] CHECK CONSTRAINT [FK_District_Division_DivisionId]
+GO
+ALTER TABLE [dbo].[Division]  WITH CHECK ADD  CONSTRAINT [FK_Division_Countries_CountryID] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[Countries] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Division] CHECK CONSTRAINT [FK_Division_Countries_CountryID]
+GO
+ALTER TABLE [dbo].[InsBranches]  WITH CHECK ADD  CONSTRAINT [FK_InsBranches_Institutes_InsId] FOREIGN KEY([InsId])
+REFERENCES [dbo].[Institutes] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[InsBranches] CHECK CONSTRAINT [FK_InsBranches_Institutes_InsId]
+GO
+ALTER TABLE [dbo].[LedgerGroups]  WITH CHECK ADD  CONSTRAINT [FK_LedgerGroups_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LedgerGroups] CHECK CONSTRAINT [FK_LedgerGroups_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[LedgerGroups]  WITH CHECK ADD  CONSTRAINT [FK_LedgerGroups_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[LedgerGroups] CHECK CONSTRAINT [FK_LedgerGroups_Institutes_insId]
+GO
+ALTER TABLE [dbo].[PayMethods]  WITH CHECK ADD  CONSTRAINT [FK_PayMethods_InsBranches_InBranchsId] FOREIGN KEY([InBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PayMethods] CHECK CONSTRAINT [FK_PayMethods_InsBranches_InBranchsId]
+GO
+ALTER TABLE [dbo].[PayMethods]  WITH CHECK ADD  CONSTRAINT [FK_PayMethods_Institutes_InsId] FOREIGN KEY([InsId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[PayMethods] CHECK CONSTRAINT [FK_PayMethods_Institutes_InsId]
+GO
+ALTER TABLE [dbo].[Products]  WITH CHECK ADD  CONSTRAINT [FK_Products_Categories_CatId] FOREIGN KEY([CatId])
+REFERENCES [dbo].[Categories] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_Categories_CatId]
+GO
+ALTER TABLE [dbo].[Products]  WITH CHECK ADD  CONSTRAINT [FK_Products_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[Products]  WITH CHECK ADD  CONSTRAINT [FK_Products_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_Institutes_insId]
+GO
+ALTER TABLE [dbo].[PurchaseDetails]  WITH CHECK ADD  CONSTRAINT [FK_PurchaseDetails_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PurchaseDetails] CHECK CONSTRAINT [FK_PurchaseDetails_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[PurchaseDetails]  WITH CHECK ADD  CONSTRAINT [FK_PurchaseDetails_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[PurchaseDetails] CHECK CONSTRAINT [FK_PurchaseDetails_Institutes_insId]
+GO
+ALTER TABLE [dbo].[PurchaseDetails]  WITH CHECK ADD  CONSTRAINT [FK_PurchaseDetails_Products_ProductId] FOREIGN KEY([ProductId])
+REFERENCES [dbo].[Products] ([Id])
+GO
+ALTER TABLE [dbo].[PurchaseDetails] CHECK CONSTRAINT [FK_PurchaseDetails_Products_ProductId]
+GO
+ALTER TABLE [dbo].[PurchaseDetails]  WITH CHECK ADD  CONSTRAINT [FK_PurchaseDetails_Purchasemasters_PurchasemasterID] FOREIGN KEY([PurchasemasterID])
+REFERENCES [dbo].[Purchasemasters] ([ID])
+GO
+ALTER TABLE [dbo].[PurchaseDetails] CHECK CONSTRAINT [FK_PurchaseDetails_Purchasemasters_PurchasemasterID]
+GO
+ALTER TABLE [dbo].[Purchasemasters]  WITH CHECK ADD  CONSTRAINT [FK_Purchasemasters_BusinessPartners_SupplierID] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[BusinessPartners] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Purchasemasters] CHECK CONSTRAINT [FK_Purchasemasters_BusinessPartners_SupplierID]
+GO
+ALTER TABLE [dbo].[Purchasemasters]  WITH CHECK ADD  CONSTRAINT [FK_Purchasemasters_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+GO
+ALTER TABLE [dbo].[Purchasemasters] CHECK CONSTRAINT [FK_Purchasemasters_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[Purchasemasters]  WITH CHECK ADD  CONSTRAINT [FK_Purchasemasters_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[Purchasemasters] CHECK CONSTRAINT [FK_Purchasemasters_Institutes_insId]
+GO
+ALTER TABLE [dbo].[Purchasemasters]  WITH CHECK ADD  CONSTRAINT [FK_Purchasemasters_PayMethods_PaymodeID] FOREIGN KEY([PaymodeID])
+REFERENCES [dbo].[PayMethods] ([Id])
+GO
+ALTER TABLE [dbo].[Purchasemasters] CHECK CONSTRAINT [FK_Purchasemasters_PayMethods_PaymodeID]
+GO
+ALTER TABLE [dbo].[Purchasemasters]  WITH CHECK ADD  CONSTRAINT [FK_Purchasemasters_VoucherTypes_VoucherTypeID] FOREIGN KEY([VoucherTypeID])
+REFERENCES [dbo].[VoucherTypes] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Purchasemasters] CHECK CONSTRAINT [FK_Purchasemasters_VoucherTypes_VoucherTypeID]
+GO
+ALTER TABLE [dbo].[SalesDetails]  WITH CHECK ADD  CONSTRAINT [FK_SalesDetails_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SalesDetails] CHECK CONSTRAINT [FK_SalesDetails_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[SalesDetails]  WITH CHECK ADD  CONSTRAINT [FK_SalesDetails_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[SalesDetails] CHECK CONSTRAINT [FK_SalesDetails_Institutes_insId]
+GO
+ALTER TABLE [dbo].[SalesDetails]  WITH CHECK ADD  CONSTRAINT [FK_SalesDetails_Products_ProductId] FOREIGN KEY([ProductId])
+REFERENCES [dbo].[Products] ([Id])
+GO
+ALTER TABLE [dbo].[SalesDetails] CHECK CONSTRAINT [FK_SalesDetails_Products_ProductId]
+GO
+ALTER TABLE [dbo].[SalesDetails]  WITH CHECK ADD  CONSTRAINT [FK_SalesDetails_SalesMasters_MasterId] FOREIGN KEY([MasterId])
+REFERENCES [dbo].[SalesMasters] ([ID])
+GO
+ALTER TABLE [dbo].[SalesDetails] CHECK CONSTRAINT [FK_SalesDetails_SalesMasters_MasterId]
+GO
+ALTER TABLE [dbo].[SalesMasters]  WITH CHECK ADD  CONSTRAINT [FK_SalesMasters_BusinessPartners_CustomerID] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[BusinessPartners] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SalesMasters] CHECK CONSTRAINT [FK_SalesMasters_BusinessPartners_CustomerID]
+GO
+ALTER TABLE [dbo].[SalesMasters]  WITH CHECK ADD  CONSTRAINT [FK_SalesMasters_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+GO
+ALTER TABLE [dbo].[SalesMasters] CHECK CONSTRAINT [FK_SalesMasters_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[SalesMasters]  WITH CHECK ADD  CONSTRAINT [FK_SalesMasters_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[SalesMasters] CHECK CONSTRAINT [FK_SalesMasters_Institutes_insId]
+GO
+ALTER TABLE [dbo].[Stock]  WITH CHECK ADD  CONSTRAINT [FK_Stock_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Stock] CHECK CONSTRAINT [FK_Stock_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[Stock]  WITH CHECK ADD  CONSTRAINT [FK_Stock_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[Stock] CHECK CONSTRAINT [FK_Stock_Institutes_insId]
+GO
+ALTER TABLE [dbo].[Stock]  WITH CHECK ADD  CONSTRAINT [FK_Stock_Products_ProductId] FOREIGN KEY([ProductId])
+REFERENCES [dbo].[Products] ([Id])
+GO
+ALTER TABLE [dbo].[Stock] CHECK CONSTRAINT [FK_Stock_Products_ProductId]
+GO
+ALTER TABLE [dbo].[SubDistrict]  WITH CHECK ADD  CONSTRAINT [FK_SubDistrict_District_DistrictId] FOREIGN KEY([DistrictId])
+REFERENCES [dbo].[District] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SubDistrict] CHECK CONSTRAINT [FK_SubDistrict_District_DistrictId]
+GO
+ALTER TABLE [dbo].[TransMasters]  WITH CHECK ADD  CONSTRAINT [FK_TransMasters_InsBranches_InBranchsId] FOREIGN KEY([InBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+GO
+ALTER TABLE [dbo].[TransMasters] CHECK CONSTRAINT [FK_TransMasters_InsBranches_InBranchsId]
+GO
+ALTER TABLE [dbo].[TransMasters]  WITH CHECK ADD  CONSTRAINT [FK_TransMasters_Institutes_InsId] FOREIGN KEY([InsId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[TransMasters] CHECK CONSTRAINT [FK_TransMasters_Institutes_InsId]
+GO
+ALTER TABLE [dbo].[Units]  WITH CHECK ADD  CONSTRAINT [FK_Units_InsBranches_inBranchsId] FOREIGN KEY([inBranchsId])
+REFERENCES [dbo].[InsBranches] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Units] CHECK CONSTRAINT [FK_Units_InsBranches_inBranchsId]
+GO
+ALTER TABLE [dbo].[Units]  WITH CHECK ADD  CONSTRAINT [FK_Units_Institutes_insId] FOREIGN KEY([insId])
+REFERENCES [dbo].[Institutes] ([Id])
+GO
+ALTER TABLE [dbo].[Units] CHECK CONSTRAINT [FK_Units_Institutes_insId]
+GO
+USE [master]
+GO
+ALTER DATABASE [StockManagement] SET  READ_WRITE 
+GO

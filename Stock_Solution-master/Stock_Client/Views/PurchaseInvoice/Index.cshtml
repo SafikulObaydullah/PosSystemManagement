@@ -1,0 +1,357 @@
+﻿@model Stock_DataAccess.Models.Purchasemaster
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!---Js Files--->
+<script src="~/commonui/js/configuration/purchaseinvoice.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+<style>
+   .section {
+      width: 100% !important;
+   }
+
+   .visible {
+      display: inline-block;
+   }
+
+   .invisible {
+      display: none;
+   }
+
+   .details {
+      width: 20%;
+   }
+
+   .tbldetails {
+      width: 100%;
+      font-size: 13px;
+      overflow: scroll;
+      padding: 0;
+      margin: 0;
+   }
+
+      .tbldetails td input {
+         padding: 0px;
+      }
+
+   form {
+      padding: 0px;
+   }
+</style>
+<style>
+   /* Style the custom select container */
+   .custom-select {
+      position: relative;
+      width: 300px; /* Adjust the width as needed */
+   }
+
+      /* Style the select element itself (hidden) */
+      /*.custom-select select {
+            display: none;
+         }*/
+
+      /* Style the dropdown arrow (Unicode for downward-pointing triangle) */
+      .custom-select::after {
+         content: "\25BC";
+         position: absolute;
+         top: 50%;
+         right: 10px;
+         transform: translateY(-50%);
+         pointer-events: none; /* Allows clicks to pass through to the select element */
+      }
+
+      /* Style the options */
+      .custom-select select option {
+         padding: 10px;
+         background-color: #f9f9f9;
+         color: #333;
+         border: none;
+         border-bottom: 1px solid #ccc;
+      }
+
+         /* Change the appearance when an option is selected */
+         .custom-select select option:checked {
+            background-color: #3498db;
+            color: white;
+         }
+
+</style>
+<main id="main" class="main">
+      <div class="row">
+         <form asp-action="create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  <div class="col-md-12 row">
+                     <div class="col-md-4">
+                        <label class="control-label"> Institute </label> 
+                        <div class="custom-select">
+                           <select id="ddlInstitute" class="form-control">
+                           </select>
+                        </div>
+                      <span class="text-danger"></span>
+                     </div>
+                     <div class="col-md-4">
+                        <label class="control-label"> InstituteBranch </label>
+                     <div class="custom-select">
+                        <select id="ddlInsBranch" class="form-control"></select>
+                     </div> 
+                     <span class="text-danger"></span>
+                     </div>
+                     <div class="col-md-4">
+                        <label asp-for="VoucherTypeID" class="control-label">VoucherType</label>
+                        <div class="custom-select">
+                           <select id="ddlVoucherType" class="form-control"></select>
+                        </div> 
+                        <span asp-validation-for="VoucherNo" class="text-danger"></span>
+                     </div>
+                  </div> 
+                  <div class="col-md-12 row g-3 mt-0">
+                         <div class="col-md-4"> 
+                           <label  class="control-label"> Product </label>
+                           <div class="custom-select">
+                              <select id="ddlProduct" class="form-control"></select>
+                           </div> 
+                           <span class="text-danger"></span> 
+                         </div>
+                           <div class="col-md-4">
+                              <label class="control-label">Supplier</label>
+                              <div class="custom-select">
+                                 <select id="ddlSupplier" class="form-control"></select>
+                              </div> 
+                           </div>
+                           <div class="col-md-4">
+                              <label class="control-label"> Payment Mathod</label>
+                              <div class="custom-select">
+                                 <select id="ddlPaymentMethod" class="form-control"></select>
+                              </div>
+                              <span asp-validation-for="PaymodeID" class="text-danger"></span>
+                           </div>
+                           @*<div class="col-md-4">
+                           <label class="control-label"> Product </label>
+                           <div class="custom-select">
+                           <select id="ddlUnit" class="form-control"></select>
+                           </div>
+                           <span class="text-danger"></span>
+                           </div>*@
+                  </div>
+                  <div class="col-md-12 row g-3 mt-0"> 
+                     <div class="col-md-4"> 
+                           <label class="control-label">PurchaseDate</label>
+                           <input asp-for="PurchaseDate" class="form-control" id="datepicker" />
+                           <span class="text-danger"></span>
+                        </div>
+                     <div class="col-md-4">
+                        <label asp-for="InvoiceNo" class="control-label"></label>
+                        <input id="InvoiceNo" class="form-control" />
+                        <span asp-validation-for="InvoiceNo" class="text-danger"></span>
+                     </div>
+                     <div class="col-md-4">
+                        <label asp-for="VoucherNo" class="control-label"></label>
+                        <input id="txtVoucherNo" class="form-control" />
+                        <span asp-validation-for="VoucherNo" class="text-danger"></span>
+                     </div>
+                  </div> 
+                  <div class="col-md-12 row g-3 mt-0"> 
+                     <div class="col-md-12">
+                        <div class="form-group">
+                           <label class="form-label"></label>
+                           <button id="btnAdd" class="btn btn-success mt-3 mb-3" onclick="AddPurchaseDetails(this)" style="float:right;">Add</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12 row">
+                     <div class="form-group">
+                        <input type="hidden" id="hdnLastIndex" value="0" />
+                        <div id="ExpTable" class="table-responsive">
+                           <table class="table table-vcenter card-table">
+                              <tr>
+                                 <th>Product</th>
+                                 <th>Unit</th>
+                                 <th>Qty</th>
+                                 <th>UnitPrice</th>
+                                 <th>TotalPrice</th>
+                                 <th>VatRate</th>
+                                 <th>VatAmount</th>
+                                 <th>Discount Rate</th>
+                                 <th>Discount Amount</th>
+                                 <th>Bonus</th>
+                                 <th>NetAmount</th>
+                                 <th>Action</th>
+                              </tr>
+                           </table>
+                           </div>
+                        @*<table class="table tbldetails" id="ExpTable" cellpadding="0" cellspacing="0">
+                           <thead>
+                              <tr>
+                                 <th>Product</th>
+                                 <th>Unit </th>
+                                 <th>Qty</th>
+                                 <th>Unit Price</th>
+                                 <th>Total Price</th>
+                                 <th>Vat Rate</th>
+                                 <th>Vat Amount</th>
+                                 <th>Discount Rate</th>
+                                 <th>Discount Amount</th>
+                                 <th>Bonus</th>
+                                 <th>Net Amount</th>
+                                 <th>......</th>
+                              </tr>
+                           </thead>
+                           <tbody style="width:100%; overflow:scroll;"> 
+                              @for (int i = 0; i < Model.PurchaseDetails.Count; i++)
+                              {
+                                 <tr>
+                                    <td>
+                                       @Html.DropDownList("ProductId",@ViewBag.ProductId,"Select Product",new {@class=" ",onchange="ChangeProductInfo(this)" })
+                                    </td>
+                                    <td>
+                                       <label id="lblunit-@i" class="lblunit"></label>
+                                    </td>
+                                    <td>
+                                       @Html.HiddenFor(x=>x.PurchaseDetails[i].Code,new{@class="" })
+                                       @Html.HiddenFor(x=>x.PurchaseDetails[i].ProductId,new{@class=" " })
+                                       @Html.TextBoxFor(x=>x.PurchaseDetails[i].UnitQty,new{@class="UnitQty",onchange="Calculate(this)" })
+                                       @Html.TextBoxFor(model => model.PurchaseDetails[i].UnitQty, new { onchange = "OnChangeEvent(this)" })
+                                    </td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].UnitPrice,new{@class=" UnitPrice"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].TotalPrice,new{@class=" TotalPrice ",disabled="true"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].Vatrate,new{@class="Vatrate",onchange="Calculate(this)"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].Vatamount,new{disabled="true",@class="Vatamount"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].Discountrate,new{@class="Discountrate",onchange="Calculate(this)"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].Discountamount,new{disabled="true",@class=" Discountamount"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].Bonus,new{@class=" Bonus"})</td>
+                                    <td>  @Html.TextBoxFor(x=>x.PurchaseDetails[i].NetAmount,new{disabled="true",@class=" NetAmount"})</td>
+                                    <td>
+                                       <button id="btnAdd-@i" type="button" onclick="AddItem(this)" class="btn btn-sm btn-secondary visible">Add</button>
+                                       <button id="btndel-@i" type="button" onclick="DeleteItem(this)" class="btn btn-sm btn-danger invisible">Delete</button>
+                                    </td>
+                                 </tr>
+                              }
+                           </tbody>
+                        </table>*@
+                     </div>
+                     <hr />
+                  </div> 
+                  <div class="col-md-12 row g-3 mt-0">
+                              <div class="col-md-4">
+                                   <div class="form-group">
+                                    <label asp-for="TotalQuantity" class="control-label"></label>
+                                    <input id="TotalQuantity" class="form-control" disabled />
+                                    <span asp-validation-for="TotalQuantity" class="text-danger"></span>
+                                 </div>
+                              </div>
+                              <div class="col-md-4"> 
+                                 <label asp-for="TDiscountrate" class="control-label"></label>
+                                 <input id="TDiscountrate" class="form-control" disabled />
+                                 <span asp-validation-for="TDiscountrate" class="text-danger"></span>
+                              </div> 
+                              <div class="col-md-4">
+                                 <label asp-for="TDiscountamount" class="control-label"></label>
+                                 <input id="TDiscountamount" class="form-control" disabled />
+                                 <span asp-validation-for="TDiscountamount" class="text-danger"></span>
+                              </div> 
+                  </div>
+                  <div class="col-md-12 row g-3 mt-0">
+                        <div class="col-md-4">
+                           <label asp-for="TVatrate" class="control-label"></label>
+                           <input id="TVatrate" class="form-control" disabled />
+                           <span asp-validation-for="TVatrate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                           <label asp-for="TVatamount" class="control-label"></label>
+                           <input id="TVatamount" class="form-control" disabled />
+                           <span asp-validation-for="TVatamount" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                           <label asp-for="TotalPrice" class="control-label"></label>
+                           <input id="TotalPrice" class="form-control" disabled />
+                           <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                        </div>
+                  </div>
+                  <div class="col-md-12 row g-3 mt-0">
+                           <div class="col-md-4">
+                           <label asp-for="NetAmount" class="control-label"></label>
+                           <input id="NetAmount" class="form-control" />
+                           <span asp-validation-for="NetAmount" class="text-danger"></span>
+                        </div>
+                           <div class="col-md-4">
+                           <label asp-for="Paidamount" class="control-label"></label>
+                           <input id="Paidamount" class="form-control" onchange="calculateExpense()" />
+
+                           <span asp-validation-for="Paidamount" class="text-danger"></span>
+                        </div>
+                           <div class="col-md-4">
+                           <label asp-for="Due" class="control-label"></label>
+                           @*<input asp-for="Due" class="form-control" value="555"/>*@
+                           <input type="text" id="Dueamt" disabled class="form-control" @*asp-for="Due"*@ />
+                           <span asp-validation-for="Due" class="text-danger"></span>
+                        </div>
+                     </div>
+                  <div class="col-md-12 row g-3 mt-0">
+               <div class="col-md-4"> 
+                     <label asp-for="Packing" class="control-label"></label>
+               <input asp-for="Packing" id="txtPacking" class="form-control" onchange="calculateExpense()" /> @*//onchange="calculateExpense()"*@
+                     @*@Html.TextBoxFor(m=>m.Packing,new{@class="form-control", onchange="calculateExpense()"}) *@
+                     <span asp-validation-for="Packing" class="text-danger"></span>
+                  </div>
+               <div class="col-md-4">
+                     <label asp-for="LaborCost" class="control-label"></label>
+                  <input id="LaborCost" class="form-control" onchange="calculateExpense()" />
+                  <span asp-validation-for="LaborCost" class="text-danger"></span>
+               </div>
+               <div class="col-md-4">
+                  <label asp-for="Convence" class="control-label"></label>
+                  <input id="Convence" class="form-control" onchange="calculateExpense()" />
+                  <span asp-validation-for="Convence" class="text-danger"></span>
+               </div> 
+            </div>
+                  <div class="col-md-12 row g-3 mt-0">
+                     <div class="col-md-4"> 
+                        <label asp-for="TotalCost" class="control-label"></label>
+                        <input id="TotalCost" class="form-control disabled" />
+                        <span asp-validation-for="TotalCost" class="text-danger"></span>
+                     </div>
+                     <div class="col-md-4"> 
+                        <label asp-for="UnitCostonTotal" class="control-label">Product Purchase cost(Total Price)</label>
+                        <input id="UnitCostonTotal" class="form-control disabled" />
+                        <span asp-validation-for="UnitCostonTotal" class="text-danger"></span>
+                     </div>
+                     <div class="col-md-4"> 
+                        <label asp-for="UnitCost" class="control-label">Product Purchase cost(unit)</label>
+                        <input id="UnitCost" class="form-control disabled" />
+                        <span asp-validation-for="UnitCost" class="text-danger"></span>
+                     </div>
+                  </div>
+                  <div class="col-md-12 row g-3 mt-0">
+                     <div class="col-md-4"> 
+                        <label asp-for="Note" class="control-label"></label>
+                        <input id="Note" class="form-control" />
+                        <span asp-validation-for="Note" class="text-danger"></span> 
+                     </div>
+                     <div class="col-md-8">
+                        <div class="form-group">
+                           <label class="form-label"></label>
+                           <button id="btnSave" class="btn btn-success mt-3 mb-3" onclick="SavePurchaseInvoice()" style="float:right;">Save</button>
+                        </div>
+                     </div>
+                  </div> 
+               </form> 
+         </div>
+      <div>
+         <a asp-action="Index">Back to List</a>
+      </div>
+
+      @section Scripts {
+         @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+         }
+
+         <script src="https://code.jquery.com/ui/1.13.0-rc.2/jquery-ui.min.js"></script>
+         <script type="text/javascript"> 
+                
+
+         </script>
+      }
+</main>
+
+            

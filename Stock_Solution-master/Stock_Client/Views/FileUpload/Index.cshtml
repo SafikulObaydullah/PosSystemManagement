@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "AddLaptop";
+   //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/PrivateLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Directory</label>
+                    <input type="text" id="txtfileUpload" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">File</label>
+                    <input type="file" id="fileInput" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-primary" onclick="uploadFileToDev()">Save</button>
+                </div>
+            </div>
+
+        </div>
+     </div>
+</div>
+ 
+
+<script>
+    // Assuming jQuery is included
+
+    // Function to handle file upload via AJAX
+    function uploadFileToDev() {
+        var fileInput = $('#fileInput')[0].files[0];
+        var folderName = $('#txtfileUpload').val();
+        var formData = new FormData();
+        formData.append('file', fileInput);
+        formData.append('foldername', folderName);
+
+        // AJAX request
+        $.ajax({
+            url: 'https://localhost:7065/api/Category/UploadFileToDev?foldername=' + encodeURIComponent(folderName),
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // Handle success response
+                console.log(response.path);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+</script>
