@@ -17,7 +17,6 @@ $(document).ready(function () {
       keyboard: false
    });
 
-   load();
    LoadInitalData();
 });
 
@@ -98,7 +97,7 @@ function Save() {
       success: function (result) {
          toastr.success(result.message, 'Save Successfully');
          $("#modalToggle").modal('hide');
-         load();
+         window.location.reload();
          clearALl();
       },
       error: function (er) {
@@ -210,7 +209,7 @@ function Update() {
       success: function (result) {
          toastr.success(result.message, 'Update Successfully');
          $("#modalToggle").modal('hide');
-         load();
+         window.location.reload();
          clearALl();
          $("#btnUpdate").hide();
          $("#btnSave").show();
@@ -229,7 +228,7 @@ function Delete(id) {
       type: "DELETE",
       success: function () {
          clearALl();
-         load();
+         window.location.reload();
       },
       error: function (msg) {
          alert(msg);
