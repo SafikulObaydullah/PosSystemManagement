@@ -1,19 +1,7 @@
 ﻿@{
    ViewData["Title"] = "Home Page";
-   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    Layout = "~/Views/Shared/PrivateLayout.cshtml";
+} 
 <style>
    .ui-autocomplete {
       max-height: 200px;
@@ -23,148 +11,150 @@
 </style>
 <!---Js Files--->
 <script src="~/commonui/js/configuration/invoice.js?v=@DateTime.Now.ToString("yymmddHHmmss")"></script>
-
-<main id="main" class="main">
-   <!-- Page header -->
-   <div class="page-header d-print-none headerPaddingRemove">
-      <div class="container-xl">
-         <div class="row g-2 align-items-center">
-            <div class="col">
-               <h2 class="page-title">
-                  Invoice Information
-               </h2>
+<div class="page-wrapper">
+    <main id="main" class="main">
+        <!-- Page header -->
+        <div class="page-header d-print-none headerPaddingRemove">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <h2 class="page-title">
+                            Invoice Information
+                        </h2>
+                    </div>
+                    <!-- Page title actions -->
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                Create New Invoice
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Page title actions -->
-            <div class="col-auto ms-auto d-print-none">
-               <div class="btn-list">
-                  <a href="#" data-toggle="modal" onclick="AddNew()" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                     Create New Invoice
-                  </a>
-               </div>
+        </div>
+        <p>
+            @using (@Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                <b>Search By:</b>
+                @Html.RadioButton("searchBy", "Name", true) <text>Name</text>
+                @Html.RadioButton("searchBy", "Gender") <text>Gender</text>
+
+                <br />
+
+
+                @Html.TextBox("search") <input type="submit" value="search" />
+            }
+        </p>
+        <!-- Page body -->
+        <div class="page-body pageBodyPaddingRemove">
+            <div class="container-xl">
+                <table class="table table-bordered" id="tble">
+                    <thead>
+                        <tr>
+                            <td>InvoiceId</td>
+                            <td>BanlanceDue</td>
+                            <td>PaymentType</td>
+                            <td>VehicleName</td>
+                            <td>ChasisNo</td>
+                            <td>EngineNo</td>
+                            <td>FuelType</td>
+                            <td>Color</td>
+                            <td>ModelNo</td>
+                            <td>Mileage</td>
+                            <td>Amount</td>
+                            <td>Tax</td>
+                            <td>Discount</td>
+                            <td>TotalAmount</td>
+                            <td>Edit</td>
+                            <td>Delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
-         </div>
-      </div>
-   </div> 
-   <p>
-      @using (@Html.BeginForm("Index", "Home", FormMethod.Get))
-      {
-         <b>Search By:</b>
-         @Html.RadioButton("searchBy", "Name", true) <text>Name</text>
-         @Html.RadioButton("searchBy", "Gender") <text>Gender</text>
+        </div>
 
-         <br />
-
-
-         @Html.TextBox("search") <input type="submit" value="search" />
-      }
-   </p>
-   <!-- Page body -->
-   <div class="page-body pageBodyPaddingRemove">
-      <div class="container-xl">
-         <table class="table table-bordered" id="tble">
-            <thead>
-               <tr>
-                  <td>InvoiceId</td>
-                  <td>BanlanceDue</td>
-                  <td>PaymentType</td>
-                  <td>VehicleName</td>
-                  <td>ChasisNo</td>
-                  <td>EngineNo</td>
-                  <td>FuelType</td>
-                  <td>Color</td>
-                  <td>ModelNo</td>
-                  <td>Mileage</td>
-                  <td>Amount</td>
-                  <td>Tax</td>
-                  <td>Discount</td>
-                  <td>TotalAmount</td> 
-                  <td>Edit</td>
-                  <td>Delete</td>
-               </tr>
-            </thead>
-            <tbody>
-            </tbody>
-         </table>
-      </div>
-   </div>
-
-   <!-- Modal -->
-   <div class="modal fade" id="modalToggle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="staticBackdropLabel">Create New Invoice</h5> <span id="spanParentID" style="display:none">0</span>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <div class="row" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label required">InvoiceId</label> <input id="txtInvoiceId" class="form-control comboBox" style="width:100%; height:37px"  required />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label required">BanlanceDue</label> <input id="txtBanlanceDue" class="form-control" style="width:100%"  required />
-                  </div>
-               </div>
-               <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label required">PaymentType</label> <input id="txtPaymentType" class="form-control comboBox" style="width:100%; height:37px"  required />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label required">VehicleName</label>
-                     @*<input type="text" id="txtVehicleName" class="form-control comboBox" onchange="VehicleMethod(this)"  style="width:100%; height:37px" required />
+        <!-- Modal -->
+        <div class="modal fade" id="modalToggle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create New Invoice</h5> <span id="spanParentID" style="display:none">0</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label required">InvoiceId</label> <input id="txtInvoiceId" class="form-control comboBox" style="width:100%; height:37px" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label required">BanlanceDue</label> <input id="txtBanlanceDue" class="form-control" style="width:100%" required />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label required">PaymentType</label> <input id="txtPaymentType" class="form-control comboBox" style="width:100%; height:37px" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label required">VehicleName</label>
+                                @*<input type="text" id="txtVehicleName" class="form-control comboBox" onchange="VehicleMethod(this)"  style="width:100%; height:37px" required />
                      <div id="suggestions"></div>*@
-                     <input type="hidden" id="txtVehicleName" />
-                     <select class="form-control" id="ddlVehicleName" onchange="VehicleMethod(this)"></select>
-                  </div>
-               </div>
-               <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label required">ChasisNo</label> <input id="txtChasisNo" type="text" class="form-control comboBox" style="width:100%; height:37px" InvoiceList required />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label required">EngineNo</label> <input id="txtEngineNo" type="text" class="form-control" style="width:100%"  required />
-                  </div>
-               </div>
-               <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label ">FuelType</label> <input type="text" id="txtFuelType" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label ">Color</label> <input type="text" id="txtColor" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-               </div>
-                <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label ">ModelNo</label> <input type="text" id="txtModelNo" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label ">Mileage</label> <input type="number" id="txtMileage" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-               </div>
-               <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label ">Amount</label> <input type="number" id="txtAmount" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label ">Tax</label> <input type="number" id="txtTax" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-               </div>
-               <div class="row g-3 mt-0" style="justify-content: left;">
-                  <div class="col-md-6">
-                     <label class="form-label ">Discount</label> <input type="number" id="txtDiscount" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-                  <div class="col-md-6">
-                     <label class="form-label ">TotalAmount</label> <input type="number" id="txtTotalAmount" class="form-control comboBox" style="width:100%; height:37px"  />
-                  </div>
-               </div> 
+                                <input type="hidden" id="txtVehicleName" />
+                                <select class="form-control" id="ddlVehicleName" onchange="VehicleMethod(this)"></select>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label required">ChasisNo</label> <input id="txtChasisNo" type="text" class="form-control comboBox" style="width:100%; height:37px" InvoiceList required />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label required">EngineNo</label> <input id="txtEngineNo" type="text" class="form-control" style="width:100%" required />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label ">FuelType</label> <input type="text" id="txtFuelType" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label ">Color</label> <input type="text" id="txtColor" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label ">ModelNo</label> <input type="text" id="txtModelNo" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label ">Mileage</label> <input type="number" id="txtMileage" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label ">Amount</label> <input type="number" id="txtAmount" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label ">Tax</label> <input type="number" id="txtTax" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-0" style="justify-content: left;">
+                            <div class="col-md-6">
+                                <label class="form-label ">Discount</label> <input type="number" id="txtDiscount" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label ">TotalAmount</label> <input type="number" id="txtTotalAmount" class="form-control comboBox" style="width:100%; height:37px" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnClose" class="btn btn-secondary" onclick="Close()">Close</button>
+                        <button type="button" id="btnSave" class="btn btn-ghost-primary active w-10" onclick="Save()">Save</button>
+                        <button type="button" id="btnUpdate" class="btn btn-ghost-primary active w-10" onclick="Update()">Update</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-               <button type="button" id="btnClose" class="btn btn-secondary" onclick="Close()">Close</button>
-               <button type="button" id="btnSave" class="btn btn-ghost-primary active w-10" onclick="Save()">Save</button>
-               <button type="button" id="btnUpdate" class="btn btn-ghost-primary active w-10" onclick="Update()">Update</button>
-            </div>
-         </div>
-      </div>
-   </div>
-</main>
+        </div>
+    </main>
+</div>
+        

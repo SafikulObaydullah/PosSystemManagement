@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 function LoadInitalData() {
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/GetInitialData",
+      url: "/Invoice/GetInitialData",
       method: "GET",
       dataType: "json",
       success: function (data) {
@@ -50,7 +50,7 @@ function VehicleMethod() {
    }
 
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/GetProductListByVehicleId?Id=" + vehicleId,
+      url: "/Invoice/GetProductListByVehicleId?id=" + vehicleId,
       type: "POST",
       dataType: "json",
       success: function (data) {
@@ -91,7 +91,7 @@ function getInvoiceFormData(id) {
 
 function Save() {
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/SaveInvoice",
+      url: "/Invoice/SaveInvoice",
       method: "POST",
       data: JSON.stringify(getInvoiceFormData(0)),
       contentType: "application/json",
@@ -133,7 +133,7 @@ function Close() {
 function load() {
    var search = $("#VehicleName").val() || "";
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/GetInvoice?VehicleName=" + search,
+      url: search ? "/Invoice/GetBySearch?term=" + encodeURIComponent(search) : "/Invoice/GetAllInvoice",
       method: "GET",
       success: function (result) {
          $("#tble tbody").empty();
@@ -167,7 +167,7 @@ function Edit(id) {
    $("#btnUpdate").show();
    $("#btnSave").hide();
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/GetByID?Id=" + id,
+      url: "/Invoice/GetById?id=" + id,
       method: "GET",
       contentType: "application/json",
       success: function (result) {
@@ -202,7 +202,7 @@ function Edit(id) {
 
 function Update() {
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/UpdateInvoice",
+      url: "/Invoice/UpdateInvoice",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "PUT",
@@ -223,7 +223,7 @@ function Update() {
 
 function Delete(id) {
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/Delete?Id=" + id,
+      url: "/Invoice/DeleteInvoice?id=" + id,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "DELETE",

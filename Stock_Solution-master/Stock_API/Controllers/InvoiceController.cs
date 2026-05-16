@@ -46,6 +46,20 @@ namespace Stock_API.Controllers
          }
          return all;
       }
+      [HttpGet("Search")]
+      public IActionResult Search(string? term)
+      {
+         List<InvoiceVM> all = new List<InvoiceVM>();
+         try
+         {
+            all = this.unitofWork.InvoiceRepository.GetInvoice(term).ToList();
+         }
+         catch (Exception ex)
+         {
+            ModelState.AddModelError("Failed", ex.Message);
+         }
+         return Ok(all);
+      }
       [HttpGet("GetByID")]
       public IEnumerable<Invoice> GetByID(int Id)
       {
@@ -173,6 +187,11 @@ namespace Stock_API.Controllers
          {
             return Problem(ex.Message);
          }
+      }
+      [HttpDelete("DeleteInvoice")]
+      public IActionResult DeleteInvoice(int id)
+      {
+         return Delete(id);
       }
       [HttpGet("GetInitialData")]
       public JsonResult GetInitialData()
