@@ -1,150 +1,148 @@
-﻿
-var InvoiceList = [];
 var InvoiceVehicleList = [];
-var vehicleListArray = []
+var vehicleListArray = [];
+var selectedInvoiceId = 0;
+
 $(document).ready(function () {
-   /*VehicleMethod(); */
    $(document).on("click", function (e) {
       if (!$(e.target).closest("#suggestion-box").length &&
          !$(e.target).closest("#txtVehicleName").length) {
          $("#suggestion-box").hide();
       }
    });
+
    $("#btnUpdate").hide();
    $("#btnSave").show();
-   var IsEdit = false;
-   $("#MyModal").modal({
+   $("#modalToggle").modal({
       backdrop: 'static',
       keyboard: false
    });
+
    load();
-   LoadInitalData(); 
+   LoadInitalData();
 });
+
 function LoadInitalData() {
    $.ajax({
       url: "https://localhost:7065/api/Invoice/GetInitialData",
       method: "GET",
       dataType: "json",
-      success: function (data) { 
-         InvoiceVehicleList = data.VehicletList; 
-         console.log("VehicletList ", InvoiceVehicleList); 
-         var s = '<option value="-1">Select Vehicle </option>';
+      success: function (data) {
+         InvoiceVehicleList = data.VehicletList;
+         var options = '<option value="-1">Select Vehicle</option>';
          for (var i = 0; i < InvoiceVehicleList.length; i++) {
-            s += '<option value="' + InvoiceVehicleList[i].id + '">' + InvoiceVehicleList[i].vehicleName + '</option>';
+            options += '<option value="' + InvoiceVehicleList[i].Id + '">' + InvoiceVehicleList[i].VehicleName + '</option>';
          }
-         $("#ddlVehicleName").html(s);
+         $("#ddlVehicleName").html(options);
       },
       error: function (jqXHR, textStatus, errorThrown) {
          console.log("Error:", textStatus, errorThrown);
       }
    });
-} 
-function VehicleMethod(item) {
-   var id = 0;
-   $("#ddlVehicleName").on('change', function () {
-       id = $(this).find('option:selected').attr('id')
-   }); 
-   var vehicleId = $("#ddlVehicleName").val(); 
-   var inputText = $(item).val();  
-   /*if (vehicleId.length > 0) {*/
-      $.ajax({
-         url: "https://localhost:7065/api/Invoice/GetProductListByVehicleId?Id=" + vehicleId,
-         type: "POST",
-         dataType: "json",
-         //data: {
-         //   term: request.term
-         //},
-         success: function (data) {
-            vehicleListArray = data.produtList;
-            console.log(data);
-            $("#txtChasisNo").val(vehicleListArray[0].chasisNo),
-               $("#txtEngineNo").val(vehicleListArray[0].engineNo),
-               $("#txtFuelType").val(vehicleListArray[0].fuelType),
-               $("#txtColor").val(vehicleListArray[0].color),
-               $("#txtModelNo").val(vehicleListArray[0].modelNo)
-               $("#txtMileage").val(vehicleListArray[0].mileage)
-
-            //$.each(data, function (i, v) {
-            //   $("#suggestions").append("<li>" + v.vehicleName + "</li>");
-            //})
-         }
-      })
-   //}
-}   
-function displaySuggestions(suggestions) {
-   var suggestionBox = $("#suggestion-box");
-   suggestionBox.empty();
-
-   //if (suggestions.length > 0) {
-      var list = $("<ul>");
-      suggestions.each(function (suggestion) {
-         var listItem = $("<li>").text(suggestion);
-         listItem.on("click", function () {
-            $("#txtVehicleName").val(suggestion);
-            suggestionBox.hide();
-         });
-         list.append(listItem);
-      });
-      suggestionBox.append(list);
-      suggestionBox.show(); 
 }
+
+function VehicleMethod() {
+   var vehicleId = $("#ddlVehicleName").val();
+   var vehicleName = $("#ddlVehicleName option:selected").text();
+   $("#txtVehicleName").val(vehicleId === "-1" ? "" : vehicleName);
+
+   if (vehicleId === "-1") {
+      return;
+   }
+
+   $.ajax({
+      url: "https://localhost:7065/api/Invoice/GetProductListByVehicleId?Id=" + vehicleId,
+      type: "POST",
+      dataType: "json",
+      success: function (data) {
+         vehicleListArray = data.produtList;
+         if (!vehicleListArray || vehicleListArray.length === 0) {
+            return;
+         }
+
+         $("#txtChasisNo").val(vehicleListArray[0].ChasisNo);
+         $("#txtEngineNo").val(vehicleListArray[0].EngineNo);
+         $("#txtFuelType").val(vehicleListArray[0].FuelType);
+         $("#txtColor").val(vehicleListArray[0].Color);
+         $("#txtModelNo").val(vehicleListArray[0].ModelNo);
+         $("#txtMileage").val(vehicleListArray[0].Mileage);
+      }
+   });
+}
+
+function getInvoiceFormData(id) {
+   return {
+      id: id,
+      invoiceId: $("#txtInvoiceId").val(),
+      banlanceDue: $("#txtBanlanceDue").val(),
+      paymentType: $("#txtPaymentType").val(),
+      vehicleName: $("#txtVehicleName").val(),
+      chasisNo: $("#txtChasisNo").val(),
+      engineNo: $("#txtEngineNo").val(),
+      fuelType: $("#txtFuelType").val(),
+      color: $("#txtColor").val(),
+      modelNo: $("#txtModelNo").val(),
+      mileage: $("#txtMileage").val(),
+      amount: $("#txtAmount").val(),
+      tax: $("#txtTax").val(),
+      discount: $("#txtDiscount").val(),
+      totalAmount: $("#txtTotalAmount").val()
+   };
+}
+
 function Save() {
-   var obj = new Object();  
-      obj.id = 0,
-         obj.invoiceId = $("#txtInvoiceId").val(),
-         obj.banlanceDue = $("#txtBanlanceDue").val(), 
-         obj.paymentType = $("#txtPaymentType").val(),
-         obj.vehicleName = $("#txtVehicleName").val(),
-         obj.chasisNo = $("#txtChasisNo").val(),
-         obj.engineNo = $("#txtEngineNo").val(),
-         obj.fuelType = $("#txtFuelType").val(),
-         obj.color = $("#txtColor").val(),
-         obj.modelNo = $("#txtModelNo").val(),
-         obj.mileage = $("#txtMileage").val(),
-         obj.amount = $("#txtAmount").val(),
-         obj.tax = $("#txtTax").val(),
-         obj.discount = $("#txtDiscount").val(),
-         obj.totalAmount = $("#txtTotalAmount").val() 
    $.ajax({
       url: "https://localhost:7065/api/Invoice/SaveInvoice",
-      type: "JSON",
       method: "POST",
-      data: JSON.stringify(obj),
+      data: JSON.stringify(getInvoiceFormData(0)),
       contentType: "application/json",
       success: function (result) {
          toastr.success(result.message, 'Save Successfully');
-         $("#MyModal").modal('hide')
+         $("#modalToggle").modal('hide');
          load();
          clearALl();
       },
       error: function (er) {
-         console.log(er)
+         console.log(er);
       }
-   })
+   });
 }
+
 function clearALl() {
-   $("#txtName").val(''),
-      $("#txtShortName").val(''),
-      $("#ddlInstitute").val(''),
-      $("#ddlInsBranch").val(''),
-      $("#txtId").val('')
+   selectedInvoiceId = 0;
+   $("#txtInvoiceId").val('');
+   $("#txtBanlanceDue").val('');
+   $("#txtPaymentType").val('');
+   $("#txtVehicleName").val('');
+   $("#ddlVehicleName").val('-1');
+   $("#txtChasisNo").val('');
+   $("#txtEngineNo").val('');
+   $("#txtFuelType").val('');
+   $("#txtColor").val('');
+   $("#txtModelNo").val('');
+   $("#txtMileage").val('');
+   $("#txtAmount").val('');
+   $("#txtTax").val('');
+   $("#txtDiscount").val('');
+   $("#txtTotalAmount").val('');
 }
+
 function Close() {
-   $("#MyModal").modal('hide');
+   $("#modalToggle").modal('hide');
 }
+
 function load() {
-   var search = $("#VehicleName").val();
+   var search = $("#VehicleName").val() || "";
    $.ajax({
-      url: "https://localhost:7065/api/Invoice/GetIvoice?VehicleName=" + search,
-      type: "JSON",
+      url: "https://localhost:7065/api/Invoice/GetInvoice?VehicleName=" + search,
       method: "GET",
       success: function (result) {
-         console.log("Get All = ", result)
          $("#tble tbody").empty();
          $.each(result, function (i, v) {
-            console.log("Data value = ", v)
-            var html = "<tr><td>" + v.VehicleName + "</td>" +
-               " <td>" + v.ChasisNo + "</td>" +
+            var html = "<tr><td>" + v.InvoiceId + "</td>" +
+               "<td>" + v.BanlanceDue + "</td>" +
+               "<td>" + v.PaymentType + "</td>" +
+               "<td>" + v.VehicleName + "</td>" +
+               "<td>" + v.ChasisNo + "</td>" +
                "<td>" + v.EngineNo + "</td>" +
                "<td>" + v.FuelType + "</td>" +
                "<td>" + v.Color + "</td>" +
@@ -154,77 +152,82 @@ function load() {
                "<td>" + v.Tax + "</td>" +
                "<td>" + v.Discount + "</td>" +
                "<td>" + v.TotalAmount + "</td>" +
-               "<td> <button onClick='Edit(" + v.Id + ")'>Edit </button></td>" +
-               "<td> <button onClick='Delete(" + v.Id + ")'>Delete </button></td></tr>";
-            $("#tble tbody").append(html)
-         })
+               "<td><button onClick='Edit(" + v.Id + ")'>Edit</button></td>" +
+               "<td><button onClick='Delete(" + v.Id + ")'>Delete</button></td></tr>";
+            $("#tble tbody").append(html);
+         });
       },
       error: function (er) {
-         console.log(er)
+         console.log(er);
       }
-   })
-} 
+   });
+}
+
 function Edit(id) {
    $("#btnUpdate").show();
    $("#btnSave").hide();
    $.ajax({
       url: "https://localhost:7065/api/Invoice/GetByID?Id=" + id,
-      type: "JSON",
       method: "GET",
-      //data: JSON.stringify(obj),
       contentType: "application/json",
-      success: function (result) { 
-         console.log("Get by ID ", result);
-         $("#exampleModalLabel").html("Update Unit Information");
-         IsEdit = true; 
-             $("#txtName").val(result[0].Name),
-            $("#txtShortName").val(result[0].Shortname),
-            $("#ddlInstitute").val(result[0].insId),
-            $("#ddlInsBranch").val(result[0].inBranchsId),
-            $("#txtId").val(result[0].Id),
-            $("#MyModal").modal('show')
+      success: function (result) {
+         if (!result || result.length === 0) {
+            return;
+         }
+
+         var invoice = result[0];
+         $("#staticBackdropLabel").html("Update Invoice Information");
+         selectedInvoiceId = invoice.Id;
+         $("#txtInvoiceId").val(invoice.InvoiceId);
+         $("#txtBanlanceDue").val(invoice.BanlanceDue);
+         $("#txtPaymentType").val(invoice.PaymentType);
+         $("#txtVehicleName").val(invoice.VehicleName);
+         $("#txtChasisNo").val(invoice.ChasisNo);
+         $("#txtEngineNo").val(invoice.EngineNo);
+         $("#txtFuelType").val(invoice.FuelType);
+         $("#txtColor").val(invoice.Color);
+         $("#txtModelNo").val(invoice.ModelNo);
+         $("#txtMileage").val(invoice.Mileage);
+         $("#txtAmount").val(invoice.Amount);
+         $("#txtTax").val(invoice.Tax);
+         $("#txtDiscount").val(invoice.Discount);
+         $("#txtTotalAmount").val(invoice.TotalAmount);
+         $("#modalToggle").modal('show');
       },
       error: function (er) {
-         console.log(er)
+         console.log(er);
       }
-   })
+   });
 }
+
 function Update() {
-   var url = "https://localhost:7065/api/Invoice/UpdateInvoice"
-  var updateData = new Object() 
-      updateData.id = $("#txtId").val(),
-      updateData.name = $("#txtName").val(),
-      updateData.shortname = $("#txtShortName").val(),
-      updateData.insId = $("#ddlInstitute").val(),
-      updateData.inBranchsId = $("#ddlInsBranch").val()
    $.ajax({
-      url: url,
+      url: "https://localhost:7065/api/Invoice/UpdateInvoice",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      type: "Put",
-      data: JSON.stringify(updateData),
+      type: "PUT",
+      data: JSON.stringify(getInvoiceFormData(selectedInvoiceId)),
       success: function (result) {
          toastr.success(result.message, 'Update Successfully');
-         $("#MyModal").modal('hide');
+         $("#modalToggle").modal('hide');
          load();
          clearALl();
          $("#btnUpdate").hide();
          $("#btnSave").show();
-         $("#btnSave").text("Save");
       },
       error: function (er) {
          console.log(er.responseText);
       }
-   })
+   });
 }
+
 function Delete(id) {
-   var url = "https://localhost:7065/api/Unit/Delete?Id=" + id;
    $.ajax({
-      url: url,
+      url: "https://localhost:7065/api/Invoice/Delete?Id=" + id,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      type: "Delete",
-      success: function (result) {
+      type: "DELETE",
+      success: function () {
          clearALl();
          load();
       },
@@ -232,16 +235,12 @@ function Delete(id) {
          alert(msg);
       }
    });
-}  
+}
+
 function AddNew() {
-   $('#staticBackdropLabel').text('Create New Institute');
-   $('#btnSave').removeClass('btn btn-ghost-info active w-10');
-   $('#spanParentID').html(0);
-   $('#txtName').val('');
-   $('#txtShortName').val('');
-   $('#ddlInstitute').val('');
-   $('#ddlInsBranch').val('');
+   $('#staticBackdropLabel').text('Create New Invoice');
+   clearALl();
+   $("#btnUpdate").hide();
+   $("#btnSave").show();
    $('#modalToggle').modal('toggle');
-   $('#btnSave').text('Save');
-   $('#btnSave').addClass('btn btn-ghost-primary active w-10');
 }

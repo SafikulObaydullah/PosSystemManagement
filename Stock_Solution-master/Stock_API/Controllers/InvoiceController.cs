@@ -158,7 +158,7 @@ namespace Stock_API.Controllers
       {
          try
          {
-            this.unitofWork.UnitRepository.DeletebyID(t => t.Id.Equals(id));
+            this.unitofWork.InvoiceRepository.DeletebyID(t => t.Id.Equals(id));
             var m = this.unitofWork.Save();
             if (m.IsSuccess)
             {

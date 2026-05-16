@@ -114,6 +114,7 @@
                      <label class="form-label required">VehicleName</label>
                      @*<input type="text" id="txtVehicleName" class="form-control comboBox" onchange="VehicleMethod(this)"  style="width:100%; height:37px" required />
                      <div id="suggestions"></div>*@
+                     <input type="hidden" id="txtVehicleName" />
                      <select class="form-control" id="ddlVehicleName" onchange="VehicleMethod(this)"></select>
                   </div>
                </div>
@@ -159,7 +160,9 @@
                </div> 
             </div>
             <div class="modal-footer">
+               <button type="button" id="btnClose" class="btn btn-secondary" onclick="Close()">Close</button>
                <button type="button" id="btnSave" class="btn btn-ghost-primary active w-10" onclick="Save()">Save</button>
+               <button type="button" id="btnUpdate" class="btn btn-ghost-primary active w-10" onclick="Update()">Update</button>
             </div>
          </div>
       </div>
