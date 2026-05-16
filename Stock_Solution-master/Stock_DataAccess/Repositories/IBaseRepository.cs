@@ -60,7 +60,12 @@ namespace Stock_DataAccess.Repositories
 
         public void DeletebyID(Expression<Func<T, bool>> predicate)
         {
+            // ✅ Check if entity exists first
             var entity = _dbset.Where(predicate).FirstOrDefault();
+
+            if (entity == null)
+                throw new InvalidOperationException("Entity not found.");
+
             _dbset.Remove(entity);
         }
         public void DeleteRange(IEnumerable<T> entitylist)

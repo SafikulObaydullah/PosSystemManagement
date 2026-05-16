@@ -10,14 +10,17 @@ namespace POS_Client.Controllers
     {
         private readonly ILogger<CustomerController> _logger;
         IConfiguration _configuration;
-        string SiteUrl = string.Empty;
+        string SiteUrl = string.Empty; 
         private readonly string baseUri;
+        private readonly string customerEndpoint;
         public CustomerController(ILogger<CustomerController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
-            baseUri = _configuration.GetValue<string>("AppSettings:applicationUrl")
-               ?? "https://localhost:7065/api";
+            baseUri = _configuration.GetValue<string>("Stock_Client:applicationapi")
+                      ?? "https://localhost:7065/api";
+
+            customerEndpoint = $"{baseUri}/Customer"; 
         }
         private List<CustomerVM> GetAllCustomers()
         {
@@ -25,7 +28,8 @@ namespace POS_Client.Controllers
             try
             {
                 using var client = new HttpClient();
-                var result = client.GetAsync(baseUri).Result;
+                var result = client.GetAsync(customerEndpoint).Result;
+                //var result = client.GetAsync(baseUri).Result;
                 if (result.IsSuccessStatusCode)
                 {
                     list = result.Content.ReadFromJsonAsync<List<CustomerVM>>().Result
@@ -174,7 +178,9 @@ namespace POS_Client.Controllers
             try
             {
                 using var client = new HttpClient();
-                var result = client.DeleteAsync($"{baseUri}/DeleteCustomer?id={id}").Result;
+                // ✅ CORRECT
+                var result = client.DeleteAsync($"{customerEndpoint}/DeleteCustomer?id={id}").Result;
+                // Calls: https://localhost:7065/api/Customer/DeleteCustomer?id=1
                 if (result.IsSuccessStatusCode)
                 {
                     TempData["Success"] = "Customer deleted successfully!";

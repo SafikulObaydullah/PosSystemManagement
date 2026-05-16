@@ -161,23 +161,41 @@ namespace Stock_DataAccess.Models
         public virtual InsBranch? InsBranch { get; set; }
 
     }
+    //public class Customer : BaseDTO
+    //{
+    //    public int Id { get; set; } 
+    //    public string FirstName { get; set; }
+    //    public string LastName { get; set; }
+    //    public string Phone { get; set; }
+    //    public string Email { get; set; }
+    //    public string Address { get; set; }
+    //    public string City { get; set; }  
+    //    public string State { get; set; } 
+    //    public string ZipCode { get; set; } 
+    //    public string Country { get; set; }
+    //    public string CustomerType { get; set; }
+    //    public decimal CreditLimit { get; set; }
+    //    public decimal CurrentBalance { get; set; }
+    //    public string Notes { get; set; }
+    //    //public bool IsActive { get; set; }
+    //}
     public class Customer : BaseDTO
     {
-        public int Id { get; set; } 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }  
-        public string State { get; set; } 
-        public string ZipCode { get; set; } 
-        public string Country { get; set; }
-        public string CustomerType { get; set; }
+        public int Id { get; set; }
+        public string? FirstName { get; set; }     // ✅ add ?
+        public string? LastName { get; set; }      // ✅ add ?
+        public string? Phone { get; set; }         // ✅ add ?
+        public string? Email { get; set; }         // ✅ add ?
+        public string? Address { get; set; }       // ✅ add ?
+        public string? City { get; set; }          // ✅ add ?
+        public string? State { get; set; }         // ✅ add ?
+        public string? ZipCode { get; set; }       // ✅ add ?
+        public string? Country { get; set; }       // ✅ add ?
+        public string? CustomerType { get; set; }  // ✅ add ?
         public decimal CreditLimit { get; set; }
         public decimal CurrentBalance { get; set; }
-        public string Notes { get; set; }
-        public bool IsActive { get; set; }
+        public string? Notes { get; set; }         // ✅ add ?
+                                                   // ⚠️ Remove IsActive here — it already exists in BaseDTO!
     }
     public partial class GlobalFileUrl
     {
