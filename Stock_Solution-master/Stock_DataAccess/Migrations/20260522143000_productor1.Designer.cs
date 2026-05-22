@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stock_DataAccess.Models;
 
@@ -11,9 +12,10 @@ using Stock_DataAccess.Models;
 namespace Stock_DataAccess.Migrations
 {
     [DbContext(typeof(StockModel))]
-    partial class StockModelModelSnapshot : ModelSnapshot
+    [Migration("20260522143000_productor1")]
+    partial class productor1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1538,6 +1540,8 @@ namespace Stock_DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CatId");
+
                     b.ToTable("Products");
                 });
 
@@ -2801,6 +2805,17 @@ namespace Stock_DataAccess.Migrations
                     b.Navigation("InsBranch");
 
                     b.Navigation("Institute");
+                });
+
+            modelBuilder.Entity("Stock_DataAccess.Models.Product", b =>
+                {
+                    b.HasOne("Stock_DataAccess.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Stock_DataAccess.Models.PurchaseDetails", b =>

@@ -56,16 +56,16 @@ namespace Stock_DataAccess.Repositories
                                    CategoryName = catg.Name,
                                    Description = prd.Description,
                                    SalesPrice = prd.SalesPrice,   
-                                   Discountamount = prd.Discountamount,
-                                   UnitId = prd.UnitId,    
-                                   Boxqty = prd.Boxqty,  
-                                   insId = prd.insId, 
-                                   inBranchsId = prd.inBranchsId, 
-                                   Vatamount = prd.Vatamount,
-                                   Vatrate = prd.Vatrate,
-                                   StockQty = prd.StockQty, 
-                                   Reorderlevel = prd.Reorderlevel,
-                                   Discountrate = prd.Discountrate,
+                                   //Discountamount = prd.Discountamount,
+                                   ////UnitId = prd.UnitId,    
+                                   //Boxqty = prd.Boxqty,  
+                                   ////insId = prd.insId, 
+                                   ////inBranchsId = prd.inBranchsId, 
+                                   //Vatamount = prd.Vatamount,
+                                   //Vatrate = prd.Vatrate,
+                                   //StockQty = prd.StockQty, 
+                                   //Reorderlevel = prd.Reorderlevel,
+                                   //Discountrate = prd.Discountrate,
                                    EntryDate = prd.EntryDate,
                                    EntryBy = prd.EntryBy,
                                    IsActive = prd.IsActive,
@@ -85,7 +85,7 @@ namespace Stock_DataAccess.Repositories
                                     select new VehicleVM
                                     {
                                     Id = prd.Id,
-                                    VehicleName = prd.VehicleName,
+                                    //VehicleName = prd.VehicleName,
                                     }).ToList();
             //List<Vehicle> data = (from N in result
             //               where N.VehicleName.StartsWith(Prefix)
@@ -105,7 +105,7 @@ namespace Stock_DataAccess.Repositories
                                     select new ProductVM
                                     {
                                         Id = prd.Id, 
-                                        Boxqty = prd.Boxqty, 
+                                        //Boxqty = prd.Boxqty, 
                                         //VehicleName = prd.VehicleName,
                                         //ChasisNo = prd.ChasisNo, 
                                         //EngineNo = prd.EngineNo,
@@ -113,14 +113,14 @@ namespace Stock_DataAccess.Repositories
                                         //FuelType = prd.FuelType,
                                         //ModelNo = prd.ModelNo,
                                         //Mileage = prd.Mileage,
-                                        Discountamount = prd.Discountamount, 
-                                        Discountrate = prd.Discountrate,
+                                        //Discountamount = prd.Discountamount, 
+                                        //Discountrate = prd.Discountrate,
                                         Description = prd.Description, 
                                         EntryDate = prd.EntryDate,
-                                        CategoryName = prd.Category.Name,
+                                        //CategoryName = prd.Category.Name,
                                         CatId = prd.CatId, 
                                         Code = prd.Code,   
-                                        inBranchsId = prd.inBranchsId, 
+                                        //inBranchsId = prd.inBranchsId, 
                                     }).ToList();  
             return result;
         }
@@ -130,7 +130,7 @@ namespace Stock_DataAccess.Repositories
                                     select new VehicleVM
                                     {
                                         Id = prd.Id,
-                                        VehicleName = prd.VehicleName,
+                                        //VehicleName = prd.VehicleName,
                                     }).ToList();    
             return result;
         }

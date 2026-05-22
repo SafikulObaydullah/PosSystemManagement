@@ -40,7 +40,7 @@ namespace Stock_DataAccess.Repositories
                                  select new Product
                                  { 
                                    Id = prd.Id,
-                                   BrandId = prd.BrandId,
+                                   //BrandId = prd.BrandId,
                                    CatId = catg.Id,
                                    //SubCategoryId = prd.SubCategoryId,
                                    //Description = prd.Description,
@@ -51,8 +51,8 @@ namespace Stock_DataAccess.Repositories
                                    //SKU = prd.SKU,
                                    //ProductImageUrl = prd.ProductImageUrl,
                                    //Tax = prd.Tax,
-                                   Status = prd.Status,
-                                   UnitId = prd.UnitId 
+                                   //Status = prd.Status,
+                                   //UnitId = prd.UnitId 
                                  }).ToList();
          return result;
       }
