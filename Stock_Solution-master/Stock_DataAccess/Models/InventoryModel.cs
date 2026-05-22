@@ -521,41 +521,33 @@ namespace Stock_DataAccess.Models
         public string Code { get; set; } = "";
         public string Name { get; set; } = "";
         public string EntryBy { get; set; } = "";
-        public DateTime EntryDate { get; set; } = DateTime.Now;
-        // public int Reorderlevel { get; set; } = 5;
-        // public string UnitName { get; set; } = "PC";
-        // public decimal Boxqty { get; set; } = 1;
-        // public int UnitId { get; set; } = 1;
-
-        // [ForeignKey("Category")]
-        // public int CatId { get; set; } = 1;
-
-        // public decimal SalesPrice { get; set; } = 1;
-        // public decimal PurchasePrice { get; set; } = 1;
-        // public decimal Discountrate { get; set; } = 0;
-        // public decimal Vatrate { get; set; } = 0;
-        // public decimal Discountamount { get; set; } = 0;
-        // public decimal Vatamount { get; set; } = 0;
-
-        // public string Description { get; set; } = "";
-        // public int StockQty { get; set; } = 0;
-
-        // // ✅ Optional fields
-        // public string? VehicleName { get; set; }
-        // public string? ChasisNo { get; set; }
-        // public string? EngineNo { get; set; }
-        // public string? FuelType { get; set; }
-        // public string? Color { get; set; }
-        // public string? ModelNo { get; set; }
-        // public string? Sku { get; set; }
-
-        // public int Mileage { get; set; }
-        // public int Status { get; set; }
-        // public int MimumQuantity { get; set; }
-        // public int BrandId { get; set; }
-
-        // public virtual Category? Category { get; set; }
-
+        public DateTime EntryDate { get; set; } = DateTime.Now; 
+        [ForeignKey("Category")]
+        public int CatId { get; set; } = 1; 
+        public decimal SalesPrice { get; set; } = 1;
+        public decimal PurchasePrice { get; set; } = 1;
+        public string Description { get; set; } = "";
+        //public int Reorderlevel { get; set; } = 5;
+        //public string UnitName { get; set; } = "PC";
+        //public decimal Boxqty { get; set; } = 1;
+        ////public int UnitId { get; set; } = 1; 
+        //public decimal Discountrate { get; set; } = 0;
+        //public decimal Vatrate { get; set; } = 0;
+        //public decimal Discountamount { get; set; } = 0;
+        //public decimal Vatamount { get; set; } = 0; 
+        //public int StockQty { get; set; } = 0; 
+        //public string? VehicleName { get; set; }
+        //public string? ChasisNo { get; set; }
+        //public string? EngineNo { get; set; }
+        //public string? FuelType { get; set; }
+        //public string? Color { get; set; }
+        //public string? ModelNo { get; set; }
+        //public string? Sku { get; set; } 
+        //public int Mileage { get; set; }
+        //public int Status { get; set; }
+        //public int MimumQuantity { get; set; } 
+        //public virtual Category? Category { get; set; }
+        // public int BrandId { get; set; } 
         // [ForeignKey("Institute")]
         // public int insId { get; set; }
         // [ForeignKey("InsBranch")]
@@ -569,21 +561,21 @@ namespace Stock_DataAccess.Models
         // public virtual ICollection<PurchaseDetails>? PurchaseDetails { get; set; }
     }
 
-   // public class Customer
-   // {
-   //   public int Id { get; set; }
-   //   public string Name { get; set; }
-   //   public string Address { get; set; }
-   //   public string ContactNo { get; set; }
-   //   public string ContactPerson { get; set; }
-   //   public int EntryBy { get; set; }
-   //   public DateTime EntryDate { get; set; }
-   //   public string Mobile { get; set; }
-   //   public int CityId { get; set; }
-   //   public int CountryId { get; set; }    
-   //   public string Email { get; set; }
-   //}
-   public class Invoice
+    // public class Customer
+    // {
+    //   public int Id { get; set; }
+    //   public string Name { get; set; }
+    //   public string Address { get; set; }
+    //   public string ContactNo { get; set; }
+    //   public string ContactPerson { get; set; }
+    //   public int EntryBy { get; set; }
+    //   public DateTime EntryDate { get; set; }
+    //   public string Mobile { get; set; }
+    //   public int CityId { get; set; }
+    //   public int CountryId { get; set; }    
+    //   public string Email { get; set; }
+    //}
+    public class Invoice
    {
       public int Id { get; set; }
       public string InvoiceId { get; set; }

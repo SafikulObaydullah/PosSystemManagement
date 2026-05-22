@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stock_DataAccess.Models;
 
@@ -11,9 +12,10 @@ using Stock_DataAccess.Models;
 namespace Stock_DataAccess.Migrations
 {
     [DbContext(typeof(StockModel))]
-    partial class StockModelModelSnapshot : ModelSnapshot
+    [Migration("20260522140940_productorg")]
+    partial class productorg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1493,11 +1495,20 @@ namespace Stock_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<decimal>("Boxqty")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("CatId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ChasisNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Code")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -1510,6 +1521,15 @@ namespace Stock_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Discountamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Discountrate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("EngineNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EntryBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1517,8 +1537,20 @@ namespace Stock_DataAccess.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FuelType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MimumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModelNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1527,8 +1559,24 @@ namespace Stock_DataAccess.Migrations
                     b.Property<decimal>("PurchasePrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Reorderlevel")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("SalesPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Sku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockQty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -1536,7 +1584,18 @@ namespace Stock_DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Vatamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Vatrate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("VehicleName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CatId");
 
                     b.ToTable("Products");
                 });
@@ -2801,6 +2860,17 @@ namespace Stock_DataAccess.Migrations
                     b.Navigation("InsBranch");
 
                     b.Navigation("Institute");
+                });
+
+            modelBuilder.Entity("Stock_DataAccess.Models.Product", b =>
+                {
+                    b.HasOne("Stock_DataAccess.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Stock_DataAccess.Models.PurchaseDetails", b =>

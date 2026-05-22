@@ -65,14 +65,14 @@ namespace Stock_DataAccess.ViewModel
       public int MimumQuantity { get; set; }
       public int BrandId { get; set; }
       public string Sku { get; set; }
-       //public string VehicleName { get; set; }
-       //public string ChasisNo { get; set; }
-       //public string EngineNo { get; set; }
-       //public string FuelType { get; set; }
-       //public string Color { get; set; }
-       //public string ModelNo { get; set; }
-       //public int Mileage { get; set; }
-       public int StockQty { get; set; } = 0;
+      public string VehicleName { get; set; }
+      public string ChasisNo { get; set; }
+      public string EngineNo { get; set; }
+      public string FuelType { get; set; }
+      public string Color { get; set; }
+      public string ModelNo { get; set; }
+      public int Mileage { get; set; }
+        public int StockQty { get; set; } = 0;
       public int insId { get; set; }
       public int inBranchsId { get; set; }
       public string? CategoryName { get; set; }

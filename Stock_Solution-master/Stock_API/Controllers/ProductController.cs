@@ -255,45 +255,11 @@ namespace Stock_API.Controllers
         }
 
         [HttpPost("SaveNewProduct")]
-        public IActionResult SaveNewProduct([FromForm] ProductTable model, IFormFile? ProductImage)
+        public IActionResult SaveNewProduct([FromForm] Product model, IFormFile? ProductImage)
         {
             try
-            {
-                Product obj = new Product()
-                {
-                    Name = model.Name,
-                    CatId = model.CatId,
-                    BrandId = model.BrandId,
-                    UnitId = model.UnitId,
-                    MimumQuantity = model.MinimumQuantity,
-                    StockQty = model.Quantity,
-                    Description = model.Description,
-                    Sku = model.SKU,
-                    SalesPrice = (decimal)model.Price,
-                    Status = model.Status,
-
-                    // Extra fields from Product (set defaults or handle later)
-                    EntryBy = "System", // or HttpContext.User.Identity.Name
-                    EntryDate = DateTime.Now,
-                    Reorderlevel = 5,
-                    Boxqty = 1,
-                    PurchasePrice = 0,
-                    Discountrate = 0,
-                    Vatrate = 0,
-                    Discountamount = 0,
-                    Vatamount = 0,
-                    VehicleName = string.Empty,
-                    ChasisNo = string.Empty,
-                    EngineNo = string.Empty,
-                    FuelType = string.Empty,
-                    Color = string.Empty,
-                    ModelNo = string.Empty,
-                    Mileage = 0,
-                    insId = 2,       // must come from context/session
-                    inBranchsId = 4  // must come from context/session
-                };
-                this.unitofWork.ProductRepository.Add(obj);
-                //this.unitofWork.ProductDetailRepository.Add(obj);
+            { 
+                this.unitofWork.ProductRepository.Add(model); 
                 var m = this.unitofWork.Save();
                 if (m.IsSuccess)
                 {
@@ -369,21 +335,21 @@ namespace Stock_API.Controllers
             data.Code = product.Code;
             data.Name = product.Name;
             data.EntryBy = product.EntryBy;
-            data.Reorderlevel = product.Reorderlevel; 
-            data.Boxqty = product.Boxqty;
-            data.UnitId = product.UnitId;
+            //data.Reorderlevel = product.Reorderlevel; 
+            //data.Boxqty = product.Boxqty;
+            //data.UnitId = product.UnitId;
             data.CatId = product.CatId;  
             data.SalesPrice = product.SalesPrice; 
             data.PurchasePrice = product.PurchasePrice; 
-            data.Discountrate = product.Discountrate;   
-            data.Vatrate = product.Vatrate; 
-            data.Discountamount = product.Discountamount;
-            data.Vatamount = product.Vatamount;
+            //data.Discountrate = product.Discountrate;   
+            //data.Vatrate = product.Vatrate; 
+            //data.Discountamount = product.Discountamount;
+            //data.Vatamount = product.Vatamount;
             data.Description = product.Description;
             data.IsActive = product.IsActive;
-            data.StockQty = product.StockQty;
-            data.insId = product.insId;
-            data.inBranchsId = product.inBranchsId;  
+           // data.StockQty = product.StockQty;
+            //data.insId = product.insId;
+            //data.inBranchsId = product.inBranchsId;  
             try
             {
                this.unitofWork.ProductRepository.Update(data);
