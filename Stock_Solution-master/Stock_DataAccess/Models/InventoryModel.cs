@@ -522,51 +522,51 @@ namespace Stock_DataAccess.Models
         public string Name { get; set; } = "";
         public string EntryBy { get; set; } = "";
         public DateTime EntryDate { get; set; } = DateTime.Now;
-        public int Reorderlevel { get; set; } = 5;
-        public string UnitName { get; set; } = "PC";
-        public decimal Boxqty { get; set; } = 1;
-        public int UnitId { get; set; } = 1;
+        // public int Reorderlevel { get; set; } = 5;
+        // public string UnitName { get; set; } = "PC";
+        // public decimal Boxqty { get; set; } = 1;
+        // public int UnitId { get; set; } = 1;
 
-        [ForeignKey("Category")]
-        public int CatId { get; set; } = 1;
+        // [ForeignKey("Category")]
+        // public int CatId { get; set; } = 1;
 
-        public decimal SalesPrice { get; set; } = 1;
-        public decimal PurchasePrice { get; set; } = 1;
-        public decimal Discountrate { get; set; } = 0;
-        public decimal Vatrate { get; set; } = 0;
-        public decimal Discountamount { get; set; } = 0;
-        public decimal Vatamount { get; set; } = 0;
+        // public decimal SalesPrice { get; set; } = 1;
+        // public decimal PurchasePrice { get; set; } = 1;
+        // public decimal Discountrate { get; set; } = 0;
+        // public decimal Vatrate { get; set; } = 0;
+        // public decimal Discountamount { get; set; } = 0;
+        // public decimal Vatamount { get; set; } = 0;
 
-        public string Description { get; set; } = "";
-        public int StockQty { get; set; } = 0;
+        // public string Description { get; set; } = "";
+        // public int StockQty { get; set; } = 0;
 
-        // ✅ Optional fields
-        public string? VehicleName { get; set; }
-        public string? ChasisNo { get; set; }
-        public string? EngineNo { get; set; }
-        public string? FuelType { get; set; }
-        public string? Color { get; set; }
-        public string? ModelNo { get; set; }
-        public string? Sku { get; set; }
+        // // ✅ Optional fields
+        // public string? VehicleName { get; set; }
+        // public string? ChasisNo { get; set; }
+        // public string? EngineNo { get; set; }
+        // public string? FuelType { get; set; }
+        // public string? Color { get; set; }
+        // public string? ModelNo { get; set; }
+        // public string? Sku { get; set; }
 
-        public int Mileage { get; set; }
-        public int Status { get; set; }
-        public int MimumQuantity { get; set; }
-        public int BrandId { get; set; }
+        // public int Mileage { get; set; }
+        // public int Status { get; set; }
+        // public int MimumQuantity { get; set; }
+        // public int BrandId { get; set; }
 
-        public virtual Category? Category { get; set; }
+        // public virtual Category? Category { get; set; }
 
-        [ForeignKey("Institute")]
-        public int insId { get; set; }
-        [ForeignKey("InsBranch")]
-        public int inBranchsId { get; set; }
+        // [ForeignKey("Institute")]
+        // public int insId { get; set; }
+        // [ForeignKey("InsBranch")]
+        // public int inBranchsId { get; set; }
 
-        public virtual Institute? Institute { get; set; }
-        public virtual InsBranch? InsBranch { get; set; }
+        // public virtual Institute? Institute { get; set; }
+        // public virtual InsBranch? InsBranch { get; set; }
 
-        // ✅ Optional navigation collections
-        public virtual ICollection<SalesDetails>? SalesDetails { get; set; }
-        public virtual ICollection<PurchaseDetails>? PurchaseDetails { get; set; }
+        // // ✅ Optional navigation collections
+        // public virtual ICollection<SalesDetails>? SalesDetails { get; set; }
+        // public virtual ICollection<PurchaseDetails>? PurchaseDetails { get; set; }
     }
 
    // public class Customer
